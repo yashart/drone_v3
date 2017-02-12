@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>MainMenu.qml</file>
+        <file>Instruments.qml</file>
+        <file>InstrumentsForm.ui.qml</file>
+        <file>LeftTabMenu.qml</file>
+        <file>LeftTabMenuForm.ui.qml</file>
+        <file>MapComponent.qml</file>
+        <file>OsmPlugin.qml</file>
+        <file>MainPage.qml</file>
+        <file>MapboxPlugin.qml</file>
+        <file>MapTemplate.qml</file>
+    </qresource>
+</RCC>
