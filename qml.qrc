@@ -12,5 +12,10 @@
         <file>MainPage.qml</file>
         <file>MapboxPlugin.qml</file>
         <file>MapTemplate.qml</file>
+        <file>img/icons/compass.png</file>
+        <file>img/icons/up-arrow.svg</file>
+        <file>img/icons/right-arrow.svg</file>
+        <file>img/icons/left-arrow.svg</file>
+        <file>img/icons/down-arrow.svg</file>
     </qresource>
 </RCC>
