@@ -24,6 +24,16 @@ Item {
             Map {
                 id: map
                 anchors.fill: parent
+                MapItemView{
+                    id: tracksLines
+                    model: linesModel
+                    delegate: MapPolyline {
+                        line.width: 2
+                        line.color: 'blue'
+                        path: points
+                        z: 2
+                    }
+                }
             }
             ", mapComponent);
         console.log(newMap);

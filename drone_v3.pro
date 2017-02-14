@@ -1,8 +1,16 @@
-QT += qml quick
+QT += sql qml quick quick widgets positioning
 
-CONFIG += c++11
+CONFIG += c++11 console
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    database/linesModel.cpp \
+    database/database.cpp \
+    models/rulerModel.cpp \
+    database/tracksmodel.cpp \
+    database/pointsphotomodel.cpp \
+    database/pointsmodel.cpp \
+    database/locationsmodel.cpp \
+    database/imagesmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -27,3 +35,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    database/linesModel.h \
+    database/database.h \
+    providers/sliderimageprovider.h \
+    models/rulerModel.h \
+    database/tracksmodel.h \
+    database/pointsphotomodel.h \
+    database/pointsmodel.h \
+    database/locationsmodel.h \
+    database/imagesmodel.h
+
+DISTFILES += \
+    database/DataBase.db \
+
