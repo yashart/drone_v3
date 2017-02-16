@@ -48,5 +48,5 @@ HEADERS += \
     database/imagesmodel.h
 
 DISTFILES += \
-    database/DataBase.db \
+    database/DataBase.db
 

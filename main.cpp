@@ -9,7 +9,6 @@
 #include "database/linesModel.h"
 #include "database/pointsphotomodel.h"
 #include "models/rulerModel.h"
-#include "providers/sliderimageprovider.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,9 +20,7 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
-
     linesModel.addId("1");
-    linesModel.addId("2");
     linesModel.addId("3");
 
 

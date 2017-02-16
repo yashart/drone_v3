@@ -16,4 +16,37 @@ Map {
             z: 2
         }
     }
+    MapItemView{
+        id: secondView
+        model: pointsModel
+        onAdd: {
+            console.log("1")
+        }
+
+        delegate: MapQuickItem {
+            coordinate: QtPositioning.coordinate(lat, lon)
+            anchorPoint.x: markerTrackPoint.width / 2;
+            anchorPoint.y: markerTrackPoint.height / 2;
+            opacity:0
+            sourceItem: Image {
+                id: markerTrackPoint
+                z: 2
+                source: "img/photo.png"
+            }
+
+            property var image_src: -1
+
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+
+                onEntered: {
+                    parent.opacity = 1;
+                }
+                onExited: {
+                    parent.opacity = 0;
+                }
+            }
+        }
+    }
 }

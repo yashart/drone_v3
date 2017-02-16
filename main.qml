@@ -13,11 +13,21 @@ ApplicationWindow {
         id: mainMenu
     }
 
+    LoginPage {
+        id: loginPage
+        anchors.fill: parent
+    }
+
     MainPage {
         anchors.fill: parent
         id: mainPage
+        visible: false
     }
 
+    ImagePage {
+        id: imagePage
+        visible: true
+    }
 
     /*
     Instruments {

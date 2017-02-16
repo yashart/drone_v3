@@ -17,5 +17,12 @@
         <file>img/icons/right-arrow.svg</file>
         <file>img/icons/left-arrow.svg</file>
         <file>img/icons/down-arrow.svg</file>
+        <file>img/photo.png</file>
+        <file>LoginPage.qml</file>
+        <file>LoginPageForm.ui.qml</file>
+        <file>ImagePage.qml</file>
+        <file>ImagePageForm.ui.qml</file>
+        <file>img/grid.png</file>
+        <file>img/photo_example.jpg</file>
     </qresource>
 </RCC>

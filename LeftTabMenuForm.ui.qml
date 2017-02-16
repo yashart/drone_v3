@@ -32,13 +32,13 @@ Page {
             id: tracksTab
 
             ColumnLayout {
-                RadioButton {
-                    checked: true
-                    text: qsTr("Фурмановка")
-                }
-
-                RadioButton {
-                    text: qsTr("Тихорецк")
+                ListView {
+                    id: tracksView
+                    model: tracksModel
+                    delegate: RadioButton {
+                        text: qsTr(name)
+                        property var trackId: id
+                    }
                 }
             }
         }
