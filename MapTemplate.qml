@@ -3,9 +3,23 @@ import QtLocation 5.3
 import QtPositioning 5.3
 
 Map {
+    property alias mouseAreaMap: mouseAreaMap
     id: map
     anchors.fill: parent
     center: QtPositioning.coordinate(59.91, 10.75)
+    MouseArea {
+        anchors.fill: parent
+        id: mouseAreaMap
+        onClicked: {
+            if(instruments.pointsButton.checked == true){
+                var point = map.toCoordinate(Qt.point(mouseX, mouseY))
+                dataBase.createLocalPoint(point.latitude,
+                                          point.longitude,
+                                          leftTabMenu.pokemonsRadioGroup.checkedButton.name);
+            }
+        }
+    }
+
     MapItemView{
         id: tracksLines
         model: linesModel
@@ -13,17 +27,152 @@ Map {
             line.width: 2
             line.color: 'blue'
             path: points
-            z: 2
+            z: 1
         }
+    }
+    MapItemView {
+        id: locationListView
+
+        model: locationsModel
+        delegate: MapQuickItem {
+            coordinate {
+                latitude: lat
+                longitude: lon
+            }
+            anchorPoint.x: markerCustomPoint.width / 2;
+            anchorPoint.y: markerCustomPoint.height / 2;
+            sourceItem: Image {
+                id: markerCustomPoint
+                source: "/img/popupIconsSet/" + type + ".png"
+            }
+            MouseArea{
+                anchors.fill: parent;
+                onClicked: {
+                    if( mouse.button == Qt.LeftButton){
+                        dataBase.prepareDeletePoint(id);
+                    }
+                }
+            }
+        }
+    }
+
+    MapItemView {
+        id: cutListView
+
+        model: pointsPhotoModel
+        delegate: MapQuickItem {
+            coordinate {
+                latitude: lat
+                longitude: lon
+            }
+            anchorPoint.x: markerLkPoint.width / 2;
+            anchorPoint.y: markerLkPoint.height / 2;
+            sourceItem: Image {
+                id: markerLkPoint
+                source: "/img/popupIconsSet/" + type + ".png"
+            }
+        }
+    }
+    MapPolygon{
+        id: viewPort
+        color: 'green'
+        opacity: 0.5
+        path: [
+            { latitude: 0, longitude: 0},
+            { latitude: 0, longitude: 0},
+            { latitude: 0, longitude: 0},
+            { latitude: 0, longitude: 0}
+        ]
+    }
+    MapPolyline{
+       id: lookAt
+       line.width: 4
+       line.color: 'red'
+       path:[
+           { latitude: 0, longitude: 0},
+           { latitude: 0, longitude: 0},
+       ]
     }
     MapItemView {
         id: pointsOnTrack
         model: pointsModel
         delegate:     MapQuickItem {
-            coordinate: QtPositioning.coordinate(59.91, 10.75)
+            coordinate: QtPositioning.coordinate(lat, lon)
+            anchorPoint.x: markerTrackPoint.width / 2;
+            anchorPoint.y: markerTrackPoint.height / 2;
+            opacity:0
             sourceItem: Image {
-                source: "img/photo.png"
+                id: markerTrackPoint
+                z: 2
+                source: "/img/photo.png"
+            }
+
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+
+                onEntered: {
+                    parent.opacity = 1;
+
+                }
+                onExited: {
+                    parent.opacity = 0;
+                }
+                onClicked: {
+                    changeViewPortCenter(lat, lon, azimuth)
+                    imagePage.currentPhoto.source = dir + url
+                    console.log(dir + url)
+                }
             }
         }
+    }
+    function changeViewPortCenter(lat, lon, azimuth) // изменение положения четырехугольника отражающего примерный захват изображения
+    {
+        console.log(azimuth);
+
+        var offsetLat = 0.00150; // ширина "прямоугольника захвата" полученная эксперементальным путем
+        var offsetLon = 0.0016; // ширина "прямоугольника захвата" полученная эксперементальным путем
+
+        var offset = viewPort.path; // копируем в существующие кооординаты каждой точки четырехугольника
+        // Задаем их смещение ОТНОСИТЕЛЬНО ЦЕНТРА САМОГО ЧЕТЫРЕХУГОЛЬНИКА
+        offset[0].latitude = offsetLat;    //смещение первой точки
+        offset[0].longitude = offsetLon;
+        offset[1].latitude = offsetLat;    //Смещение второй точки
+        offset[1].longitude = - offsetLon;
+        offset[2].latitude = - offsetLat;  // и т.д.
+        offset[2].longitude = - offsetLon;
+        offset[3].latitude = - offsetLat;
+        offset[3].longitude = offsetLon;
+
+        var path = viewPort.path;      // А теперь поворачиваем каждую точку и сложением с центром получаем глобалные координаты (их настоящие широту и долготу)
+        for (var i = 0; i <= 3; i++){
+            var ofLat = offset[i].latitude;  // для удобства сохраняем
+            var ofLon = offset[i].longitude; //  смещения в переменные
+            path[i].latitude = lat + rotLat(ofLat, ofLon, azimuth); // первое слагаемое центр четырехугольника, второе - поворот точки
+            path[i].longitude = lon + rotLon(ofLat, ofLon, azimuth);
+        }
+        viewPort.path = path; // сохраняем полученные глобальные координаты
+
+        offset = lookAt.path; // координаты вектора мгновенной скорости самолета(на самом деле направление)
+        offset[0].latitude = lat; // координаты самой точки
+        offset[0].longitude = lon;
+        offset[1].latitude = lat + rotLat(offsetLat, 0, azimuth);   // точка, после поворота на угол,
+        offset[1].longitude = lon + rotLon(offsetLat, 0, azimuth);; //  показывающая направление
+        lookAt.path = offset;
+    }
+    function rotLat(lat, lon, angle) // матрица поворота для широты https://ru.wikipedia.org/wiki/Матрица_поворота#.D0.9C.D0.B0.D1.82.D1.80.D0.B8.D1.86.D0.B0_.D0.BF.D0.BE.D0.B2.D0.BE.D1.80.D0.BE.D1.82.D0.B0_.D0.B2_.D0.B4.D0.B2.D1.83.D0.BC.D0.B5.D1.80.D0.BD.D0.BE.D0.BC_.D0.BF.D1.80.D0.BE.D1.81.D1.82.D1.80.D0.B0.D0.BD.D1.81.D1.82.D0.B2.D0.B5
+    {
+        angle = toRad(angle);
+        return lat * Math.cos(angle) - lon * Math.sin(angle);
+    }
+    function rotLon(lat, lon, angle){ // матрица поворота для долготы
+        angle = toRad(angle);
+        return lat * Math.sin(angle) + lon * Math.cos(angle);
+    }
+    function toDeg (angle) {           // функция преобразования радианов в градусы
+      return angle * (180 / Math.PI);
+    }
+    function toRad (angle) {           // функция преобразования градусов в радианы
+      return angle * (Math.PI / 180);
     }
 }

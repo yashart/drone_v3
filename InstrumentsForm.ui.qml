@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 
 Item {
+    property alias pointsButton: pointsButton
     id: instruments
     z: 1
 
@@ -18,6 +19,14 @@ Item {
             ToolButton {
                 id: mouseButton
                 text: qsTr("Мышь")
+                autoExclusive: true
+                checkable: true
+                checked: true
+            }
+
+            ToolButton {
+                id: pointsButton
+                text: qsTr("Отметки")
                 autoExclusive: true
                 checkable: true
             }

@@ -24,5 +24,23 @@
         <file>ImagePageForm.ui.qml</file>
         <file>img/grid.png</file>
         <file>img/photo_example.jpg</file>
+        <file>img/popupIconsSet/squirtle.png</file>
+        <file>img/popupIconsSet/snorlax.png</file>
+        <file>img/popupIconsSet/psyduck.png</file>
+        <file>img/popupIconsSet/pokeball.png</file>
+        <file>img/popupIconsSet/pikachu.png</file>
+        <file>img/popupIconsSet/jigglypuff.png</file>
+        <file>img/popupIconsSet/eevee.png</file>
+        <file>img/popupIconsSet/charmander.png</file>
+        <file>img/popupIconsSet/bullbasaur.png</file>
+        <file>img/popupIconsSet/9.png</file>
+        <file>img/popupIconsSet/8.png</file>
+        <file>img/popupIconsSet/7.png</file>
+        <file>img/popupIconsSet/6.png</file>
+        <file>img/popupIconsSet/5.png</file>
+        <file>img/popupIconsSet/4.png</file>
+        <file>img/popupIconsSet/3.png</file>
+        <file>img/popupIconsSet/2.png</file>
+        <file>img/popupIconsSet/1.png</file>
     </qresource>
 </RCC>

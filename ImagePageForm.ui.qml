@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.0
 
 Window {
+    property alias currentPhoto: currentPhoto
+    property alias dragAreaPhoto: dragAreaPhoto
     height: 360
     width: 360
     ColumnLayout {
@@ -28,6 +30,31 @@ Window {
                     height: pictureViewer.height
                     source: "img/photo_example.jpg"
                     z: 1
+                    ListView {
+                        anchors.fill: parent
+                        id: pointsOnPicture
+
+                        model: pointsPhotoModel
+                        delegate: Image {
+                            x: (((lon-image.lon)/dragArea.offsetLon*Math.cos(image.azimuth*3.1415/180)-
+                               (image.lat-lat)/dragArea.offsetLat*Math.sin(image.azimuth*3.1415/180))/2 + 0.5)*image.paintedWidth
+                            y: (((image.lat-lat)/dragArea.offsetLat*Math.cos(image.azimuth*3.1415/180)-
+                               (image.lon-lon)/dragArea.offsetLon*Math.sin(image.azimuth*3.1415/180))/2 + 0.5)*image.paintedHeight
+                            z: 2
+                            source: "qrc:///img/popupIconsSet/" + type + ".png"
+                            cache: false
+                            asynchronous: false
+                        }
+                    }
+                }
+                MouseArea {
+                    id: dragAreaPhoto
+                    hoverEnabled: true
+                    anchors.fill: parent
+                    anchors.margins: 0
+                    drag.target: currentPhoto
+                    property var offsetLon: 0.00150 // эксперементальным путем
+                    property var offsetLat: 0.0016 // эксперементальным путем
                 }
             }
             Image {

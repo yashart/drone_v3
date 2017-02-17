@@ -21,7 +21,9 @@ int main(int argc, char *argv[])
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
     linesModel.addId("1");
+    pointsModel.addId("1");
     linesModel.addId("3");
+    pointsModel.addId("3");
 
 
     QObject::connect(&db, &DataBase::updateLocationsModel,
