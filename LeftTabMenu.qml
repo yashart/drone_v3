@@ -6,10 +6,12 @@ LeftTabMenuForm {
     osmRadio.onClicked: {
         changeMapPlugin("osmPlugin");
         linesModel.updateModel();
+        pointsModel.updateModel();
     }
 
     mapboxRadio.onClicked: {
         changeMapPlugin("mapboxPlugin");
         linesModel.updateModel();
+        pointsModel.updateModel();
     }
 }

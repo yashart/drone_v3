@@ -31,11 +31,11 @@ Page {
         Item {
             id: tracksTab
 
-            ColumnLayout {
-                ListView {
+            Column {
+                Repeater {
                     id: tracksView
                     model: tracksModel
-                    delegate: RadioButton {
+                    delegate: CheckBox {
                         text: qsTr(name)
                         property var trackId: id
                     }
