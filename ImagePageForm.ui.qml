@@ -4,8 +4,10 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.0
 
 Window {
+    id: imagePage
     property alias currentPhoto: currentPhoto
     property alias dragAreaPhoto: dragAreaPhoto
+    property alias pictureViewer: pictureViewer
     height: 360
     width: 360
     ColumnLayout {
@@ -29,7 +31,10 @@ Window {
                     fillMode: Image.PreserveAspectFit
                     height: pictureViewer.height
                     source: "img/photo_example.jpg"
-                    z: 1
+                    z: 2
+                    property var lat: 0
+                    property var lon: 0
+                    property var azimuth: 0
                     ListView {
                         anchors.fill: parent
                         id: pointsOnPicture
@@ -40,10 +45,23 @@ Window {
                                (currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedWidth
                             y: (((currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.cos(currentPhoto.azimuth*3.1415/180)-
                                (currentPhoto.lon-lon)/dragAreaPhoto.offsetLon*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedHeight
-                            z: 2
+                            z: 3
                             source: "qrc:///img/popupIconsSet/" + type + ".png"
                             cache: false
                             asynchronous: false
+
+                            Timer {
+                            interval: 500; running: true; repeat: true
+                                onTriggered: {
+                                    parent.x = -1;
+                                    parent.y = -1;
+                                    parent.x = (((lon-currentPhoto.lon)/dragAreaPhoto.offsetLon*Math.cos(currentPhoto.azimuth*3.1415/180)-
+                                                 (currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedWidth
+                                    parent.y = (((currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.cos(currentPhoto.azimuth*3.1415/180)-
+                                                 (currentPhoto.lon-lon)/dragAreaPhoto.offsetLon*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedHeight
+                                }
+                            }
+
                         }
                     }
                 }
@@ -74,12 +92,14 @@ Window {
                 id: scrollPhotoView
                 anchors.fill: parent
                 Row {
-
+                    LayoutMirroring.enabled: true
+                    LayoutMirroring.childrenInherit: true
                     Repeater {
                         model: imagesModel
                         Image {
                             source: "image://colors/" + dir + url
                             height: scrollPhotoView.height * 0.9
+                            width: 166
                             fillMode: Image.PreserveAspectFit
                             asynchronous: true
                             z: 2
