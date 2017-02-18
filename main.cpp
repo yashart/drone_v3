@@ -9,6 +9,8 @@
 #include "database/linesModel.h"
 #include "database/pointsphotomodel.h"
 #include "models/rulerModel.h"
+#include "providers/sliderimageprovider.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -20,10 +22,6 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
-    linesModel.addId("1");
-    pointsModel.addId("1");
-    linesModel.addId("3");
-    pointsModel.addId("3");
 
 
     QObject::connect(&db, &DataBase::updateLocationsModel,
@@ -46,6 +44,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
 
+    engine.addImageProvider(QLatin1String("colors"), new SliderImageProvider());
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 

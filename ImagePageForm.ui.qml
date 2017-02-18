@@ -36,10 +36,10 @@ Window {
 
                         model: pointsPhotoModel
                         delegate: Image {
-                            x: (((lon-image.lon)/dragArea.offsetLon*Math.cos(image.azimuth*3.1415/180)-
-                               (image.lat-lat)/dragArea.offsetLat*Math.sin(image.azimuth*3.1415/180))/2 + 0.5)*image.paintedWidth
-                            y: (((image.lat-lat)/dragArea.offsetLat*Math.cos(image.azimuth*3.1415/180)-
-                               (image.lon-lon)/dragArea.offsetLon*Math.sin(image.azimuth*3.1415/180))/2 + 0.5)*image.paintedHeight
+                            x: (((lon-currentPhoto.lon)/dragAreaPhoto.offsetLon*Math.cos(currentPhoto.azimuth*3.1415/180)-
+                               (currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedWidth
+                            y: (((currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.cos(currentPhoto.azimuth*3.1415/180)-
+                               (currentPhoto.lon-lon)/dragAreaPhoto.offsetLon*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedHeight
                             z: 2
                             source: "qrc:///img/popupIconsSet/" + type + ".png"
                             cache: false
@@ -74,12 +74,14 @@ Window {
                 id: scrollPhotoView
                 anchors.fill: parent
                 Row {
+
                     Repeater {
-                        model: 10
+                        model: imagesModel
                         Image {
-                            source: "img/photo_example.jpg"
+                            source: "image://colors/" + dir + url
                             height: scrollPhotoView.height * 0.9
                             fillMode: Image.PreserveAspectFit
+                            asynchronous: true
                             z: 2
                         }
                     }

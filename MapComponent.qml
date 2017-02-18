@@ -31,6 +31,12 @@ Item {
         newMap.forceActiveFocus();
 
     }
+    function changeMapCenter(lat, lon) {
+        if (newMap != null) {
+            newMap.center.latitude = lat; // широту
+            newMap.center.longitude = lon; // долготу
+        }
+    }
 
     Instruments {
         id: instruments

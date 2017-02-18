@@ -44,9 +44,36 @@ Page {
                 Repeater {
                     id: tracksView
                     model: tracksModel
-                    delegate: CheckBox {
+                    delegate: CheckBox{
+                        property int trackId: id
                         text: qsTr(name)
-                        property var trackId: id
+                        checked: (is_check === "true") ? true : false
+                        onClicked:{
+                                if (checked == true){
+                                    pointsModel.addId(id);
+                                    tracksModel.setChecked(id);
+                                    linesModel.addId(id);
+                                }
+                                if (checked == false){
+                                    pointsModel.delId(id);
+                                    tracksModel.setUnchecked(id);
+                                    linesModel.delId(id);
+                                }
+                                pointsModel.updateModel();
+                                tracksModel.updateModel();
+                            }
+                        MouseArea {
+                            anchors.fill: parent
+                            acceptedButtons: Qt.RightButton
+                            onClicked: {
+                                    var lat = dataBase.getAvgLat(trackId)
+                                    var lon = dataBase.getAvgLon(trackId)
+                                    if (lat !== 0 && lon !== 0 && parent.checked == true)
+                                    {
+                                        mapComponent.changeMapCenter(lat, lon)
+                                    }
+                                }
+                        }
                     }
                 }
             }
