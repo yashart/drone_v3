@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.3
 
 Item {
     property alias pointsButton: pointsButton
+    property alias rulerButton: rulerButton
     id: instruments
     z: 1
 

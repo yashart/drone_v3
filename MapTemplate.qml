@@ -25,14 +25,43 @@ Map {
             }
 
             if (mouse.button == Qt.RightButton){ //Все события связанные с правой кнопкой мыши
-                if (toolBarMap.getActiveTool() == "ruler"){
+                if (instruments.rulerButton.checked == true){
                    rulerModel.delPoint();
                 }
             }
-
-
-
         }
+    }
+
+    MapQuickItem {
+        id: startRulerPoint
+        anchorPoint.x: startRulerIcon.width / 2;
+        anchorPoint.y: startRulerIcon.height / 2;
+        coordinate: rulerModel.startPoint
+
+        sourceItem: Image {
+            id: startRulerIcon
+            source: "qrc:/img/ruler/start.png"
+        }
+    }
+
+    MapQuickItem {
+        id: finishRulerPoint
+        anchorPoint.x: finishRulerIcon.width / 2;
+        anchorPoint.y: finishRulerIcon.height / 2;
+        coordinate: rulerModel.finishPoint
+
+        sourceItem:
+            Column{
+                Image {id: finishRulerIcon; source: "qrc:/img/ruler/finish.png"}
+                Text {text: rulerModel.distance; font.bold: true; color: "#5518e2"}
+        }
+    }
+
+    MapPolyline {
+        line.width: 2
+        line.color: 'red'
+        path: rulerModel.rulerList
+        smooth: true
     }
 
     MapItemView{
