@@ -1,6 +1,6 @@
 QT += sql qml quick quick widgets positioning
 
-CONFIG += c++11 console
+CONFIG += c++11
 
 SOURCES += main.cpp \
     database/linesModel.cpp \

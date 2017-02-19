@@ -14,6 +14,9 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication app(argc, argv);
+
     DataBase db;
     TracksModel tracksModel;
     PointsModel pointsModel;
@@ -23,15 +26,10 @@ int main(int argc, char *argv[])
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
 
-
     QObject::connect(&db, &DataBase::updateLocationsModel,
                      &locationsModel, &LocationsModel::updateModel);
     QObject::connect(&db, &DataBase::updateLocationsModel,
                      &pointsPhotoModel, &PointsPhotoModel::updateModel);
-
-
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();

@@ -78,6 +78,7 @@ Window {
                     Repeater {
                         model: imagesModel
                         Image {
+                            width:166
                             source: "image://colors/" + dir + url
                             height: scrollPhotoView.height * 0.9
                             fillMode: Image.PreserveAspectFit
