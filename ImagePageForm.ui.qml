@@ -100,7 +100,6 @@ Window {
                             width:166
                             source: "image://colors/" + dir + url
                             height: scrollPhotoView.height * 0.9
-                            width: 166
                             fillMode: Image.PreserveAspectFit
                             asynchronous: true
                             z: 2
