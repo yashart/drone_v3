@@ -49,6 +49,9 @@ Window {
                             source: "qrc:///img/popupIconsSet/" + type + ".png"
                             cache: false
                             asynchronous: false
+                            enabled: false
+
+
 
                             Timer {
                             interval: 500; running: true; repeat: true
