@@ -48,7 +48,7 @@ Item {
         }
         Button {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            text: qsTr("Зайти");
+            text: qsTr("Войти");
             id: loginButton
         }
     }

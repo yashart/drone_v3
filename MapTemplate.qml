@@ -9,14 +9,29 @@ Map {
     center: QtPositioning.coordinate(59.91, 10.75)
     MouseArea {
         anchors.fill: parent
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         id: mouseAreaMap
         onClicked: {
-            if(instruments.pointsButton.checked == true){
-                var point = map.toCoordinate(Qt.point(mouseX, mouseY))
-                dataBase.createLocalPoint(point.latitude,
-                                          point.longitude,
-                                          leftTabMenu.pokemonsRadioGroup.checkedButton.name);
+            if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
+                if(instruments.pointsButton.checked == true){
+                    var point = map.toCoordinate(Qt.point(mouseX, mouseY))
+                    dataBase.createLocalPoint(point.latitude,
+                                              point.longitude,
+                                              leftTabMenu.pokemonsRadioGroup.checkedButton.name);
+                }
+                if(instruments.rulerButton.checked == true){
+                    rulerModel.addPoint(map.toCoordinate(Qt.point(mouseX, mouseY)));
+                }
             }
+
+            if (mouse.button == Qt.RightButton){ //Все события связанные с правой кнопкой мыши
+                if (toolBarMap.getActiveTool() == "ruler"){
+                   rulerModel.delPoint();
+                }
+            }
+
+
+
         }
     }
 
