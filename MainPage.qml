@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.3
+import QtQuick.Window 2.0
 
 Item {
     id: mainPage
@@ -13,16 +14,11 @@ Item {
         }
     }
 
-    RowLayout{
-        LeftTabMenu{
-            id: leftTabMenu
-            Layout.preferredWidth: mainPage.width * 0.3
-            Layout.preferredHeight: mainPage.height
-        }
-        MapComponent{
-            id: mapComponent
-            Layout.preferredWidth: mainPage.width * 0.7
-            Layout.preferredHeight: mainPage.height
-        }
+    LeftTabMenu{
+        id: leftTabMenu
+    }
+    MapComponent{
+        id: mapComponent
+        anchors.fill: parent
     }
 }
