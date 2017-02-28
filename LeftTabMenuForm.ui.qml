@@ -9,7 +9,7 @@ Window {
     property alias osmRadio: osmRadio
     property alias mapboxRadio: mapboxRadio
     property alias pokemonsRadioGroup: pokemonsRadioGroup
-    visible: true
+    visible: parent.visible
 
     Page {
         id: leftTabMenu

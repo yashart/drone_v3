@@ -26,26 +26,12 @@ ApplicationWindow {
 
     ImagePage {
         id: imagePage
-        visible: true
+        visible: false
     }
 
-    /*
-    Instruments {
-        id: instruments
+    PopupPoints {
+        id: popupPoints
+        visible: false
     }
-    */
-    /*
-    LeftTabMenu {
-        id: leftTabMenu
-    }*/
-    /*
-    OsmPlugin {
-        id: osmPlugin
-    }
-    /*
-    MapComponent {
-        id: mapComponent
-    }
-    */
 
 }

@@ -5,8 +5,9 @@ LoginPageForm {
     loginButton.onClicked: {
         if ((passwordTextField.text == "admin")&&
             (loginTextField.text == "admin")){
-            loginPage.visible = false;
-            mainPage.visible = true;
+            loginPage.visible = false
+            mainPage.visible = true
+            mainPage.leftTabMenu.visible = true
         }
     }
 }

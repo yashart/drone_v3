@@ -44,5 +44,7 @@
         <file>img/popupIconsSet/1.png</file>
         <file>img/ruler/finish.png</file>
         <file>img/ruler/start.png</file>
+        <file>PopupPoints.qml</file>
+        <file>PopupPointsForm.ui.qml</file>
     </qresource>
 </RCC>
