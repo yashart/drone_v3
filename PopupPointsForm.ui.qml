@@ -1,13 +1,14 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.1
-import QtQuick.Window 2.0
+import QtQuick.Window 2.2
 
 Window {
     id: popupPointsForm
     height: 500
     width: 500
     visible: parent.visible
+    opacity: 0.75
     ColumnLayout {
         anchors.fill: parent
         RowLayout {

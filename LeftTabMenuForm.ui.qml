@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
-import QtQuick.Window 2.0
+import QtQuick.Window 2.2
 
 Window {
     height: 360
@@ -10,6 +10,7 @@ Window {
     property alias mapboxRadio: mapboxRadio
     property alias pokemonsRadioGroup: pokemonsRadioGroup
     visible: parent.visible
+    opacity: 0.75
 
     Page {
         id: leftTabMenu
