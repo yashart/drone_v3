@@ -14,4 +14,10 @@ LeftTabMenuForm {
         linesModel.updateModel();
         pointsModel.updateModel();
     }
+    leftTabMenuArea.onEntered: {
+        opacity = 1
+    }
+    leftTabMenuArea.onExited: {
+        opacity = 0.75
+    }
 }
