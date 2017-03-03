@@ -46,5 +46,17 @@
         <file>img/ruler/start.png</file>
         <file>PopupPoints.qml</file>
         <file>PopupPointsForm.ui.qml</file>
+        <file>img/popupIconsSet/question/black.png</file>
+        <file>img/popupIconsSet/question/green.png</file>
+        <file>img/popupIconsSet/question/red.png</file>
+        <file>img/popupIconsSet/question/yellow.png</file>
+        <file>img/popupIconsSet/square/black.png</file>
+        <file>img/popupIconsSet/square/green.png</file>
+        <file>img/popupIconsSet/square/red.png</file>
+        <file>img/popupIconsSet/square/yellow.png</file>
+        <file>img/popupIconsSet/triangle/black.png</file>
+        <file>img/popupIconsSet/triangle/green.png</file>
+        <file>img/popupIconsSet/triangle/red.png</file>
+        <file>img/popupIconsSet/triangle/yellow.png</file>
     </qresource>
 </RCC>

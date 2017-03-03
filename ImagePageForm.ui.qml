@@ -102,7 +102,7 @@ Window {
                         model: imagesModel
                         Image {
                             width:166
-                            source: "image://colors/" + dir + url
+                            source: "image://SliderImages/" + dir + url
                             height: scrollPhotoView.height * 0.9
                             fillMode: Image.PreserveAspectFit
                             asynchronous: true

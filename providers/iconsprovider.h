@@ -25,7 +25,7 @@ public:
 
             iconName.append(":/img/popupIconsSet/"); // Название изображения
             iconName.append(typeFigure);
-            iconName.append("_");
+            iconName.append("/");
             iconName.append(colorFigure);
             iconName.append(".png");
 
