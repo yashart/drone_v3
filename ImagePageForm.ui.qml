@@ -74,6 +74,7 @@ Window {
                     anchors.fill: parent
                     anchors.margins: 0
                     drag.target: currentPhoto
+                    z: 2
                     property var offsetLon: 0.00150 // эксперементальным путем
                     property var offsetLat: 0.0016 // эксперементальным путем
                 }

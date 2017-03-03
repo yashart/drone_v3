@@ -168,10 +168,11 @@ Map {
                     imagePage.currentPhoto.source = 'file:/' + dir + url
                     imagePage.currentPhoto.height = imagePage.pictureViewer.height
                     imagePage.currentPhoto.azimuth = 90 + azimuth;
-                    imagePage.currentPhoto.lat = lat;
-                    imagePage.currentPhoto.lon = lon;
+                    imagePage.currentPhoto.lat = lat
+                    imagePage.currentPhoto.lon = lon
                     console.log(dir + url)
-                    pointsPhotoModel.setCenter(lat, lon);
+                    pointsPhotoModel.setCenter(lat, lon)
+                    imagePage.visible = true
                 }
             }
         }
