@@ -123,7 +123,7 @@ Window {
                                 ButtonGroup.group: pokemonsRadioGroup
                             }
                             Image{
-                                source: "/img/popupIconsSet/1.png"
+                                source: "image://SliderImages/triangle/black"
                             }
                         }
                         RowLayout{
@@ -133,7 +133,7 @@ Window {
                                 ButtonGroup.group: pokemonsRadioGroup
                             }
                             Image{
-                                source: "/img/popupIconsSet/2.png"
+                                source: "image://SliderImages/triangle/red"
                             }
                         }
                         RowLayout{
@@ -143,7 +143,7 @@ Window {
                                 ButtonGroup.group: pokemonsRadioGroup
                             }
                             Image{
-                                source: "/img/popupIconsSet/3.png"
+                                source: "image://SliderImages/triangle/green"
                             }
                         }
                         RowLayout{
@@ -153,7 +153,7 @@ Window {
                                 ButtonGroup.group: pokemonsRadioGroup
                             }
                             Image{
-                                source: "/img/popupIconsSet/4.png"
+                                source: "image://SliderImages/triangle/yellow"
                             }
                         }
                     }

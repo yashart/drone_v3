@@ -45,7 +45,8 @@ HEADERS += \
     database/pointsphotomodel.h \
     database/pointsmodel.h \
     database/locationsmodel.h \
-    database/imagesmodel.h
+    database/imagesmodel.h \
+    providers/iconsprovider.h
 
 DISTFILES += \
     database/DataBase.db
