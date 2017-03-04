@@ -28,6 +28,8 @@ ImagePageForm {
             dragAreaPhoto.offsetLon
             )
         console.log("picture clicked: " + coordinate)
+        popupPoints.set_popup_points_position(coordinate.latitude,
+                                              coordinate.longitude)
         popupPoints.visible = true
 
     }

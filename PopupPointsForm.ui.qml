@@ -5,6 +5,21 @@ import QtQuick.Window 2.2
 
 Window {
     property alias popupPointsArea: popupPointsArea
+    property alias popupPointsForm: popupPointsForm
+    property alias redRadioButton: redRadioButton
+    property alias greenRadioButton: greenRadioButton
+    property alias blackRadioButton: blackRadioButton
+    property alias yellowRadioButton: yellowRadioButton
+    property alias triangleRadioButton: triangleRadioButton
+    property alias squareRadioButton: squareRadioButton
+    property alias questionRadioButton: questionRadioButton
+    property alias submitPopupButton: submitPopupButton
+    property alias cancelPopupButton: cancelPopupButton
+
+    property var latitude: 0
+    property var longitude: 0
+    property var iconColor: "red"
+    property var iconType: "triangle"
 
     id: popupPointsForm
     height: 500
@@ -26,7 +41,7 @@ Window {
                 }
 
                 TextField {
-                    text: qsTr("")
+                    text: qsTr(String(popupPointsForm.latitude))
                 }
 
                 Label {
@@ -34,20 +49,62 @@ Window {
                 }
 
                 TextField {
-                    text: qsTr("")
+                    text: qsTr(String(popupPointsForm.longitude))
                 }
             }
-
             GridLayout {
+                columns: 3
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                rows: 0
-                columns: 0
+                RadioButton {
+                    id: triangleRadioButton
+                    Image {
+                        anchors.fill: parent
+                        source: "image://Icons/triangle/" + popupPointsForm.iconColor
+                    }
+                    checkable: true
+                    checked: true
+                }
+                RadioButton {
+                    id: squareRadioButton
+                    Image {
+                        anchors.fill: parent
+                        source: "image://Icons/square/" + popupPointsForm.iconColor
+                    }
+                    checkable: true
+                }
+                RadioButton {
+                    id: questionRadioButton
+                    Image {
+                        anchors.fill: parent
+                        source: "image://Icons/question/" + popupPointsForm.iconColor
+                    }
+                    checkable: true
+                }
             }
 
             RowLayout {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                 GridLayout {
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    columns: 4
+                    RadioButton {
+                        id: redRadioButton
+                        text: "красный"
+                        checked: true
+                    }
+                    RadioButton {
+                        id: greenRadioButton
+                        text: "зелёный"
+                    }
+                    RadioButton {
+                        id: blackRadioButton
+                        text: "чёрный"
+                    }
+                    RadioButton {
+                        id: yellowRadioButton
+                        text: "жёлтый"
+                    }
                 }
 
                 Label {
@@ -74,6 +131,7 @@ Window {
                     }
 
                     Button {
+                        id: submitPopupButton
                         text: qsTr("Ок")
                     }
                 }
@@ -89,6 +147,7 @@ Window {
                     }
 
                     Button {
+                        id: cancelPopupButton
                         text: qsTr("Отмена")
                     }
                 }

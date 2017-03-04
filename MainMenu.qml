@@ -7,6 +7,12 @@ MenuBar {
     }
     Menu {
         title: qsTr("Операции")
+        MenuItem {
+                text: "Добавить трек"
+                onTriggered: {
+                    console.log("Добавляю трек")
+                }
+            }
     }
     Menu {
         title: qsTr("Вид")

@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 Item {
     property alias pointsButton: pointsButton
     property alias rulerButton: rulerButton
+    property alias leftMenuButton: leftMenuButton
     id: instruments
     z: 1
 
@@ -51,6 +52,12 @@ Item {
                 text: qsTr("Корзина")
                 checkable: true
                 autoExclusive: true
+            }
+
+            ToolButton {
+                id: leftMenuButton
+                text: qsTr("Меню")
+                checkable: false
             }
         }
     }

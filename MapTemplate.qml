@@ -15,9 +15,7 @@ Map {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
                 if(instruments.pointsButton.checked == true){
                     var point = map.toCoordinate(Qt.point(mouseX, mouseY))
-                    //dataBase.createLocalPoint(point.latitude,
-                    //                          point.longitude,
-                    //                          leftTabMenu.pokemonsRadioGroup.checkedButton.name);
+                    popupPoints.set_popup_points_position(point.latitude, point.longitude)
                     popupPoints.visible = true
                 }
                 if(instruments.rulerButton.checked == true){

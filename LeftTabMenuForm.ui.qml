@@ -9,7 +9,6 @@ Window {
     id: leftTabMenuWindow
     property alias osmRadio: osmRadio
     property alias mapboxRadio: mapboxRadio
-    property alias pokemonsRadioGroup: pokemonsRadioGroup
     property alias leftTabMenuArea: leftTabMenuArea
     visible: parent.visible
     opacity: 0.75
@@ -35,12 +34,6 @@ Window {
                 TabButton {
                     id: mapsTabButton
                     text: qsTr("Maps")
-                    font.pointSize: 9
-                }
-
-                TabButton {
-                    id: pointsTabButton
-                    text: qsTr("Points")
                     font.pointSize: 9
                 }
             }
@@ -105,56 +98,6 @@ Window {
                         RadioButton {
                             id: mapboxRadio
                             text: qsTr("Mapbox")
-                        }
-                    }
-                }
-
-                Item {
-                    id: pokemonsTab
-                    ButtonGroup {
-                        id: pokemonsRadioGroup
-                    }
-
-                    ColumnLayout {
-                        RowLayout{
-                            RadioButton {
-                                checked: true
-                                property var name: "1"
-                                ButtonGroup.group: pokemonsRadioGroup
-                            }
-                            Image{
-                                source: "image://Icons/triangle/black"
-                            }
-                        }
-                        RowLayout{
-                            RadioButton {
-                                checked: true
-                                property var name: "2"
-                                ButtonGroup.group: pokemonsRadioGroup
-                            }
-                            Image{
-                                source: "image://Icons/triangle/red"
-                            }
-                        }
-                        RowLayout{
-                            RadioButton {
-                                checked: true
-                                property var name: "3"
-                                ButtonGroup.group: pokemonsRadioGroup
-                            }
-                            Image{
-                                source: "image://Icons/triangle/green"
-                            }
-                        }
-                        RowLayout{
-                            RadioButton {
-                                checked: true
-                                property var name: "4"
-                                ButtonGroup.group: pokemonsRadioGroup
-                            }
-                            Image{
-                                source: "image://Icons/triangle/yellow"
-                            }
                         }
                     }
                 }

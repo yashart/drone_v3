@@ -7,7 +7,18 @@ Item {
     id: mapComponent
     property alias osmPlugin: osmPlugin
     property alias mapboxPlugin: mapboxPlugin
-    property var newMap: null;
+    property var newMap: defaultInitMap(osmPlugin);
+
+    function defaultInitMap(plugin){
+        var defaultMap = null
+        defaultMap = Qt.createComponent("MapTemplate.qml");
+        defaultMap = defaultMap.createObject(mapComponent);
+        defaultMap.plugin = plugin;
+        defaultMap.zoomLevel = (defaultMap.maximumZoomLevel - defaultMap.minimumZoomLevel)/2
+        defaultMap.forceActiveFocus();
+        return defaultMap
+    }
+
     function createMap(plugin){
         var zoomLevel = null;
         var center = null;
