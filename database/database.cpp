@@ -144,6 +144,64 @@ int DataBase::parseCSV(QString path)
     return 0;
 }
 
+void DataBase::addExifDir()
+{
+    /*pathToDir.replace(QString("file:///"), QString(""));
+    QString filePath = pathToDir;*/
+
+    /*QSqlQuery query;
+    query.prepare("INSERT INTO Tracks (name, dir, is_check) VALUES (:name, :dir, 'false');");
+    query.bindValue(":name", "Inkerman");
+    query.bindValue(":dir", "D:/Shurup/");
+    if (!query.exec()){
+        qDebug() << "Error SQLite:" << query.lastError().text();
+        qDebug() << query.lastQuery();
+    }
+    //INSERT INTO Tracks(name, dir, is_check) VALUES('inkerman', 'D:/Shurup/','false')
+    qDebug() << query.lastInsertId();*/
+
+    QString path("D:/Shurup/ortophoto");
+    QDir dir;
+    dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+    dir.setSorting(QDir::Time | QDir::Reversed);
+    dir.setPath(path);
+
+
+    QStringList filters;
+    filters << "*.jpg" << "*.jpeg";
+
+    QFileInfoList list = dir.entryInfoList(filters, QDir::Files|QDir::NoDotAndDotDot);
+    for (int i = 0; i < list.size(); ++i) {
+        QFileInfo fileInfo = list.at(i);
+        FILE *fp = fopen(fileInfo.absoluteFilePath().toUtf8().constData(), "rb");
+        if (!fp) {
+            printf("Can't open file.\n");
+        }
+        fseek(fp, 0, SEEK_END);
+        unsigned long fsize = ftell(fp);
+        rewind(fp);
+        unsigned char *buf = new unsigned char[fsize];
+        if (fread(buf, 1, fsize, fp) != fsize) {
+            printf("Can't read file.\n");
+            delete[] buf;
+        }
+        fclose(fp);
+        easyexif::EXIFInfo result;
+        int code = result.parseFrom(buf, fsize);
+        delete[] buf;
+        if (code) {
+            printf("Error parsing EXIF: code %d\n", code);
+        }
+        //qDebug() << qPrintable(QString("%1").arg(fileInfo.absoluteFilePath()));
+        qDebug() << qPrintable(QString("%1/").arg(fileInfo.path()));
+        qDebug() << "lat=" << result.GeoLocation.Latitude;
+        qDebug() << "lon=" << result.GeoLocation.Longitude;
+        qDebug() << "alt=" << result.GeoLocation.Altitude;
+        qDebug() << fileInfo.fileName().toUtf8().constData();
+        //SELECT last_insert_rowid()
+    }
+}
+
 /*void DataBase::printPoints()
 {
     QSqlQuery query;

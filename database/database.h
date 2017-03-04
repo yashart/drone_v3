@@ -10,6 +10,8 @@
 #include <QDate>
 #include <QDebug>
 
+#include "exif/exifinfo.h"
+
 #define LAT 2
 #define LON 1
 #define ALT 3
@@ -41,6 +43,7 @@ public slots:
     void createLocalPoint(double lat, double lon, QString type);
     void prepareDeletePoint(int id);
     void deleteLocalPoint();
+    void addExifDir();
 };
 
 #endif // DATABASE_H

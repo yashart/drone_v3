@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
+    db.addExifDir();
 
     QObject::connect(&db, &DataBase::updateLocationsModel,
                      &locationsModel, &LocationsModel::updateModel);

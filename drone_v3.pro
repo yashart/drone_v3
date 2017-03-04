@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     database/pointsphotomodel.cpp \
     database/pointsmodel.cpp \
     database/locationsmodel.cpp \
-    database/imagesmodel.cpp
+    database/imagesmodel.cpp \
+    exif/exifinfo.cpp
 
 RESOURCES += qml.qrc
 
@@ -46,7 +47,8 @@ HEADERS += \
     database/pointsmodel.h \
     database/locationsmodel.h \
     database/imagesmodel.h \
-    providers/iconsprovider.h
+    providers/iconsprovider.h \
+    exif/exifinfo.h
 
 DISTFILES += \
     database/DataBase.db
