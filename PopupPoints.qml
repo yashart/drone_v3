@@ -9,9 +9,10 @@ PopupPointsForm {
         opacity = 0.75
     }
 
-    function set_popup_points_position(lat, lon){
+    function set_popup_points_position(lat, lon, id){
         popupPointsForm.latitude = lat
         popupPointsForm.longitude = lon
+        popupPointsForm.pointId = id
     }
 
     redRadioButton.onClicked: {

@@ -50,7 +50,7 @@ Window {
                         Repeater {
                             id: tracksView
                             model: tracksModel
-                            delegate: CheckBox{
+                            delegate: CheckBox {
                                 property int trackId: id
                                 text: qsTr(name)
                                 checked: (is_check === "true") ? true : false
@@ -72,15 +72,24 @@ Window {
                                     anchors.fill: parent
                                     acceptedButtons: Qt.RightButton
                                     onClicked: {
-                                            var lat = dataBase.getAvgLat(trackId)
-                                            var lon = dataBase.getAvgLon(trackId)
-                                            if (lat !== 0 && lon !== 0 && parent.checked == true)
-                                            {
-                                                mapComponent.changeMapCenter(lat, lon)
-                                            }
+                                        var lat = dataBase.getAvgLat(trackId)
+                                        var lon = dataBase.getAvgLon(trackId)
+                                        if (lat !== 0 && lon !== 0 && parent.checked == true)
+                                        {
+                                            mapComponent.changeMapCenter(lat, lon)
                                         }
+                                    }
                                 }
                             }
+                        }
+                        Button {
+                            text: qsTr("Добавить")
+                        }
+                        Button {
+                            text: qsTr("Удалить")
+                        }
+                        Button {
+                            text: qsTr("Редактировать")
                         }
                     }
                 }

@@ -93,6 +93,7 @@ Map {
                 onClicked: {
                     if( mouse.button == Qt.LeftButton){
                         dataBase.prepareDeletePoint(id);
+                        dataBase.deleteLocalPoint();
                     }
                 }
             }

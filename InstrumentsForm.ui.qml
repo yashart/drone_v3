@@ -6,6 +6,7 @@ Item {
     property alias pointsButton: pointsButton
     property alias rulerButton: rulerButton
     property alias leftMenuButton: leftMenuButton
+    property alias removeButton: removeButton
     id: instruments
     z: 1
 

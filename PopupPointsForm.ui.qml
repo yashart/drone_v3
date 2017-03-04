@@ -20,6 +20,7 @@ Window {
     property var longitude: 0
     property var iconColor: "red"
     property var iconType: "triangle"
+    property var pointId: 0
 
     id: popupPointsForm
     height: 500
