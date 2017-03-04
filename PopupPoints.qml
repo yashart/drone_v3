@@ -38,12 +38,11 @@ PopupPointsForm {
     submitPopupButton.onClicked: {
         dataBase.createLocalPoint(popupPoints.latitude,
                                   popupPoints.longitude,
-                                  "image://Icons/" +
                                   popupPointsForm.iconType + "/" +
                                   popupPointsForm.iconColor)
         //Вот тут пофикси как-нить
     }
     cancelPopupButton.onClicked: {
-        PopupPointsForm.visible = false
+        popupPointsForm.visible = false
     }
 }
