@@ -29,7 +29,8 @@ ImagePageForm {
             )
         console.log("picture clicked: " + coordinate)
         popupPoints.set_popup_points_position(coordinate.latitude,
-                                              coordinate.longitude)
+                                              coordinate.longitude,
+                                              0)
         popupPoints.visible = true
 
     }

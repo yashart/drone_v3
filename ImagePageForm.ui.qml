@@ -51,8 +51,6 @@ Window {
                             asynchronous: false
                             enabled: false
 
-
-
                             Timer {
                             interval: 500; running: true; repeat: true
                                 onTriggered: {
@@ -64,7 +62,18 @@ Window {
                                                  (currentPhoto.lon-lon)/dragAreaPhoto.offsetLon*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedHeight
                                 }
                             }
-
+                            MouseArea {
+                                anchors.fill: parent
+                                z: 4
+                                onClicked: {
+                                    popupPoints.visible = false
+                                    popupPoints.set_popup_points_position(lat,
+                                                                          lon,
+                                                                          id)
+                                    console.log(id)
+                                    popupPoints.visible = true
+                                }
+                            }
                         }
                     }
                 }

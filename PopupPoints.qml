@@ -37,13 +37,28 @@ PopupPointsForm {
         popupPoints.iconType = "question"
     }
     submitPopupButton.onClicked: {
-        dataBase.createLocalPoint(popupPoints.latitude,
-                                  popupPoints.longitude,
-                                  popupPointsForm.iconType + "/" +
-                                  popupPointsForm.iconColor)
+        if(popupPoints.id == 0){
+            dataBase.createLocalPoint(popupPoints.latitude,
+                                      popupPoints.longitude,
+                                      popupPointsForm.iconType + "/" +
+                                      popupPointsForm.iconColor)
+        }else{
+            dataBase.prepareDeletePoint(popupPoints.pointId)
+            dataBase.deleteLocalPoint()
+            popupPoints.pointId = 0
+            dataBase.createLocalPoint(popupPoints.latitude,
+                                      popupPoints.longitude,
+                                      popupPointsForm.iconType + "/" +
+                                      popupPointsForm.iconColor)
+        }
+        popupPointsForm.visible = false
+
         //Вот тут пофикси как-нить
     }
-    cancelPopupButton.onClicked: {
+    deletePointPopupButton.onClicked: {
+        dataBase.prepareDeletePoint(popupPoints.pointId)
+        dataBase.deleteLocalPoint()
+        popupPoints.pointId = 0
         popupPointsForm.visible = false
     }
 }

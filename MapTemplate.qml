@@ -13,11 +13,10 @@ Map {
         id: mouseAreaMap
         onClicked: {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
-                if(instruments.pointsButton.checked == true){
-                    var point = map.toCoordinate(Qt.point(mouseX, mouseY))
-                    popupPoints.set_popup_points_position(point.latitude, point.longitude)
-                    popupPoints.visible = true
-                }
+                var point = map.toCoordinate(Qt.point(mouseX, mouseY))
+                popupPoints.set_popup_points_position(point.latitude, point.longitude, 0)
+                popupPoints.visible = true
+
                 if(instruments.rulerButton.checked == true){
                     rulerModel.addPoint(map.toCoordinate(Qt.point(mouseX, mouseY)));
                 }
@@ -92,8 +91,8 @@ Map {
                 anchors.fill: parent;
                 onClicked: {
                     if( mouse.button == Qt.LeftButton){
-                        dataBase.prepareDeletePoint(id);
-                        dataBase.deleteLocalPoint();
+                        popupPoints.set_popup_points_position(lat, lon, id)
+                        popupPoints.visible = true
                     }
                 }
             }

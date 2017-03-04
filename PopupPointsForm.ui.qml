@@ -14,7 +14,7 @@ Window {
     property alias squareRadioButton: squareRadioButton
     property alias questionRadioButton: questionRadioButton
     property alias submitPopupButton: submitPopupButton
-    property alias cancelPopupButton: cancelPopupButton
+    property alias deletePointPopupButton: deletePointPopupButton
 
     property var latitude: 0
     property var longitude: 0
@@ -148,8 +148,8 @@ Window {
                     }
 
                     Button {
-                        id: cancelPopupButton
-                        text: qsTr("Отмена")
+                        id: deletePointPopupButton
+                        text: qsTr("Удалить")
                     }
                 }
             }
