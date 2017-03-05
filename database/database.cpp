@@ -161,6 +161,7 @@ void DataBase::deleteTrack(int id)
         qDebug() << "Error SQLite:" << query.lastError().text();
         qDebug() << query.lastQuery();
     }
+    emit updateTracks();
 }
 
 void DataBase::addExifDir(QString photoPath, QString trackName)
