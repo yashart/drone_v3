@@ -32,6 +32,7 @@ public:
 
 signals:
     void updateLocationsModel();
+    void updateTracks();
 
 public slots:
     void printTracks();

@@ -167,72 +167,77 @@ void DataBase::addExifDir(QString photoPath, QString trackName)
 {
     /*pathToDir.replace(QString("file:///"), QString(""));
     QString filePath = pathToDir;*/
-
+    photoPath = photoPath.replace("file:///", "");
+    qDebug() << photoPath;
 
     QDir dir;
     dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
     dir.setSorting(QDir::Name);
     dir.setPath(photoPath);
 
-    QSqlQuery query;
-    query.prepare("INSERT INTO Tracks (name, dir, is_check) VALUES (:name, :dir, 'false');");
-    query.bindValue(":name", trackName);
-    query.bindValue(":dir", QString("%1/").arg(dir.path()));
-    if (!query.exec()){
-        qDebug() << "Error SQLite:" << query.lastError().text();
-        qDebug() << query.lastQuery();
-    }
-
-    QString lastId(QString::number(query.lastInsertId().toInt()));
-
-
     QStringList filters;
     filters << "*.jpg" << "*.jpeg";
 
     QFileInfoList list = dir.entryInfoList(filters, QDir::Files|QDir::NoDotAndDotDot);
-    for (int i = 0; i < list.size(); ++i) {
-        QFileInfo fileInfo = list.at(i);
-        FILE *fp = fopen(fileInfo.absoluteFilePath().toUtf8().constData(), "rb");
-        if (!fp) {
-            printf("Can't open file.\n");
-        }
-        fseek(fp, 0, SEEK_END);
-        unsigned long fsize = ftell(fp);
-        rewind(fp);
-        unsigned char *buf = new unsigned char[fsize];
-        if (fread(buf, 1, fsize, fp) != fsize) {
-            printf("Can't read file.\n");
-            delete[] buf;
-        }
-        fclose(fp);
-        easyexif::EXIFInfo result;
-        int code = result.parseFrom(buf, fsize);
-        delete[] buf;
-        if (code) {
-            printf("Error parsing EXIF: code %d\n", code);
-        }
-        //qDebug() << qPrintable(QString("%1").arg(fileInfo.absoluteFilePath()));
 
-        query.prepare("INSERT INTO Points (track_id, lat, lon, alt, azimuth, url, type) VALUES (:id, :lat, :lon, :alt, :azimuth, :url, :type);");
-        query.bindValue(":id", lastId);
-        query.bindValue(":lat", result.GeoLocation.Latitude);
-        query.bindValue(":lon", result.GeoLocation.Longitude);
-        query.bindValue(":alt", result.GeoLocation.Altitude);
-        query.bindValue(":azimuth", "0");
-        query.bindValue(":url", fileInfo.fileName().toUtf8().constData());
-        query.bindValue(":type", "type");
-
+    if (list.size() > 0)
+    {
+        QSqlQuery query;
+        query.prepare("INSERT INTO Tracks (name, dir, is_check) VALUES (:name, :dir, 'false');");
+        query.bindValue(":name", trackName);
+        query.bindValue(":dir", QString("%1/").arg(dir.path()));
         if (!query.exec()){
             qDebug() << "Error SQLite:" << query.lastError().text();
             qDebug() << query.lastQuery();
         }
 
-        //qDebug() << qPrintable(QString("%1/").arg(fileInfo.path()));
-        qDebug() << "lat=" << result.GeoLocation.Latitude;
-        qDebug() << "lon=" << result.GeoLocation.Longitude;
-        qDebug() << "alt=" << result.GeoLocation.Altitude;
-        qDebug() << fileInfo.fileName().toUtf8().constData();
-        //SELECT last_insert_rowid()
+        QString lastId(QString::number(query.lastInsertId().toInt()));
+
+        for (int i = 0; i < list.size(); ++i) {
+            QFileInfo fileInfo = list.at(i);
+            FILE *fp = fopen(fileInfo.absoluteFilePath().toUtf8().constData(), "rb");
+            if (!fp) {
+                printf("Can't open file.\n");
+            }
+            fseek(fp, 0, SEEK_END);
+            unsigned long fsize = ftell(fp);
+            rewind(fp);
+            unsigned char *buf = new unsigned char[fsize];
+            if (fread(buf, 1, fsize, fp) != fsize) {
+                printf("Can't read file.\n");
+                delete[] buf;
+            }
+            fclose(fp);
+            easyexif::EXIFInfo result;
+            int code = result.parseFrom(buf, fsize);
+            delete[] buf;
+            if (code) {
+                printf("Error parsing EXIF: code %d\n", code);
+            }
+            //qDebug() << qPrintable(QString("%1").arg(fileInfo.absoluteFilePath()));
+
+            query.prepare("INSERT INTO Points (track_id, lat, lon, alt, azimuth, url, type) VALUES (:id, :lat, :lon, :alt, :azimuth, :url, :type);");
+            query.bindValue(":id", lastId);
+            query.bindValue(":lat", result.GeoLocation.Latitude);
+            query.bindValue(":lon", result.GeoLocation.Longitude);
+            query.bindValue(":alt", result.GeoLocation.Altitude);
+            query.bindValue(":azimuth", "0");
+            query.bindValue(":url", fileInfo.fileName().toUtf8().constData());
+            query.bindValue(":type", "type");
+
+            if (!query.exec()){
+                qDebug() << "Error SQLite:" << query.lastError().text();
+                qDebug() << query.lastQuery();
+            }
+
+            //qDebug() << qPrintable(QString("%1/").arg(fileInfo.path()));
+            qDebug() << "lat=" << result.GeoLocation.Latitude;
+            qDebug() << "lon=" << result.GeoLocation.Longitude;
+            qDebug() << "alt=" << result.GeoLocation.Altitude;
+            qDebug() << fileInfo.fileName().toUtf8().constData();
+            //SELECT last_insert_rowid()
+        }
+        emit updateTracks();
     }
 }
 

@@ -35,6 +35,8 @@ int main(int argc, char *argv[])
                      &locationsModel, &LocationsModel::updateModel);
     QObject::connect(&db, &DataBase::updateLocationsModel,
                      &pointsPhotoModel, &PointsPhotoModel::updateModel);
+    QObject::connect(&db, &DataBase::updateTracks,
+                     &tracksModel, &TracksModel::updateModel);
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();

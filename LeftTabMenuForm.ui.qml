@@ -84,6 +84,9 @@ Window {
                         }
                         Button {
                             text: qsTr("Добавить")
+                            onClicked: {
+                                addTracks.visible = true
+                            }
                         }
                         Button {
                             text: qsTr("Удалить")
