@@ -33,4 +33,9 @@ ApplicationWindow {
         visible: false
     }
 
+    AddTracks {
+        id: addTracks
+        visible: false
+    }
+
 }
