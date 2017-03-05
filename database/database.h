@@ -43,7 +43,8 @@ public slots:
     void createLocalPoint(double lat, double lon, QString type);
     void prepareDeletePoint(int id);
     void deleteLocalPoint();
-    void addExifDir();
+    void addExifDir(QString photoPath, QString trackName);
+    void deleteTrack(int id);
 };
 
 #endif // DATABASE_H

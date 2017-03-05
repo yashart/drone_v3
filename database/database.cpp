@@ -144,27 +144,46 @@ int DataBase::parseCSV(QString path)
     return 0;
 }
 
-void DataBase::addExifDir()
+void DataBase::deleteTrack(int id)
 {
-    /*pathToDir.replace(QString("file:///"), QString(""));
-    QString filePath = pathToDir;*/
-
-    /*QSqlQuery query;
-    query.prepare("INSERT INTO Tracks (name, dir, is_check) VALUES (:name, :dir, 'false');");
-    query.bindValue(":name", "Inkerman");
-    query.bindValue(":dir", "D:/Shurup/");
+    QSqlQuery query;
+    query.prepare("DELETE FROM Tracks WHERE id = :idd;");
+    query.bindValue(":idd", id);
     if (!query.exec()){
         qDebug() << "Error SQLite:" << query.lastError().text();
         qDebug() << query.lastQuery();
     }
-    //INSERT INTO Tracks(name, dir, is_check) VALUES('inkerman', 'D:/Shurup/','false')
-    qDebug() << query.lastInsertId();*/
+    qDebug() << query.lastQuery();
 
-    QString path("D:/Shurup/ortophoto");
+    query.prepare("DELETE FROM Points WHERE track_id = :idd;");
+    query.bindValue(":idd", id);
+    if (!query.exec()){
+        qDebug() << "Error SQLite:" << query.lastError().text();
+        qDebug() << query.lastQuery();
+    }
+}
+
+void DataBase::addExifDir(QString photoPath, QString trackName)
+{
+    /*pathToDir.replace(QString("file:///"), QString(""));
+    QString filePath = pathToDir;*/
+
+
     QDir dir;
     dir.setFilter(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
-    dir.setSorting(QDir::Time | QDir::Reversed);
-    dir.setPath(path);
+    dir.setSorting(QDir::Name);
+    dir.setPath(photoPath);
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO Tracks (name, dir, is_check) VALUES (:name, :dir, 'false');");
+    query.bindValue(":name", trackName);
+    query.bindValue(":dir", QString("%1/").arg(dir.path()));
+    if (!query.exec()){
+        qDebug() << "Error SQLite:" << query.lastError().text();
+        qDebug() << query.lastQuery();
+    }
+
+    QString lastId(QString::number(query.lastInsertId().toInt()));
 
 
     QStringList filters;
@@ -193,7 +212,22 @@ void DataBase::addExifDir()
             printf("Error parsing EXIF: code %d\n", code);
         }
         //qDebug() << qPrintable(QString("%1").arg(fileInfo.absoluteFilePath()));
-        qDebug() << qPrintable(QString("%1/").arg(fileInfo.path()));
+
+        query.prepare("INSERT INTO Points (track_id, lat, lon, alt, azimuth, url, type) VALUES (:id, :lat, :lon, :alt, :azimuth, :url, :type);");
+        query.bindValue(":id", lastId);
+        query.bindValue(":lat", result.GeoLocation.Latitude);
+        query.bindValue(":lon", result.GeoLocation.Longitude);
+        query.bindValue(":alt", result.GeoLocation.Altitude);
+        query.bindValue(":azimuth", "0");
+        query.bindValue(":url", fileInfo.fileName().toUtf8().constData());
+        query.bindValue(":type", "type");
+
+        if (!query.exec()){
+            qDebug() << "Error SQLite:" << query.lastError().text();
+            qDebug() << query.lastQuery();
+        }
+
+        //qDebug() << qPrintable(QString("%1/").arg(fileInfo.path()));
         qDebug() << "lat=" << result.GeoLocation.Latitude;
         qDebug() << "lon=" << result.GeoLocation.Longitude;
         qDebug() << "alt=" << result.GeoLocation.Altitude;

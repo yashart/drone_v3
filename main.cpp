@@ -26,7 +26,10 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
-    db.addExifDir();
+
+    //db.addExifDir("D:/Shurup/ortophoto");
+    //db.addExifDir("D:/VladPole", "VladPole");
+    //db.deleteTrack(17);
 
     QObject::connect(&db, &DataBase::updateLocationsModel,
                      &locationsModel, &LocationsModel::updateModel);
