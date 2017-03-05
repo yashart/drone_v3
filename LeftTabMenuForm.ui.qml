@@ -1,4 +1,5 @@
 import QtQuick 2.4
+import QtQuick.Controls 1.4
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.2
@@ -43,41 +44,51 @@ Window {
                 anchors.fill: parent
                 currentIndex: tabBar.currentIndex
 
-                Item {
+                ScrollView {
                     id: tracksTab
-
+                    anchors.fill: parent
                     Column {
+                        anchors.fill: parent
                         Repeater {
                             id: tracksView
                             model: tracksModel
-                            delegate: CheckBox {
+                            delegate: RowLayout {
                                 property int trackId: id
-                                text: qsTr(name)
-                                checked: (is_check === "true") ? true : false
-                                onClicked:{
-                                        if (checked == true){
-                                            pointsModel.addId(id);
-                                            tracksModel.setChecked(id);
-                                            linesModel.addId(id);
+                                CheckBox {
+                                    text: qsTr(name)
+                                    checked: (is_check === "true") ? true : false
+                                    onClicked:{
+                                            if (checked == true){
+                                                pointsModel.addId(id);
+                                                tracksModel.setChecked(id);
+                                                linesModel.addId(id);
+                                            }
+                                            if (checked == false){
+                                                pointsModel.delId(id);
+                                                tracksModel.setUnchecked(id);
+                                                linesModel.delId(id);
+                                            }
+                                            pointsModel.updateModel();
+                                            tracksModel.updateModel();
                                         }
-                                        if (checked == false){
-                                            pointsModel.delId(id);
-                                            tracksModel.setUnchecked(id);
-                                            linesModel.delId(id);
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        acceptedButtons: Qt.RightButton
+                                        onClicked: {
+                                            var lat = dataBase.getAvgLat(trackId)
+                                            var lon = dataBase.getAvgLon(trackId)
+                                            if (lat !== 0 && lon !== 0 && parent.checked == true)
+                                            {
+                                                mapComponent.changeMapCenter(lat, lon)
+                                            }
                                         }
-                                        pointsModel.updateModel();
-                                        tracksModel.updateModel();
                                     }
-                                MouseArea {
-                                    anchors.fill: parent
-                                    acceptedButtons: Qt.RightButton
+                                }
+                                Button {
+                                    id: deleteTrackButton
+                                    text: qsTr("Удалить")
                                     onClicked: {
-                                        var lat = dataBase.getAvgLat(trackId)
-                                        var lon = dataBase.getAvgLon(trackId)
-                                        if (lat !== 0 && lon !== 0 && parent.checked == true)
-                                        {
-                                            mapComponent.changeMapCenter(lat, lon)
-                                        }
+                                        dataBase.deleteTrack(id)
                                     }
                                 }
                             }
