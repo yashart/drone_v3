@@ -10,7 +10,7 @@ MenuBar {
         MenuItem {
                 text: "Добавить трек"
                 onTriggered: {
-                    console.log("Добавляю трек")
+                    addTracks.visible = true
                 }
             }
     }

@@ -58,5 +58,7 @@
         <file>img/popupIconsSet/triangle/green.png</file>
         <file>img/popupIconsSet/triangle/red.png</file>
         <file>img/popupIconsSet/triangle/yellow.png</file>
+        <file>AddTracksForm.ui.qml</file>
+        <file>AddTracks.qml</file>
     </qresource>
 </RCC>
