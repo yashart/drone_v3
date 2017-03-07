@@ -13,6 +13,12 @@ Item {
         if(map_name == "mapboxPlugin"){
             mapComponent.createMap(mapComponent.mapboxPlugin);
         }
+        if(map_name == "esriPlugin"){
+            mapComponent.createMap(mapComponent.esriPlugin);
+        }
+        if(map_name == "herePlugin"){
+            mapComponent.createMap(mapComponent.herePlugin);
+        }
     }
 
     LeftTabMenu{

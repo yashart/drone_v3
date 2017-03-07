@@ -11,9 +11,26 @@ LeftTabMenuForm {
 
     mapboxRadio.onClicked: {
         changeMapPlugin("mapboxPlugin");
+        mapComponent.changeMapType(0);
         linesModel.updateModel();
         pointsModel.updateModel();
     }
+
+    esriRadio.onClicked: {
+        changeMapPlugin("esriPlugin");
+        mapComponent.changeMapType(1);
+        linesModel.updateModel();
+        pointsModel.updateModel();
+    }
+
+    hereRadio.onClicked: {
+        changeMapPlugin("herePlugin");
+        mapComponent.changeMapType(1);
+        linesModel.updateModel();
+        pointsModel.updateModel();
+
+    }
+
     leftTabMenuArea.onEntered: {
         opacity = 1
     }

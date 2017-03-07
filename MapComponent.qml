@@ -7,7 +7,9 @@ Item {
     id: mapComponent
     property alias osmPlugin: osmPlugin
     property alias mapboxPlugin: mapboxPlugin
-    property var newMap: defaultInitMap(osmPlugin);
+    property alias esriPlugin: esriPlugin
+    property alias herePlugin: herePlugin
+    property var newMap: defaultInitMap(osmPlugin)
 
     function defaultInitMap(plugin){
         var defaultMap = null
@@ -40,6 +42,10 @@ Item {
         }
 
         newMap.forceActiveFocus();
+        console.log("Supported MapType:");
+        for (var i = 0; i < newMap.supportedMapTypes.length; i++) {
+           console.log(i, newMap.supportedMapTypes[i].name);
+        }
 
     }
     function changeMapCenter(lat, lon) {
@@ -47,6 +53,10 @@ Item {
             newMap.center.latitude = lat; // широту
             newMap.center.longitude = lon; // долготу
         }
+    }
+
+    function changeMapType(mapTypeIndex) {
+        newMap.activeMapType = newMap.supportedMapTypes[mapTypeIndex]
     }
 
     Instruments {
@@ -154,5 +164,13 @@ Item {
 
     MapboxPlugin {
         id: mapboxPlugin
+    }
+
+    EsriPlugin {
+        id: esriPlugin
+    }
+
+    HerePlugin {
+        id: herePlugin
     }
 }

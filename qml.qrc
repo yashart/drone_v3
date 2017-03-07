@@ -60,5 +60,7 @@
         <file>img/popupIconsSet/triangle/yellow.png</file>
         <file>AddTracksForm.ui.qml</file>
         <file>AddTracks.qml</file>
+        <file>EsriPlugin.qml</file>
+        <file>HerePlugin.qml</file>
     </qresource>
 </RCC>

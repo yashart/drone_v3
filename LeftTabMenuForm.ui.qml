@@ -10,7 +10,9 @@ Window {
     id: leftTabMenuWindow
     property alias osmRadio: osmRadio
     property alias mapboxRadio: mapboxRadio
+    property alias esriRadio: esriRadio
     property alias leftTabMenuArea: leftTabMenuArea
+    property alias hereRadio: hereRadio
     visible: parent.visible
     opacity: 0.75
 
@@ -121,6 +123,16 @@ Window {
                         RadioButton {
                             id: mapboxRadio
                             text: qsTr("Mapbox")
+                        }
+
+                        RadioButton {
+                            id: esriRadio
+                            text: qsTr("Esri")
+                        }
+
+                        RadioButton {
+                            id: hereRadio
+                            text: qsTr("Here")
                         }
                     }
                 }
