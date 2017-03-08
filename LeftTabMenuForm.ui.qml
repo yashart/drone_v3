@@ -13,6 +13,7 @@ Window {
     property alias esriRadio: esriRadio
     property alias leftTabMenuArea: leftTabMenuArea
     property alias hereRadio: hereRadio
+    property alias customRadio: customRadio
     visible: parent.visible
     opacity: 0.75
 
@@ -133,6 +134,11 @@ Window {
                         RadioButton {
                             id: hereRadio
                             text: qsTr("Here")
+                        }
+
+                        RadioButton {
+                            id: customRadio
+                            text: qsTr("Custom")
                         }
                     }
                 }

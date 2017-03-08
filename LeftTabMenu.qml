@@ -31,6 +31,13 @@ LeftTabMenuForm {
 
     }
 
+    customRadio.onClicked: {
+        changeMapPlugin("customPlugin");
+        mapComponent.changeMapType(7);
+        linesModel.updateModel();
+        pointsModel.updateModel();
+    }
+
     leftTabMenuArea.onEntered: {
         opacity = 1
     }

@@ -19,6 +19,9 @@ Item {
         if(map_name == "herePlugin"){
             mapComponent.createMap(mapComponent.herePlugin);
         }
+        if(map_name == "customPlugin"){
+            mapComponent.createMap(mapComponent.customPlugin);
+        }
     }
 
     LeftTabMenu{

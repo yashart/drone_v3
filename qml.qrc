@@ -62,5 +62,6 @@
         <file>AddTracks.qml</file>
         <file>EsriPlugin.qml</file>
         <file>HerePlugin.qml</file>
+        <file>CustomPlugin.qml</file>
     </qresource>
 </RCC>

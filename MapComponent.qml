@@ -9,6 +9,7 @@ Item {
     property alias mapboxPlugin: mapboxPlugin
     property alias esriPlugin: esriPlugin
     property alias herePlugin: herePlugin
+    property alias customPlugin: customPlugin
     property var newMap: defaultInitMap(osmPlugin)
 
     function defaultInitMap(plugin){
@@ -172,5 +173,9 @@ Item {
 
     HerePlugin {
         id: herePlugin
+    }
+
+    CustomPlugin {
+        id: customPlugin
     }
 }
