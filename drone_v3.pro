@@ -52,4 +52,3 @@ HEADERS += \
 
 DISTFILES += \
     database/DataBase.db
-
