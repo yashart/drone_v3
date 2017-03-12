@@ -89,27 +89,57 @@ Window {
                 GridLayout {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     columns: 4
+
+                    Rectangle {
+                        id: redRectangle
+                        width: 50
+                        height: 50
+                        color: "red"
+                        border.color: "black"
+                        border.width: 2
+                        radius: 5
+                    }
+                    Rectangle {
+                        id: greenRectangle
+                        width: 50
+                        height: 50
+                        color: "green"
+                        border.color: "black"
+                        border.width: 2
+                        radius: 5
+                    }
+                    Rectangle {
+                        id: blackRectangle
+                        width: 50
+                        height: 50
+                        color: "black"
+                        border.color: "black"
+                        border.width: 2
+                        radius: 5
+                    }
+                    Rectangle {
+                        id: yellowRectangle
+                        width: 50
+                        height: 50
+                        color: "yellow"
+                        border.color: "black"
+                        border.width: 2
+                        radius: 5
+                    }
+
                     RadioButton {
                         id: redRadioButton
-                        text: "красный"
                         checked: true
                     }
                     RadioButton {
                         id: greenRadioButton
-                        text: "зелёный"
                     }
                     RadioButton {
                         id: blackRadioButton
-                        text: "чёрный"
                     }
                     RadioButton {
                         id: yellowRadioButton
-                        text: "жёлтый"
                     }
-                }
-
-                Label {
-                    text: qsTr("Выбор цвета")
                 }
             }
 
