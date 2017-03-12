@@ -33,7 +33,7 @@ LeftTabMenuForm {
 
     customRadio.onClicked: {
         changeMapPlugin("customPlugin");
-        mapComponent.changeMapType(7);
+        mapComponent.changeMapType(1);
         linesModel.updateModel();
         pointsModel.updateModel();
     }

@@ -30,7 +30,6 @@ public:
             iconName.append(".png");
 
             QImage image(iconName);
-            qDebug() << iconName<<endl;
             return image;
         }
     }

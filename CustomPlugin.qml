@@ -3,15 +3,17 @@ import QtLocation  5.6
 
 
 Plugin {
-    id: customPlugin
-    name: "osm"
+    id: gmapsPlugin
+    name: "googlemaps"
+    locales: "en_EN"
     PluginParameter {
-       name: "osm.mapping.custom.host"
-       value: "file:///home/yashart/Documents/Programming/drone_v3/drone_v3/customMap/"
+        name: "googlemaps.maps.apikey"
+        value: "AIzaSyD6YYhz5s4uQ96WuZkbj9-TG5XGTXf4_ZI"
     }
-
-    //PluginParameter {
-    //   name: "osm.mapping.providersrepository.disabled"
-    //   value: true
-    //}
+    PluginParameter {
+        name: "googlemaps.maps.tilesize"
+        value: "256"
+    }
 }
+
+//AIzaSyD6YYhz5s4uQ96WuZkbj9-TG5XGTXf4_ZI

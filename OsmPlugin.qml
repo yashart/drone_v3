@@ -5,4 +5,5 @@ import QtLocation  5.6
 Plugin {
     id: osmPlugin
     name: "osm"
+
 }
