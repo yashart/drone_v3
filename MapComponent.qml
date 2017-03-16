@@ -10,6 +10,7 @@ Item {
     property alias esriPlugin: esriPlugin
     property alias herePlugin: herePlugin
     property alias customPlugin: customPlugin
+    property alias rulerPopup: rulerPopup
     property var newMap: defaultInitMap(osmPlugin)
 
     function defaultInitMap(plugin){
@@ -58,6 +59,14 @@ Item {
 
     function changeMapType(mapTypeIndex) {
         newMap.activeMapType = newMap.supportedMapTypes[mapTypeIndex]
+    }
+
+    Label {
+        id: rulerPopup
+        font.pointSize: 17
+        text: qsTr("rulerPoint")
+        visible: false
+        z: 3
     }
 
     Instruments {

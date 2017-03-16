@@ -11,6 +11,10 @@ Map {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         id: mouseAreaMap
+        hoverEnabled: true
+        property var previousLat: 0
+        property var previousLon: 0
+
         onClicked: {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
                 var point = map.toCoordinate(Qt.point(mouseX, mouseY))
@@ -20,12 +24,22 @@ Map {
                 if(instruments.rulerButton.checked == true){
                     rulerModel.addPoint(map.toCoordinate(Qt.point(mouseX, mouseY)));
                 }
+
+                if(instruments.savePointsButton.checked == true){
+
+                }
             }
 
             if (mouse.button == Qt.RightButton){ //Все события связанные с правой кнопкой мыши
                 if (instruments.rulerButton.checked == true){
                    rulerModel.delPoint();
                 }
+            }
+        }
+        onPositionChanged: {
+            if (instruments.rulerButton.checked == true){
+                rulerPopup.x = mouseX
+                rulerPopup.y = mouseY
             }
         }
     }
