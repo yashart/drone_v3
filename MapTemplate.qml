@@ -12,8 +12,6 @@ Map {
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         id: mouseAreaMap
         hoverEnabled: true
-        property var previousLat: 0
-        property var previousLon: 0
 
         onClicked: {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
@@ -21,12 +19,19 @@ Map {
                 popupPoints.set_popup_points_position(point.latitude, point.longitude, 0)
                 popupPoints.visible = true
 
-                if(instruments.rulerButton.checked == true){
+                if (instruments.rulerButton.checked == true){
                     rulerModel.addPoint(map.toCoordinate(Qt.point(mouseX, mouseY)));
                 }
 
-                if(instruments.savePointsButton.checked == true){
-
+                if (instruments.savePointsButton.checked == true){
+                    if (saveArea.visible == false){
+                        saveArea.topLeft = map.toCoordinate(Qt.point(mouseX, mouseY))
+                        saveArea.visible = true
+                    } else{
+                        saveArea.visible = false
+                        getGoogleTiles()
+                        //TODO: send tiles coordinates
+                    }
                 }
             }
 
@@ -40,6 +45,9 @@ Map {
             if (instruments.rulerButton.checked == true){
                 rulerPopup.x = mouseX
                 rulerPopup.y = mouseY
+            }
+            if (instruments.savePointsButton.checked == true){
+                saveArea.bottomRight = map.toCoordinate(Qt.point(mouseX, mouseY))
             }
         }
     }
@@ -141,7 +149,7 @@ Map {
             { latitude: 0, longitude: 0}
         ]
     }
-    MapPolyline{
+    MapPolyline {
        id: lookAt
        line.width: 4
        line.color: 'red'
@@ -153,7 +161,7 @@ Map {
     MapItemView {
         id: pointsOnTrack
         model: pointsModel
-        delegate:     MapQuickItem {
+        delegate: MapQuickItem {
             coordinate: QtPositioning.coordinate(lat, lon)
             anchorPoint.x: markerTrackPoint.width / 2;
             anchorPoint.y: markerTrackPoint.height / 2;
@@ -164,7 +172,7 @@ Map {
                 source: "/img/photo.png"
             }
 
-            MouseArea{
+            MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
 
@@ -189,6 +197,28 @@ Map {
             }
         }
     }
+
+    MapRectangle {
+        id: saveArea
+        color: 'green'
+        border.width: 2
+        z: 3
+        topLeft {
+            latitude: 0
+            longitude: 0
+        }
+        bottomRight {
+            latitude: 0
+            longitude: 0
+        }
+        visible: false
+        opacity: 0.5
+    }
+
+    function getGoogleTiles(){
+        console.log("TODO: Get tiles")
+    }
+
     function changeViewPortCenter(lat, lon, azimuth) // изменение положения четырехугольника отражающего примерный захват изображения
     {
         console.log(azimuth);
