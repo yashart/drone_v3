@@ -61,6 +61,15 @@ Item {
         newMap.activeMapType = newMap.supportedMapTypes[mapTypeIndex]
     }
 
+    Rectangle {
+        z: 2
+        anchors.fill: rulerPopup
+        color: "red"
+        border.color: "black"
+        border.width: 5
+        radius: 10
+    }
+
     Label {
         id: rulerPopup
         font.pointSize: 17
