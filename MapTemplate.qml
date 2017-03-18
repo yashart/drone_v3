@@ -45,6 +45,8 @@ Map {
             if (instruments.rulerButton.checked == true){
                 rulerPopup.x = mouseX
                 rulerPopup.y = mouseY
+                rulerModel.distanceToMouse(map.toCoordinate(Qt.point(mouseX, mouseY)));
+                var checkdistance = rulerModel.checkPoint;
             }
             if (instruments.savePointsButton.checked == true){
                 saveArea.bottomRight = map.toCoordinate(Qt.point(mouseX, mouseY))

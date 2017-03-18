@@ -4,6 +4,7 @@
 RulerModel::RulerModel(QObject *parent):
     QObject(parent)
 {
+    this -> dist_to_mouse = 0;
 
 }
 void RulerModel::addPoint(QGeoCoordinate point)
@@ -39,7 +40,28 @@ QVariant RulerModel::distance()
     {
         QGeoCoordinate one(this->rulerList().at(i-1).value<QGeoCoordinate>());
         QGeoCoordinate two(this->rulerList().at(i).value<QGeoCoordinate>());
-        sum+= one.distanceTo(two);
+        sum += one.distanceTo(two);
     }
+    this->last_sum = sum;
     return QVariant(QString::number(sum).append(" метров"));
+}
+
+void RulerModel::distanceToMouse(QGeoCoordinate point)
+{
+    double sum = 0;
+
+    int size = this->rulerList().size();
+    if (size > 0)
+    {
+        QGeoCoordinate last_point(this->rulerList().at(size-1).value<QGeoCoordinate>());
+        sum +=  this->last_sum + last_point.distanceTo(point);
+        this->dist_to_mouse = sum;
+    }
+
+    emit checkPointChanged();
+}
+
+QVariant RulerModel::checkPoint()
+{
+    return QVariant(QString::number(this->dist_to_mouse).append(" метров"));
 }
