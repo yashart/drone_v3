@@ -13,6 +13,7 @@
 #include "models/rulerModel.h"
 #include "providers/sliderimageprovider.h"
 #include "providers/iconsprovider.h"
+#include "backend/tilesdownloader.h"
 
 
 int main(int argc, char *argv[])
@@ -28,6 +29,10 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
+
+
+    QUrl imageUrl("http://khms1.google.com/kh/v=717&src=app&x=39601&y=20490&z=16&s=3");
+    TilesDownloader m_pImgCtrl(imageUrl);
 
     //db.addExifDir("D:/Shurup/ortophoto");
     //db.addExifDir("D:/VladPole", "VladPole");
