@@ -8,13 +8,12 @@
 #include <QNetworkReply>
 #include <QImage>
 
-#define PATH_TO_LOCAL_CACHE "D://1.jpg"
 
 class TilesDownloader : public QObject
 {
  Q_OBJECT
  public:
-  explicit TilesDownloader(QUrl imageUrl, QObject *parent = 0);
+  explicit TilesDownloader(QString pathToCache, QObject *parent = 0);
   virtual ~TilesDownloader();
   QByteArray downloadedData() const;
 
@@ -26,6 +25,7 @@ class TilesDownloader : public QObject
   void loadImage();
 
  private:
+  QString path_to_cache;
   QNetworkAccessManager m_WebCtrl;
   QByteArray m_DownloadedData;
 };
