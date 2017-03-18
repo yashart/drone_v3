@@ -5,6 +5,7 @@
 #include <QList>
 #include <QGeoCoordinate>
 #include <QDebug>
+#include <math.h>
 
 class RulerModel : public QObject
 {

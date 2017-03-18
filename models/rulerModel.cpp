@@ -1,5 +1,5 @@
 #include "rulerModel.h"
-#include <QDebug>
+
 
 RulerModel::RulerModel(QObject *parent):
     QObject(parent)
@@ -31,6 +31,7 @@ void RulerModel::delPoint()
     {
         this->dist_to_mouse = 0;
         this->last_sum = 0;
+        this->azimuth = 0;
     }
 
     emit rulerListChanged();
@@ -49,7 +50,7 @@ QVariant RulerModel::distance()
         sum += one.distanceTo(two);
     }
     this->last_sum = sum;
-    return QVariant(QString::number(sum).append(" метров"));
+    return QVariant(QString::number(sum).append(" м"));
 }
 
 void RulerModel::distanceToMouse(QGeoCoordinate point)
@@ -71,5 +72,9 @@ void RulerModel::distanceToMouse(QGeoCoordinate point)
 
 QVariant RulerModel::checkPoint()
 {
-    return QVariant(QString::number(this->dist_to_mouse).append(" метров\n").append(QString::number(this->azimuth)));
+    QString retStr(QString::number(floor(this->dist_to_mouse)));
+    retStr.append(" м\n");
+    retStr.append(QString::number(floor(this->azimuth)));
+    retStr.append(" град\n");
+    return QVariant(retStr);
 }
