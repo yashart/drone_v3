@@ -59,5 +59,6 @@ private:
     QVariantList m_rulerList;
     double last_sum;
     double dist_to_mouse;
+    double azimuth;
 };
 #endif // RULER_H
