@@ -45,8 +45,8 @@ Map {
         }
         onPositionChanged: {
             if (instruments.rulerButton.checked == true){
-                rulerPopup.x = mouseX
-                rulerPopup.y = mouseY
+                rulerPopup.x = mouseX + 25
+                rulerPopup.y = mouseY + 25
                 rulerModel.distanceToMouse(map.toCoordinate(Qt.point(mouseX, mouseY)));
                 var checkdistance = rulerModel.checkPoint;
             }

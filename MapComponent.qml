@@ -70,11 +70,12 @@ Item {
         border.width: 5
         radius: 10
         visible: rulerPopup.visible
+        opacity: 0.7
     }
 
     Label {
         id: rulerPopup
-        font.pointSize: 17
+        font.pointSize: 12
         text: qsTr(rulerModel.checkPoint + "\n" + rulerModel.distance)
         visible: false
         z: 3
