@@ -7,6 +7,10 @@ Item {
     property alias rulerButton: rulerButton
     property alias leftMenuButton: leftMenuButton
     property alias removeButton: removeButton
+    property alias mouseButton: mouseButton
+    property alias angleButton: angleButton
+    property alias savePointsButton: savePointsButton
+
     id: instruments
     z: 1
 
@@ -44,6 +48,13 @@ Item {
             ToolButton {
                 id: angleButton
                 text: qsTr("Уголок")
+                checkable: true
+                autoExclusive: true
+            }
+
+            ToolButton {
+                id: savePointsButton
+                text: qsTr("Сохранить карту")
                 checkable: true
                 autoExclusive: true
             }
