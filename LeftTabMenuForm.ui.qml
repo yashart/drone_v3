@@ -51,12 +51,11 @@ Window {
                 id: stackLayout
                 anchors.fill: parent
                 currentIndex: tabBar.currentIndex
-
                 ScrollView {
                     id: tracksTab
                     anchors.fill: parent
                     Column {
-                        anchors.fill: parent
+                        //anchors.fill: parent
                         Repeater {
                             id: tracksView
                             model: tracksModel
@@ -118,41 +117,44 @@ Window {
 
                 Item {
                     id: mapPluginTab
+                    ScrollView {
+                        anchors.fill: parent
+                        ColumnLayout {
 
-                    ColumnLayout {
-                        RadioButton {
-                            id: googleRadio
-                            text: qsTr("Google Maps")
-                        }
-                        RadioButton {
-                            id: yandexRadio
-                            text: qsTr("Yandex Maps")
-                        }
-                        RadioButton {
-                            id: offlineGoogleRadio
-                            text: qsTr("Offline Google Maps")
-                        }
-                        RadioButton {
-                            id: offlineYandexRadio
-                            text: qsTr("Offline Yandex Maps")
-                        }
+                            RadioButton {
+                                id: googleRadio
+                                text: qsTr("Google Maps")
+                            }
+                            RadioButton {
+                                id: yandexRadio
+                                text: qsTr("Yandex Maps")
+                            }
+                            RadioButton {
+                                id: offlineGoogleRadio
+                                text: qsTr("Offline Google Maps")
+                            }
+                            RadioButton {
+                                id: offlineYandexRadio
+                                text: qsTr("Offline Yandex Maps")
+                            }
 
-                        RadioButton {
-                            id: osmRadio
-                            checked: true
-                            text: qsTr("Osm")
-                        }
-                        RadioButton {
-                            id: mapboxRadio
-                            text: qsTr("Mapbox")
-                        }
-                        RadioButton {
-                            id: esriRadio
-                            text: qsTr("Esri")
-                        }
-                        RadioButton {
-                            id: hereRadio
-                            text: qsTr("Here")
+                            RadioButton {
+                                id: osmRadio
+                                checked: true
+                                text: qsTr("Osm")
+                            }
+                            RadioButton {
+                                id: mapboxRadio
+                                text: qsTr("Mapbox")
+                            }
+                            RadioButton {
+                                id: esriRadio
+                                text: qsTr("Esri")
+                            }
+                            RadioButton {
+                                id: hereRadio
+                                text: qsTr("Here")
+                            }
                         }
                     }
                 }
