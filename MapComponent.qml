@@ -64,10 +64,12 @@ Item {
     Rectangle {
         z: 2
         anchors.fill: rulerPopup
+        anchors.margins: -10
         color: "red"
         border.color: "black"
         border.width: 5
         radius: 10
+        visible: rulerPopup.visible
     }
 
     Label {
