@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.2
 
 Window {
-    height: 360
+    height: 560
     width: 360
     id: leftTabMenuWindow
     property alias osmRadio: osmRadio
@@ -28,6 +28,7 @@ Window {
 
         Page {
             id: leftTabMenu
+            anchors.fill: parent
 
             header: TabBar {
                 id: tabBar
