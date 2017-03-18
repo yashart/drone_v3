@@ -31,9 +31,27 @@ LeftTabMenuForm {
 
     }
 
-    customRadio.onClicked: {
+    googleRadio.onClicked: {
         changeMapPlugin("customPlugin");
         mapComponent.changeMapType(1);
+        linesModel.updateModel();
+        pointsModel.updateModel();
+    }
+    yandexRadio.onClicked: {
+        changeMapPlugin("customPlugin");
+        mapComponent.changeMapType(4);
+        linesModel.updateModel();
+        pointsModel.updateModel();
+    }
+    offlineGoogleRadio.onClicked: {
+        changeMapPlugin("customPlugin");
+        mapComponent.changeMapType(5);
+        linesModel.updateModel();
+        pointsModel.updateModel();
+    }
+    offlineYandexRadio.onClicked: {
+        changeMapPlugin("customPlugin");
+        mapComponent.changeMapType(6);
         linesModel.updateModel();
         pointsModel.updateModel();
     }

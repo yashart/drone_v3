@@ -63,5 +63,6 @@
         <file>EsriPlugin.qml</file>
         <file>HerePlugin.qml</file>
         <file>CustomPlugin.qml</file>
+        <file>VideoWindows.qml</file>
     </qresource>
 </RCC>

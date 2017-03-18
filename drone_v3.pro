@@ -52,3 +52,5 @@ HEADERS += \
 
 DISTFILES += \
     database/DataBase.db
+
+#LIBS       += -lVLCQtCore -lVLCQtWidgets -lVLCQtQml

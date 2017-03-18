@@ -37,5 +37,10 @@ ApplicationWindow {
         id: addTracks
         visible: false
     }
+    VideoWindows
+    {
+        id: videoPage
+        visible:false
+    }
 
 }

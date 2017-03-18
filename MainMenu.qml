@@ -21,6 +21,7 @@ MenuBar {
         MenuItem {text: "Измерение углов"}
         MenuItem {text: "Прейти в заданную точку"}
         MenuItem {text: "Сохранить выделенную область в кэш"}
+        MenuItem {text: "Видео"; onTriggered: {videoPage.visible=true}}
     }
     Menu {
         title: qsTr("Вид")

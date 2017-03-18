@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+//#include <VLCQtCore/Common.h> For vlc-qt lib
+//#include <VLCQtQml/QmlVideoPlayer.h>
 #include "database/database.h"
 #include "database/tracksmodel.h"
 #include "database/pointsmodel.h"
@@ -37,6 +39,9 @@ int main(int argc, char *argv[])
                      &pointsPhotoModel, &PointsPhotoModel::updateModel);
     QObject::connect(&db, &DataBase::updateTracks,
                      &tracksModel, &TracksModel::updateModel);
+
+    //VlcCommon::setPluginPath(app.applicationDirPath() + "/plugins");
+    //VlcQmlVideoPlayer::registerPlugin();
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();

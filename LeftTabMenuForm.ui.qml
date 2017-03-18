@@ -13,7 +13,11 @@ Window {
     property alias esriRadio: esriRadio
     property alias leftTabMenuArea: leftTabMenuArea
     property alias hereRadio: hereRadio
-    property alias customRadio: customRadio
+    property alias googleRadio: googleRadio
+    property alias yandexRadio: yandexRadio
+    property alias offlineGoogleRadio: offlineGoogleRadio
+    property alias offlineYandexRadio: offlineYandexRadio
+
     visible: parent.visible
     opacity: 0.75
 
@@ -116,29 +120,38 @@ Window {
 
                     ColumnLayout {
                         RadioButton {
+                            id: googleRadio
+                            text: qsTr("Google Maps")
+                        }
+                        RadioButton {
+                            id: yandexRadio
+                            text: qsTr("Yandex Maps")
+                        }
+                        RadioButton {
+                            id: offlineGoogleRadio
+                            text: qsTr("Offline Google Maps")
+                        }
+                        RadioButton {
+                            id: offlineYandexRadio
+                            text: qsTr("Offline Yandex Maps")
+                        }
+
+                        RadioButton {
                             id: osmRadio
                             checked: true
                             text: qsTr("Osm")
                         }
-
                         RadioButton {
                             id: mapboxRadio
                             text: qsTr("Mapbox")
                         }
-
                         RadioButton {
                             id: esriRadio
                             text: qsTr("Esri")
                         }
-
                         RadioButton {
                             id: hereRadio
                             text: qsTr("Here")
-                        }
-
-                        RadioButton {
-                            id: customRadio
-                            text: qsTr("Custom")
                         }
                     }
                 }
