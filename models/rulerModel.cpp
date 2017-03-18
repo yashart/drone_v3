@@ -26,6 +26,11 @@ void RulerModel::delPoint()
     {
         this->m_rulerList.pop_back();
     }
+    if (this->m_rulerList.empty())
+    {
+        this->dist_to_mouse = 0;
+        this->last_sum = 0;
+    }
 
     emit rulerListChanged();
     emit startPointChanged();

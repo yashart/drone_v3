@@ -64,7 +64,7 @@ Item {
     Label {
         id: rulerPopup
         font.pointSize: 17
-        text: qsTr(rulerModel.checkPoint)
+        text: qsTr(rulerModel.checkPoint + "\n" + rulerModel.distance)
         visible: false
         z: 3
     }
