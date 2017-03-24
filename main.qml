@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.0
 ApplicationWindow {
     visible: true
     visibility: "Maximized"
+    minimumWidth: 600
+    minimumHeight: 400
     title: qsTr("Полигон Ф")
     menuBar: mainMenu
 
@@ -36,6 +38,11 @@ ApplicationWindow {
     AddTracks {
         id: addTracks
         visible: false
+    }
+    VideoWindows
+    {
+        id: videoPage
+        visible:false
     }
 
 }

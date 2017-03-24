@@ -13,12 +13,22 @@ Item {
         if(map_name == "mapboxPlugin"){
             mapComponent.createMap(mapComponent.mapboxPlugin);
         }
+        if(map_name == "esriPlugin"){
+            mapComponent.createMap(mapComponent.esriPlugin);
+        }
+        if(map_name == "herePlugin"){
+            mapComponent.createMap(mapComponent.herePlugin);
+        }
+        if(map_name == "customPlugin"){
+            mapComponent.createMap(mapComponent.customPlugin);
+        }
     }
 
     LeftTabMenu{
         id: leftTabMenu
         visible: false
     }
+
     MapComponent{
         id: mapComponent
         anchors.fill: parent

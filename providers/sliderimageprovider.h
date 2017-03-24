@@ -16,9 +16,7 @@ public:
     {
         QImage image(id);
 
-        qDebug() << id;
         image = image.scaled(166, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        qDebug() << endl;
         return image;
     }
 };

@@ -11,14 +11,29 @@ Map {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         id: mouseAreaMap
+        hoverEnabled: true
+
         onClicked: {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
-                var point = map.toCoordinate(Qt.point(mouseX, mouseY))
-                popupPoints.set_popup_points_position(point.latitude, point.longitude, 0)
-                popupPoints.visible = true
+                if(instruments.pointsButton.checked == true){
+                    var point = map.toCoordinate(Qt.point(mouseX, mouseY))
+                    popupPoints.set_popup_points_position(point.latitude, point.longitude, 0)
+                    popupPoints.visible = true
+                }
 
-                if(instruments.rulerButton.checked == true){
+                if (instruments.rulerButton.checked == true){
                     rulerModel.addPoint(map.toCoordinate(Qt.point(mouseX, mouseY)));
+                }
+
+                if (instruments.savePointsButton.checked == true){
+                    if (saveArea.visible == false){
+                        saveArea.topLeft = map.toCoordinate(Qt.point(mouseX, mouseY))
+                        saveArea.visible = true
+                    } else{
+                        saveArea.visible = false
+                        getGoogleTiles()
+                        //TODO: send tiles coordinates
+                    }
                 }
             }
 
@@ -26,6 +41,17 @@ Map {
                 if (instruments.rulerButton.checked == true){
                    rulerModel.delPoint();
                 }
+            }
+        }
+        onPositionChanged: {
+            if (instruments.rulerButton.checked == true){
+                rulerPopup.x = mouseX + 25
+                rulerPopup.y = mouseY + 25
+                rulerModel.distanceToMouse(map.toCoordinate(Qt.point(mouseX, mouseY)));
+                var checkdistance = rulerModel.checkPoint;
+            }
+            if (instruments.savePointsButton.checked == true){
+                saveArea.bottomRight = map.toCoordinate(Qt.point(mouseX, mouseY))
             }
         }
     }
@@ -127,7 +153,7 @@ Map {
             { latitude: 0, longitude: 0}
         ]
     }
-    MapPolyline{
+    MapPolyline {
        id: lookAt
        line.width: 4
        line.color: 'red'
@@ -139,7 +165,7 @@ Map {
     MapItemView {
         id: pointsOnTrack
         model: pointsModel
-        delegate:     MapQuickItem {
+        delegate: MapQuickItem {
             coordinate: QtPositioning.coordinate(lat, lon)
             anchorPoint.x: markerTrackPoint.width / 2;
             anchorPoint.y: markerTrackPoint.height / 2;
@@ -150,7 +176,7 @@ Map {
                 source: "/img/photo.png"
             }
 
-            MouseArea{
+            MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
 
@@ -165,9 +191,11 @@ Map {
                     changeViewPortCenter(lat, lon, azimuth)
                     imagePage.currentPhoto.source = 'file:/' + dir + url
                     imagePage.currentPhoto.height = imagePage.pictureViewer.height
-                    imagePage.currentPhoto.azimuth = 90 + azimuth;
+                    imagePage.currentPhoto.rotation = azimuth
+                    imagePage.currentPhoto.azimuth = azimuth
                     imagePage.currentPhoto.lat = lat
                     imagePage.currentPhoto.lon = lon
+                    imagePage.currentPhoto.alt = alt
                     console.log(dir + url)
                     pointsPhotoModel.setCenter(lat, lon)
                     imagePage.visible = true
@@ -175,6 +203,28 @@ Map {
             }
         }
     }
+
+    MapRectangle {
+        id: saveArea
+        color: 'green'
+        border.width: 2
+        z: 3
+        topLeft {
+            latitude: 0
+            longitude: 0
+        }
+        bottomRight {
+            latitude: 0
+            longitude: 0
+        }
+        visible: false
+        opacity: 0.5
+    }
+
+    function getGoogleTiles(){
+        console.log("TODO: Get tiles")
+    }
+
     function changeViewPortCenter(lat, lon, azimuth) // изменение положения четырехугольника отражающего примерный захват изображения
     {
         console.log(azimuth);

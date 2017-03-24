@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+//#include <VLCQtCore/Common.h> For vlc-qt lib
+//#include <VLCQtQml/QmlVideoPlayer.h>
 #include "database/database.h"
 #include "database/tracksmodel.h"
 #include "database/pointsmodel.h"
@@ -11,6 +13,7 @@
 #include "models/rulerModel.h"
 #include "providers/sliderimageprovider.h"
 #include "providers/iconsprovider.h"
+#include "backend/tilesdownloader.h"
 
 
 int main(int argc, char *argv[])
@@ -27,9 +30,8 @@ int main(int argc, char *argv[])
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
 
-    //db.addExifDir("D:/Shurup/ortophoto");
-    //db.addExifDir("D:/VladPole", "VladPole");
-    //db.deleteTrack(17);
+    TilesDownloader m_pImgCtrl(QCoreApplication::applicationDirPath());
+
 
     QObject::connect(&db, &DataBase::updateLocationsModel,
                      &locationsModel, &LocationsModel::updateModel);
@@ -37,6 +39,9 @@ int main(int argc, char *argv[])
                      &pointsPhotoModel, &PointsPhotoModel::updateModel);
     QObject::connect(&db, &DataBase::updateTracks,
                      &tracksModel, &TracksModel::updateModel);
+
+    //VlcCommon::setPluginPath(app.applicationDirPath() + "/plugins");
+    //VlcQmlVideoPlayer::registerPlugin();
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();

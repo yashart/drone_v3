@@ -7,7 +7,11 @@ Item {
     id: mapComponent
     property alias osmPlugin: osmPlugin
     property alias mapboxPlugin: mapboxPlugin
-    property var newMap: defaultInitMap(osmPlugin);
+    property alias esriPlugin: esriPlugin
+    property alias herePlugin: herePlugin
+    property alias customPlugin: customPlugin
+    property alias rulerPopup: rulerPopup
+    property var newMap: defaultInitMap(osmPlugin)
 
     function defaultInitMap(plugin){
         var defaultMap = null
@@ -40,6 +44,10 @@ Item {
         }
 
         newMap.forceActiveFocus();
+        console.log("Supported MapType:");
+        for (var i = 0; i < newMap.supportedMapTypes.length; i++) {
+           console.log(i, newMap.supportedMapTypes[i].name);
+        }
 
     }
     function changeMapCenter(lat, lon) {
@@ -47,6 +55,30 @@ Item {
             newMap.center.latitude = lat; // широту
             newMap.center.longitude = lon; // долготу
         }
+    }
+
+    function changeMapType(mapTypeIndex) {
+        newMap.activeMapType = newMap.supportedMapTypes[mapTypeIndex]
+    }
+
+    Rectangle {
+        z: 2
+        anchors.fill: rulerPopup
+        anchors.margins: -10
+        color: "red"
+        border.color: "black"
+        border.width: 5
+        radius: 10
+        visible: rulerPopup.visible
+        opacity: 0.7
+    }
+
+    Label {
+        id: rulerPopup
+        font.pointSize: 12
+        text: qsTr(rulerModel.checkPoint + rulerModel.distance)
+        visible: false
+        z: 3
     }
 
     Instruments {
@@ -154,5 +186,17 @@ Item {
 
     MapboxPlugin {
         id: mapboxPlugin
+    }
+
+    EsriPlugin {
+        id: esriPlugin
+    }
+
+    HerePlugin {
+        id: herePlugin
+    }
+
+    CustomPlugin {
+        id: customPlugin
     }
 }

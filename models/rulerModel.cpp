@@ -1,9 +1,11 @@
 #include "rulerModel.h"
-#include <QDebug>
+
 
 RulerModel::RulerModel(QObject *parent):
     QObject(parent)
 {
+    this->dist_to_mouse = 0;
+    this->azimuth = 0;
 
 }
 void RulerModel::addPoint(QGeoCoordinate point)
@@ -25,6 +27,12 @@ void RulerModel::delPoint()
     {
         this->m_rulerList.pop_back();
     }
+    if (this->m_rulerList.empty())
+    {
+        this->dist_to_mouse = 0;
+        this->last_sum = 0;
+        this->azimuth = 0;
+    }
 
     emit rulerListChanged();
     emit startPointChanged();
@@ -39,7 +47,34 @@ QVariant RulerModel::distance()
     {
         QGeoCoordinate one(this->rulerList().at(i-1).value<QGeoCoordinate>());
         QGeoCoordinate two(this->rulerList().at(i).value<QGeoCoordinate>());
-        sum+= one.distanceTo(two);
+        sum += one.distanceTo(two);
     }
-    return QVariant(QString::number(sum).append(" метров"));
+    this->last_sum = sum;
+    return QVariant(QString::number(sum).append(" м"));
+}
+
+void RulerModel::distanceToMouse(QGeoCoordinate point)
+{
+    double sum = 0;
+
+    int size = this->rulerList().size();
+    if (size > 0)
+    {
+        QGeoCoordinate last_point(this->rulerList().at(size-1).value<QGeoCoordinate>());
+        sum +=  this->last_sum + last_point.distanceTo(point);
+        this->dist_to_mouse = sum;
+
+        this->azimuth = last_point.azimuthTo(point);
+    }
+
+    emit checkPointChanged();
+}
+
+QVariant RulerModel::checkPoint()
+{
+    QString retStr(QString::number(floor(this->dist_to_mouse)));
+    retStr.append(" м\n");
+    retStr.append(QString::number(floor(this->azimuth)));
+    retStr.append(" град\n");
+    return QVariant(retStr);
 }
