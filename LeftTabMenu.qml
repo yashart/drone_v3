@@ -49,12 +49,6 @@ LeftTabMenuForm {
         linesModel.updateModel();
         pointsModel.updateModel();
     }
-    offlineYandexRadio.onClicked: {
-        changeMapPlugin("customPlugin");
-        mapComponent.changeMapType(6);
-        linesModel.updateModel();
-        pointsModel.updateModel();
-    }
 
     leftTabMenuArea.onEntered: {
         opacity = 1
