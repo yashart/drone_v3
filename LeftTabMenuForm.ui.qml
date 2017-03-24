@@ -51,7 +51,7 @@ Window {
                 id: stackLayout
                 anchors.fill: parent
                 currentIndex: tabBar.currentIndex
- 
+
                 ScrollView {
                     id: tracksTab
                     anchors.fill: parent
@@ -67,19 +67,19 @@ Window {
                                     text: qsTr(name)
                                     checked: (is_check === "true") ? true : false
                                     onClicked:{
-                                            if (checked == true){
-                                                pointsModel.addId(id);
-                                                tracksModel.setChecked(id);
-                                                linesModel.addId(id);
-                                            }
-                                            if (checked == false){
-                                                pointsModel.delId(id);
-                                                tracksModel.setUnchecked(id);
-                                                linesModel.delId(id);
-                                            }
-                                            pointsModel.updateModel();
-                                            tracksModel.updateModel();
+                                        if (checked == true){
+                                            pointsModel.addId(id);
+                                            tracksModel.setChecked(id);
+                                            linesModel.addId(id);
                                         }
+                                        if (checked == false){
+                                            pointsModel.delId(id);
+                                            tracksModel.setUnchecked(id);
+                                            linesModel.delId(id);
+                                        }
+                                        pointsModel.updateModel();
+                                        tracksModel.updateModel();
+                                    }
                                     MouseArea {
                                         anchors.fill: parent
                                         acceptedButtons: Qt.RightButton
@@ -116,45 +116,46 @@ Window {
                         }
                     }
 
-                Item {
-                    id: mapPluginTab
-                    ScrollView {
-                        anchors.fill: parent
-                        ColumnLayout {
+                    Item {
+                        id: mapPluginTab
+                        ScrollView {
+                            anchors.fill: parent
+                            ColumnLayout {
 
-                            RadioButton {
-                                id: googleRadio
-                                text: qsTr("Google Maps")
-                            }
-                            RadioButton {
-                                id: yandexRadio
-                                text: qsTr("Yandex Maps")
-                            }
-                            RadioButton {
-                                id: offlineGoogleRadio
-                                text: qsTr("Offline Google Maps")
-                            }
-                            RadioButton {
-                                id: offlineYandexRadio
-                                text: qsTr("Offline Yandex Maps")
-                            }
+                                RadioButton {
+                                    id: googleRadio
+                                    text: qsTr("Google Maps")
+                                }
+                                RadioButton {
+                                    id: yandexRadio
+                                    text: qsTr("Yandex Maps")
+                                }
+                                RadioButton {
+                                    id: offlineGoogleRadio
+                                    text: qsTr("Offline Google Maps")
+                                }
+                                RadioButton {
+                                    id: offlineYandexRadio
+                                    text: qsTr("Offline Yandex Maps")
+                                }
 
-                            RadioButton {
-                                id: osmRadio
-                                checked: true
-                                text: qsTr("Osm")
-                            }
-                            RadioButton {
-                                id: mapboxRadio
-                                text: qsTr("Mapbox")
-                            }
-                            RadioButton {
-                                id: esriRadio
-                                text: qsTr("Esri")
-                            }
-                            RadioButton {
-                                id: hereRadio
-                                text: qsTr("Here")
+                                RadioButton {
+                                    id: osmRadio
+                                    checked: true
+                                    text: qsTr("Osm")
+                                }
+                                RadioButton {
+                                    id: mapboxRadio
+                                    text: qsTr("Mapbox")
+                                }
+                                RadioButton {
+                                    id: esriRadio
+                                    text: qsTr("Esri")
+                                }
+                                RadioButton {
+                                    id: hereRadio
+                                    text: qsTr("Here")
+                                }
                             }
                         }
                     }
