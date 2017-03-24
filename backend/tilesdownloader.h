@@ -7,6 +7,13 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QImage>
+#include <QRect>
+#include <QtMath>
+#include <QDir>
+#include <QPoint>
+#include <QTime>
+#include <dos.h>
+#include <stdio.h>
 
 
 class TilesDownloader : public QObject
@@ -16,6 +23,8 @@ class TilesDownloader : public QObject
   explicit TilesDownloader(QString pathToCache, QObject *parent = 0);
   virtual ~TilesDownloader();
   QByteArray downloadedData() const;
+
+  Q_INVOKABLE void downloadTiles(double lat1, double lon1, double lat2, double lon2);
 
  signals:
   void downloaded();
@@ -28,6 +37,12 @@ class TilesDownloader : public QObject
   QString path_to_cache;
   QNetworkAccessManager m_WebCtrl;
   QByteArray m_DownloadedData;
+
+  void generateFilePath(QRect rect);
+  void startDownload();
+
+  QStringList urlList;
+  QList<QPoint> tiles;
 };
 
 
