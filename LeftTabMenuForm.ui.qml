@@ -51,9 +51,11 @@ Window {
                 id: stackLayout
                 anchors.fill: parent
                 currentIndex: tabBar.currentIndex
+ 
                 ScrollView {
                     id: tracksTab
                     anchors.fill: parent
+
                     Column {
                         //anchors.fill: parent
                         Repeater {
@@ -113,7 +115,6 @@ Window {
                             text: qsTr("Редактировать")
                         }
                     }
-                }
 
                 Item {
                     id: mapPluginTab
