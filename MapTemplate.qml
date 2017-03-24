@@ -31,7 +31,11 @@ Map {
                         saveArea.visible = true
                     } else{
                         saveArea.visible = false
-                        getGoogleTiles()
+                        var lat1 = saveArea.topLeft.latitude
+                        var lon1 = saveArea.topLeft.longitude
+                        var lat2 = saveArea.bottomRight.latitude
+                        var lon2 = saveArea.bottomRight.longitude
+                        tilesDownloader.downloadTiles(lat1, lon1, lat2, lon2);
                         //TODO: send tiles coordinates
                     }
                 }

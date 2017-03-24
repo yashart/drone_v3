@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
 
-    TilesDownloader m_pImgCtrl(QCoreApplication::applicationDirPath());
+    TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
 
 
     QObject::connect(&db, &DataBase::updateLocationsModel,
@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("linesModel", &linesModel);
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
+    ctx->setContextProperty("tilesDownloader", &tilesDownloader);
 
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());
     engine.addImageProvider(QLatin1String("Icons"), new IconProvider());
