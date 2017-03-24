@@ -64,5 +64,7 @@
         <file>HerePlugin.qml</file>
         <file>CustomPlugin.qml</file>
         <file>VideoWindows.qml</file>
+        <file>InstrumentsImage.qml</file>
+        <file>InstrumentsImageForm.ui.qml</file>
     </qresource>
 </RCC>

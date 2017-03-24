@@ -28,6 +28,7 @@ Item {
         id: leftTabMenu
         visible: false
     }
+
     MapComponent{
         id: mapComponent
         anchors.fill: parent

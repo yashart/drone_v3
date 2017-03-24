@@ -191,9 +191,11 @@ Map {
                     changeViewPortCenter(lat, lon, azimuth)
                     imagePage.currentPhoto.source = 'file:/' + dir + url
                     imagePage.currentPhoto.height = imagePage.pictureViewer.height
-                    imagePage.currentPhoto.azimuth = 90 + azimuth;
+                    imagePage.currentPhoto.rotation = azimuth
+                    imagePage.currentPhoto.azimuth = azimuth
                     imagePage.currentPhoto.lat = lat
                     imagePage.currentPhoto.lon = lon
+                    imagePage.currentPhoto.alt = alt
                     console.log(dir + url)
                     pointsPhotoModel.setCenter(lat, lon)
                     imagePage.visible = true
