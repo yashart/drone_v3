@@ -92,6 +92,65 @@ Window {
                     id: photoAlt
                     text: currentPhoto.alt
                 }
+
+                Label {
+                    text: qsTr("Режимы фото")
+                    font.bold: true
+                }
+
+                GridLayout {
+                    columns: 3
+
+                    ExclusiveGroup { id: imagePropertyGroup }
+
+                    Label {
+                        text: qsTr("Обычное")
+                        Layout.row: 0
+                        Layout.column: 0
+                    }
+
+                    Label {
+                        text: qsTr("Инвертированное")
+                        Layout.row: 1
+                        Layout.column: 0
+                    }
+
+                    Label {
+                        text: qsTr("Контраст")
+                        Layout.row: 2
+                        Layout.column: 0
+                    }
+
+                    RadioButton {
+                        id: standartImageRadio
+                        checked: true
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 0
+                        Layout.column: 1
+                    }
+
+                    RadioButton {
+                        id: invertImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 1
+                        Layout.column: 1
+                    }
+
+                    RadioButton {
+                        id: contrastRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 2
+                        Layout.column: 1
+                    }
+
+                    Slider {
+                        maximumValue: 100
+                        stepSize: 1
+                        value: 50
+                        Layout.row: 2
+                        Layout.column: 2
+                    }
+                }
             }
         }
 
