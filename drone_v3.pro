@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     database/locationsmodel.cpp \
     database/imagesmodel.cpp \
     exif/exifinfo.cpp \
-    backend/tilesdownloader.cpp
+    backend/tilesdownloader.cpp \
+    providers/photoprovider.cpp
 
 RESOURCES += qml.qrc
 
@@ -50,7 +51,8 @@ HEADERS += \
     database/imagesmodel.h \
     providers/iconsprovider.h \
     exif/exifinfo.h \
-    backend/tilesdownloader.h
+    backend/tilesdownloader.h \
+    providers/photoprovider.h
 
 DISTFILES += \
     database/DataBase.db

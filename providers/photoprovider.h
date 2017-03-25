@@ -1,24 +1,18 @@
-#ifndef IMAGEPROVIDER_H
-#define IMAGEPROVIDER_H
+#ifndef PHOTOPROVIDER_H
+#define PHOTOPROVIDER_H
 
 #include <QQuickImageProvider>
 #include <QPainter>
 
-class SliderImageProvider : public QQuickImageProvider
+class PhotoProvider : public QQuickImageProvider
 {
 public:
-    SliderImageProvider()
+    PhotoProvider()
         : QQuickImageProvider(QQuickImageProvider::Image)
     {
     }
 
-    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize)
-    {
-        QImage image(id);
-
-        image = image.scaled(166, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        return image;
-    }
+    QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 };
 
-#endif // IMAGEPROVIDER_H
+#endif // PHOTOPROVIDER_H

@@ -116,7 +116,7 @@ Window {
                         id: currentPhoto
                         fillMode: Image.PreserveAspectFit
                         height: pictureViewer.height
-                        source: "img/photo_example.jpg"
+                        source: "image://Photo/D5555.JPG/invert"
                         z: 2
                         property var lat: 0
                         property var lon: 0

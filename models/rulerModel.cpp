@@ -64,7 +64,15 @@ void RulerModel::distanceToMouse(QGeoCoordinate point)
         sum +=  this->last_sum + last_point.distanceTo(point);
         this->dist_to_mouse = sum;
 
-        this->azimuth = last_point.azimuthTo(point);
+        if (size >= 2) // Если уже установленно две и более точек измеряем улог, образованный тремя последними точками
+        {
+            QGeoCoordinate pre_last_point(this->rulerList().at(size-2).value<QGeoCoordinate>()); // предпоследняя точка
+            this->azimuth = qAbs(last_point.azimuthTo(point) - last_point.azimuthTo(pre_last_point));
+        }
+        else
+        {
+            this->azimuth = last_point.azimuthTo(point);
+        }
     }
 
     emit checkPointChanged();

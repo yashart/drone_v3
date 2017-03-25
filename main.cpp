@@ -3,6 +3,7 @@
 #include <QQmlContext>
 //#include <VLCQtCore/Common.h> For vlc-qt lib
 //#include <VLCQtQml/QmlVideoPlayer.h>
+
 #include "database/database.h"
 #include "database/tracksmodel.h"
 #include "database/pointsmodel.h"
@@ -10,9 +11,13 @@
 #include "database/locationsmodel.h"
 #include "database/linesModel.h"
 #include "database/pointsphotomodel.h"
+
 #include "models/rulerModel.h"
+
 #include "providers/sliderimageprovider.h"
 #include "providers/iconsprovider.h"
+#include "providers/photoprovider.h"
+
 #include "backend/tilesdownloader.h"
 
 
@@ -57,6 +62,7 @@ int main(int argc, char *argv[])
 
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());
     engine.addImageProvider(QLatin1String("Icons"), new IconProvider());
+    engine.addImageProvider(QLatin1String("Photo"), new PhotoProvider());
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 

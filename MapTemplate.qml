@@ -193,14 +193,15 @@ Map {
                 }
                 onClicked: {
                     changeViewPortCenter(lat, lon, azimuth)
-                    imagePage.currentPhoto.source = 'file:/' + dir + url
+
+                    imagePage.currentPhoto.source = 'image://Photo/' + url //Для работы изображений используется провайдер
                     imagePage.currentPhoto.height = imagePage.pictureViewer.height
                     imagePage.currentPhoto.rotation = azimuth
                     imagePage.currentPhoto.azimuth = azimuth
                     imagePage.currentPhoto.lat = lat
                     imagePage.currentPhoto.lon = lon
                     imagePage.currentPhoto.alt = alt
-                    console.log(dir + url)
+                    console.log(imagePage.currentPhoto.source)
                     pointsPhotoModel.setCenter(lat, lon)
                     imagePage.visible = true
                 }
