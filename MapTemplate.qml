@@ -200,7 +200,9 @@ Map {
                     imagePage.currentPhoto.lat = lat
                     imagePage.currentPhoto.lon = lon
                     imagePage.currentPhoto.alt = alt
+                    imagePage.currentPhoto.imageName = url
                     console.log(dir + url)
+                    console.log(url)
                     pointsPhotoModel.setCenter(lat, lon)
                     imagePage.visible = true
                 }

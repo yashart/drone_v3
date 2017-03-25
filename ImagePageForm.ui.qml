@@ -9,6 +9,10 @@ Window {
     property alias dragAreaPhoto: dragAreaPhoto
     property alias pictureViewer: pictureViewer
     property alias photoInformation: photoInformation
+    property alias standartImageRadio: standartImageRadio
+    property alias invertImageRadio: invertImageRadio
+    property alias contrastImageRadio: contrastImageRadio
+    property alias contrastSlider: contrastSlider
     height: 360
     width: 360
     RowLayout {
@@ -137,13 +141,14 @@ Window {
                     }
 
                     RadioButton {
-                        id: contrastRadio
+                        id: contrastImageRadio
                         exclusiveGroup: imagePropertyGroup
                         Layout.row: 2
                         Layout.column: 1
                     }
 
                     Slider {
+                        id: contrastSlider
                         maximumValue: 100
                         stepSize: 1
                         value: 50
@@ -188,6 +193,7 @@ Window {
                         property var lon: 0
                         property var azimuth: 0
                         property var alt: 0
+                        property var imageName: 0
                         ListView {
                             anchors.fill: parent
                             id: pointsOnPicture
