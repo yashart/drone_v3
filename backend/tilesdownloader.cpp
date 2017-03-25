@@ -1,6 +1,6 @@
 #include "tilesdownloader.h"
 
-#include "windows.h"
+//#include "windows.h"
 using namespace std;
 
 TilesDownloader::TilesDownloader(QString pathToCache, QObject *parent) :
@@ -109,7 +109,6 @@ void TilesDownloader::loadImage()
     if (!this->tiles.isEmpty())
     {
         this->tiles.pop_front();
-        Sleep(200);
         startDownload();
     }
 
