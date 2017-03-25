@@ -9,96 +9,167 @@ Window {
     property alias dragAreaPhoto: dragAreaPhoto
     property alias pictureViewer: pictureViewer
     property alias photoInformation: photoInformation
+    property alias standartImageRadio: standartImageRadio
+    property alias invertImageRadio: invertImageRadio
+    property alias contrastImageRadio: contrastImageRadio
+    property alias contrastSlider: contrastSlider
     height: 360
     width: 360
     RowLayout {
         anchors.fill: parent
-        ColumnLayout {
+        Rectangle {
+            z: 2
+            color: "#E0E0E0"
             id: photoInformation
             Layout.preferredWidth: parent.width * 0.2
+            Layout.preferredHeight: parent.height
 
-            Label {
-                text: qsTr("Трек:")
-                font.bold: true
+            ColumnLayout {
+                anchors.fill: parent
+
+                Label {
+                    text: qsTr("Трек:")
+                    font.bold: true
+                }
+
+                Label {
+                    id: trackName
+                }
+
+                Label {
+                    text: qsTr("Фотография")
+                    font.bold: true
+                }
+
+                Label {
+                    id: photoName
+                    text: currentPhoto.source
+                    font.pointSize: 8
+                }
+
+                Label {
+                    text: qsTr("Широта")
+                    font.bold: true
+                }
+
+                Label {
+                    id: photoLat
+                    text: currentPhoto.lat
+                }
+
+                Label {
+                    text: qsTr("Долгота")
+                    font.bold: true
+                }
+
+                Label {
+                    id: photoLon
+                    text: currentPhoto.lon
+                }
+
+                Label {
+                    text: qsTr("Азимут")
+                    font.bold: true
+                }
+
+                Label {
+                    id: photoAzimuth
+                    text: currentPhoto.azimuth
+                }
+
+                Label {
+                    text: qsTr("Поворот фото")
+                    font.bold: true
+                }
+
+                Label {
+                    id: photoRotation
+                    text: currentPhoto.rotation % 360
+                }
+
+                Label {
+                    text: qsTr("Высота")
+                    font.bold: true
+                }
+
+                Label {
+                    id: photoAlt
+                    text: currentPhoto.alt
+                }
+
+                Label {
+                    text: qsTr("Режимы фото")
+                    font.bold: true
+                }
+
+                GridLayout {
+                    columns: 3
+
+                    ExclusiveGroup { id: imagePropertyGroup }
+
+                    Label {
+                        text: qsTr("Обычное")
+                        Layout.row: 0
+                        Layout.column: 0
+                    }
+
+                    Label {
+                        text: qsTr("Инвертированное")
+                        Layout.row: 1
+                        Layout.column: 0
+                    }
+
+                    Label {
+                        text: qsTr("Контраст")
+                        Layout.row: 2
+                        Layout.column: 0
+                    }
+
+                    RadioButton {
+                        id: standartImageRadio
+                        checked: true
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 0
+                        Layout.column: 1
+                    }
+
+                    RadioButton {
+                        id: invertImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 1
+                        Layout.column: 1
+                    }
+
+                    RadioButton {
+                        id: contrastImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 2
+                        Layout.column: 1
+                    }
+
+                    Slider {
+                        id: contrastSlider
+                        maximumValue: 100
+                        stepSize: 1
+                        value: 50
+                        Layout.row: 2
+                        Layout.column: 2
+                    }
+                }
             }
-
-            Label {
-                id: trackName
-            }
-
-            Label {
-                text: qsTr("Фотография")
-                font.bold: true
-            }
-
-            Label {
-                id: photoName
-                text: currentPhoto.source
-                font.pointSize: 8
-            }
-
-            Label {
-                text: qsTr("Широта")
-                font.bold: true
-            }
-
-            Label {
-                id: photoLat
-                text: currentPhoto.lat
-            }
-
-            Label {
-                text: qsTr("Долгота")
-                font.bold: true
-            }
-
-            Label {
-                id: photoLon
-                text: currentPhoto.lon
-            }
-
-            Label {
-                text: qsTr("Азимут")
-                font.bold: true
-            }
-
-            Label {
-                id: photoAzimuth
-                text: currentPhoto.azimuth
-            }
-
-            Label {
-                text: qsTr("Поворот фото")
-                font.bold: true
-            }
-
-            Label {
-                id: photoRotation
-                text: currentPhoto.rotation % 360
-            }
-
-            Label {
-                text: qsTr("Высота")
-                font.bold: true
-            }
-
-            Label {
-                id: photoAlt
-                text: currentPhoto.alt
-            }
-
-
-
         }
+
         ColumnLayout {
             Layout.preferredHeight: parent.height
             Layout.preferredWidth: parent.width * 0.8
             id: columnLayout
+            z: 1
 
             Item {
                 id: pictureViewer
                 Layout.preferredHeight: 0.7 * parent.height
                 Layout.preferredWidth: parent.width
+                z: 1
 
                 InstrumentsImage {
                     z: 2
@@ -122,6 +193,7 @@ Window {
                         property var lon: 0
                         property var azimuth: 0
                         property var alt: 0
+                        property var imageName: 0
                         ListView {
                             anchors.fill: parent
                             id: pointsOnPicture
@@ -184,10 +256,13 @@ Window {
                 }
             }
 
-            Item {
+            Rectangle {
                 id: photoScroll
                 Layout.preferredHeight: 0.28 * parent.height
                 Layout.preferredWidth: parent.width
+                Layout.fillWidth: true
+                color: "#E0E0E0"
+                z: 2
                 ScrollView {
                     id: scrollPhotoView
                     anchors.fill: parent

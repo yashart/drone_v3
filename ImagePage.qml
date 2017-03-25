@@ -32,6 +32,21 @@ ImagePageForm {
                                               coordinate.longitude,
                                               0)
         popupPoints.visible = true
-
     }
+    standartImageRadio.onClicked: {
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.imageName +
+                "/standart"
+    }
+    invertImageRadio.onClicked: {
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.imageName +
+                "/invert"
+    }
+    contrastImageRadio.onClicked: {
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.imageName +
+                "/contrast/" + contrastSlider.value
+    }
+
 }

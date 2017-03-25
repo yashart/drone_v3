@@ -12,7 +12,7 @@
 #include <QDir>
 #include <QPoint>
 #include <QTime>
-#include <dos.h>
+//#include <dos.h>
 #include <stdio.h>
 
 
