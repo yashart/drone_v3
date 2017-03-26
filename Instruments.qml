@@ -17,9 +17,6 @@ InstrumentsForm {
     mouseButton.onClicked: {
         rulerPopup.visible = false
     }
-    angleButton.onClicked: {
-        rulerPopup.visible = false
-    }
     savePointsButton.onClicked: {
         rulerPopup.visible = false
     }
