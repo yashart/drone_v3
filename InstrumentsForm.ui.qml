@@ -8,7 +8,6 @@ Item {
     property alias leftMenuButton: leftMenuButton
     property alias removeButton: removeButton
     property alias mouseButton: mouseButton
-    property alias angleButton: angleButton
     property alias savePointsButton: savePointsButton
 
     id: instruments
@@ -43,13 +42,6 @@ Item {
                 text: qsTr("Линейка")
                 autoExclusive: true
                 checkable: true
-            }
-
-            ToolButton {
-                id: angleButton
-                text: qsTr("Уголок")
-                checkable: true
-                autoExclusive: true
             }
 
             ToolButton {

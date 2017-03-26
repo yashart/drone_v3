@@ -19,6 +19,7 @@
 #include "providers/photoprovider.h"
 
 #include "backend/tilesdownloader.h"
+#include "backend/changeimage.h"
 
 
 int main(int argc, char *argv[])

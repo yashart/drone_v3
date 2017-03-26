@@ -1,6 +1,8 @@
 #include "providers/photoprovider.h"
 #include <QDebug>
 
+
+
 QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
     QStringList temp = id.split('/');
@@ -22,10 +24,24 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
 
         QImage image(photoPath);
 
-        if (typePhoto == "invert")
+        if (typePhoto == "invert") // инверсия цветов
         {
-            qDebug() << "Сработало";
             image.invertPixels();
+        }
+        if (typePhoto == "contrast")
+        {
+            int lightness = temp.at(2).toInt();
+            int w = image.width();
+            int h = image.height();
+            for (int y = 0; y < h; ++y)
+            {
+                for(int x = 0; x < w; ++x)
+                {
+                    QColor pixel = image.pixel(x, y);
+                    pixel.setHsl(pixel.hue(), pixel.saturation(), lightness, pixel.alpha());
+                    image.setPixel(x, y, pixel.rgba());
+                }
+            }
         }
         return image;
     }
