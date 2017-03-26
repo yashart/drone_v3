@@ -150,6 +150,7 @@ Window {
                         value: 0
                         Layout.row: 2
                         Layout.column: 1
+                        Layout.fillWidth: true
                     }
                 }
             }
