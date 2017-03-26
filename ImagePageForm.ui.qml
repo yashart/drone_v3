@@ -12,7 +12,6 @@ Window {
     property alias photoInformation: photoInformation
     property alias standartImageRadio: standartImageRadio
     property alias invertImageRadio: invertImageRadio
-    property alias contrastImageRadio: contrastImageRadio
     property alias contrastSlider: contrastSlider
     property alias brghtnessImage: brghtnessImage
     height: 560
@@ -143,13 +142,6 @@ Window {
                         Layout.column: 1
                     }
 
-                    RadioButton {
-                        id: contrastImageRadio
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 2
-                        Layout.column: 1
-                    }
-
                     Slider {
                         id: contrastSlider
                         maximumValue: 1
@@ -157,7 +149,7 @@ Window {
                         stepSize: 0.1
                         value: 0
                         Layout.row: 2
-                        Layout.column: 2
+                        Layout.column: 1
                     }
                 }
             }
