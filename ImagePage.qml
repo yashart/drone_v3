@@ -43,7 +43,7 @@ ImagePageForm {
                 currentPhoto.imageName +
                 "/invert"
     }
-    contrastSlider.pressed: {
+    contrastSlider.onValueChanged: {
         brghtnessImage.contrast = contrastSlider.value
         console.log(contrastSlider.value)
         //currentPhoto.source = "image://photo/" +
