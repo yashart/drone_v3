@@ -13,17 +13,18 @@ Window {
     property alias invertImageRadio: invertImageRadio
     property alias contrastImageRadio: contrastImageRadio
     property alias contrastSlider: contrastSlider
-    height: 360
+    height: 560
     width: 360
     RowLayout {
         anchors.fill: parent
-        Rectangle {
-            z: 2
+        Window {
             color: "#E0E0E0"
             id: photoInformation
-            Layout.preferredWidth: parent.width * 0.2
-            Layout.preferredHeight: parent.height
-
+            //Layout.preferredWidth: parent.width * 0.2
+            //Layout.preferredHeight: parent.height
+            width: 360
+            height: 560
+            visible: imagePage.visible
             ColumnLayout {
                 anchors.fill: parent
 
