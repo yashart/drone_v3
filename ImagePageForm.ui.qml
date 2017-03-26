@@ -122,7 +122,7 @@ Window {
                     }
 
                     Label {
-                        text: qsTr("Контраст")
+                        text: qsTr("Яркость")
                         Layout.row: 2
                         Layout.column: 0
                     }
@@ -236,12 +236,12 @@ Window {
                                 }
                             }
                         }
-                    }
-                    BrightnessContrast {
-                        anchors.fill: currentPhoto
-                        source: currentPhoto
-                        brightness: 0.5
-                        contrast: 0.5
+                        BrightnessContrast {
+                            anchors.fill: parent
+                            source: parent
+                            brightness: 0.5
+                            contrast: 0.5
+                        }
                     }
                     MouseArea {
                         id: dragAreaPhoto
