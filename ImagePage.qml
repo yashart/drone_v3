@@ -44,9 +44,10 @@ ImagePageForm {
                 "/invert"
     }
     contrastImageRadio.onClicked: {
-        currentPhoto.source = "image://photo/" +
-                currentPhoto.imageName +
-                "/contrast/" + contrastSlider.value
+        brghtnessImage.contrast = contrastSlider.value
+        //currentPhoto.source = "image://photo/" +
+        //        currentPhoto.imageName +
+        //        "/contrast/" + contrastSlider.value
     }
 
 }

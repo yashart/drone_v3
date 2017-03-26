@@ -19,7 +19,7 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
 
         //qDebug() << "Имя изображения: " << namePhoto << " Сделать из него: " << typePhoto;
 
-        photoPath.append("D:/first_fly/"); // Название изображения
+        photoPath.append("/home/yashart/Downloads/first_fly/"); // Название изображения
         photoPath.append(namePhoto);
 
         QImage image(photoPath);

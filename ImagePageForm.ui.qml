@@ -14,6 +14,7 @@ Window {
     property alias invertImageRadio: invertImageRadio
     property alias contrastImageRadio: contrastImageRadio
     property alias contrastSlider: contrastSlider
+    property alias brghtnessImage: brghtnessImage
     height: 560
     width: 360
     RowLayout {
@@ -151,9 +152,10 @@ Window {
 
                     Slider {
                         id: contrastSlider
-                        maximumValue: 100
-                        stepSize: 1
-                        value: 50
+                        maximumValue: 1
+                        minimumValue: -1
+                        stepSize: 0.1
+                        value: 0
                         Layout.row: 2
                         Layout.column: 2
                     }
@@ -237,10 +239,11 @@ Window {
                             }
                         }
                         BrightnessContrast {
+                            id: brghtnessImage
                             anchors.fill: parent
                             source: parent
-                            brightness: 0.5
-                            contrast: 0.5
+                            brightness: 0
+                            contrast: 0
                         }
                     }
                     MouseArea {

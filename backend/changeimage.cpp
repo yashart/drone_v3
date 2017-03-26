@@ -2,7 +2,7 @@
 #include <QPixmap>
 
 #include "math.h"
-#include "changeImage.h"
+//#include "changeImage.h"
 
 namespace transmationImage
 {
