@@ -50,5 +50,9 @@ ImagePageForm {
         //        currentPhoto.imageName +
         //        "/contrast/" + contrastSlider.value
     }
+    brightnessSlider.onValueChanged:
+    {
+        brghtnessImage.brightness = brightnessSlider.value
+    }
 
 }

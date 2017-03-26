@@ -13,6 +13,7 @@ Window {
     property alias standartImageRadio: standartImageRadio
     property alias invertImageRadio: invertImageRadio
     property alias contrastSlider: contrastSlider
+    property alias brightnessSlider: brightnessSlider
     property alias brghtnessImage: brghtnessImage
     height: 560
     width: 360
@@ -122,8 +123,13 @@ Window {
                     }
 
                     Label {
-                        text: qsTr("Яркость")
+                        text: qsTr("Контраст")
                         Layout.row: 2
+                        Layout.column: 0
+                    }
+                    Label {
+                        text: qsTr("Яркость")
+                        Layout.row: 3
                         Layout.column: 0
                     }
 
@@ -149,6 +155,16 @@ Window {
                         stepSize: 0.1
                         value: 0
                         Layout.row: 2
+                        Layout.column: 1
+                        Layout.fillWidth: true
+                    }
+                    Slider {
+                        id: brightnessSlider
+                        maximumValue: 1
+                        minimumValue: -1
+                        stepSize: 0.1
+                        value: 0
+                        Layout.row: 3
                         Layout.column: 1
                         Layout.fillWidth: true
                     }
