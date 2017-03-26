@@ -237,6 +237,12 @@ Window {
                             }
                         }
                     }
+                    BrightnessContrast {
+                        anchors.fill: currentPhoto
+                        source: currentPhoto
+                        brightness: 0.5
+                        contrast: 0.5
+                    }
                     MouseArea {
                         id: dragAreaPhoto
                         hoverEnabled: true
