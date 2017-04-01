@@ -1,31 +1,25 @@
+#include "calibrate_known_info.h"
 #include "variation_method_calibrate.h"
 #include "math.h"
 
-Variation_method_calibrate::Variation_method_calibrate(double lat,
-                                                           double lon,
-                                                           double fi,
-                                                           double offsetX,
-                                                           double offsetY)
+Variation_method_calibrate::Variation_method_calibrate(QObject *parent):
+    QObject(parent)
 {
-    this->lat = lat;
-    this->lon = lon;
-    this->fi = fi;
-    this->offsetX = offsetX;
-    this->offsetY = offsetY;
-    this->tau = 0.001;
+    this->lat = 0;
+    this->lon = 0;
+    this->infoCount = 0;
 }
-
-double functional_lat(Calibrate_known_info info){
+double Variation_method_calibrate::functional_lat(Calibrate_known_info info){
     return 2*lat - 2*info.plat + 2*cos(fi)*info.x*offsetX -
             2*sin(fi)*info.y*offsetY;
 }
 
-double functional_lon(Calibrate_known_info info){
+double Variation_method_calibrate::functional_lon(Calibrate_known_info info){
     return 2*lon - 2*info.plon + 2*sin(fi)*info.x*offsetX +
             2*cos(fi)*info.y*offsetY;
 }
 
-double functional_fi(Calibrate_known_info info){
+double Variation_method_calibrate::functional_fi(Calibrate_known_info info){
     return 2*info.plat*sin(fi)*info.x*offsetX+
             2*info.plat*cos(fi)*info.y*offsetY-
             2*sin(fi)*info.x*offsetX*lat -
@@ -36,7 +30,7 @@ double functional_fi(Calibrate_known_info info){
             2*sin(fi)*info.y*offsetY*lon;
 }
 
-double functional_offsetX(Calibrate_known_info info){
+double Variation_method_calibrate::functional_offsetX(Calibrate_known_info info){
     return 2*info.x*info.x*offsetX -
             2*info.plat*cos(fi)*info.x +
             2*cos(fi)*info.x*lat -
@@ -44,7 +38,7 @@ double functional_offsetX(Calibrate_known_info info){
             2*sin(fi)*info.x*lon;
 }
 
-double functional_offsetY(Calibrate_known_info info)
+double Variation_method_calibrate::functional_offsetY(Calibrate_known_info info)
 {
     return 2*info.y*info.y*offsetY +
             2*info.plat*sin(fi)*info.y -
@@ -53,7 +47,7 @@ double functional_offsetY(Calibrate_known_info info)
             2*cos(fi)*info.y*lon;
 }
 
-void oneIteration(Calibrate_known_info info){
+void Variation_method_calibrate::oneIteration(Calibrate_known_info info){
     this->lat = this->lat - this->tau * functional_lat(info);
     this->lon = this->lon - this->tau * functional_lon(info);
     this->fi = this->fi - this->tau * functional_fi(info);
@@ -61,10 +55,17 @@ void oneIteration(Calibrate_known_info info){
     this->offsetY = this->offsetY - this->tau * functional_offsetY(info);
 }
 
-void calcMethod(Calibrate_known_info info[], int count){
-    for (int i = 0; i < count; i++){
+void Variation_method_calibrate::calcMethod(){
+    for (int i = 0; i < this->infoCount; i++){
         for (int j = 0; j < 100; j++){
-            oneIteration(info[i]);
+            oneIteration(this->info[i]);
         }
     }
 }
+
+void Variation_method_calibrate::add_info(double plat, double plon, double x, double y)
+{
+    this->info[this->infoCount].setInfo(plat, plon, x, y);
+    this->infoCount += 1;
+}
+

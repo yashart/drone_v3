@@ -6,4 +6,8 @@ CalibratePopupForm {
         calibrateModel.currentImage = 0
         calibrateModel.currentMap = 0
     }
+    calibrateButton.onClicked: {
+        variationModel.lat = 5
+        console.log(variationModel.lat)
+    }
 }

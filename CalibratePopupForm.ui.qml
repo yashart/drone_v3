@@ -8,6 +8,7 @@ Window {
     property alias calibrateModel: calibrateModel
     property alias calibrateView: calibrateView
     property alias clearCalibrateModelButton: clearCalibrateModelButton
+    property alias calibrateButton: calibrateButton
     id: calibratePopup
     width: 360
     height: 560
@@ -54,6 +55,7 @@ Window {
             model: calibrateModel
         }
         Button {
+            id: calibrateButton
             text: qsTr("Калибровать")
         }
         Button {
