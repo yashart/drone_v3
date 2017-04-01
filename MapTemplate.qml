@@ -176,7 +176,7 @@ Map {
                 latitude: lat
                 longitude: lon
             }
-            radius: 10
+            radius: 2
             color: "red"
         }
     }

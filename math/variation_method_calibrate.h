@@ -13,6 +13,7 @@ class Variation_method_calibrate : public QObject
     Q_PROPERTY(double fi READ getFi WRITE setFi)
     Q_PROPERTY(double offsetX READ getOffsetX WRITE setOffsetX)
     Q_PROPERTY(double offsetY READ getOffsetY WRITE setOffsetY)
+    Q_PROPERTY(int infoCount READ getInfoCount WRITE setInfoCount)
 
 
 public:
@@ -50,6 +51,13 @@ public:
     }
     void setOffsetY(const double &offsetY){
         this->offsetY = offsetY;
+    }
+
+    int getInfoCount(){
+        return this->infoCount;
+    }
+    void setInfoCount(const int &infoCount){
+        this->infoCount = infoCount;
     }
 
 private:
