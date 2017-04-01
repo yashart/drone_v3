@@ -27,7 +27,7 @@ private:
 public:
     explicit DataBase(QObject *parent = 0);
     ~DataBase(){
-     db.close();
+        db.close();
     }
 
 signals:

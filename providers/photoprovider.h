@@ -1,6 +1,7 @@
 #ifndef PHOTOPROVIDER_H
 #define PHOTOPROVIDER_H
 
+#include <QObject>
 #include <QQuickImageProvider>
 #include <QPainter>
 

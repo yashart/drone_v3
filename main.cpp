@@ -11,6 +11,7 @@
 #include "database/locationsmodel.h"
 #include "database/linesModel.h"
 #include "database/pointsphotomodel.h"
+#include "database/changedb.h"
 
 #include "models/rulerModel.h"
 
@@ -35,6 +36,11 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
+    PhotoProvider * photoProvider = new PhotoProvider();
+    ChangeDB changedb;
+
+
+
 
     TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
 
@@ -52,6 +58,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();
     ctx->setContextProperty("dataBase", &db);
+    ctx->setContextProperty("changedb", &changedb);
     ctx->setContextProperty("tracksModel", &tracksModel);
     ctx->setContextProperty("pointsModel", &pointsModel);
     ctx->setContextProperty("imagesModel", &imagesModel);
@@ -63,7 +70,8 @@ int main(int argc, char *argv[])
 
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());
     engine.addImageProvider(QLatin1String("Icons"), new IconProvider());
-    engine.addImageProvider(QLatin1String("Photo"), new PhotoProvider());
+    engine.addImageProvider(QLatin1String("Photo"), photoProvider);
+
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 

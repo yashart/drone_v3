@@ -14,7 +14,8 @@ SOURCES += main.cpp \
     exif/exifinfo.cpp \
     backend/tilesdownloader.cpp \
     providers/photoprovider.cpp \
-    backend/changeimage.cpp
+    backend/changeimage.cpp \
+    database/changedb.cpp
 
 RESOURCES += qml.qrc
 
@@ -54,7 +55,8 @@ HEADERS += \
     exif/exifinfo.h \
     backend/tilesdownloader.h \
     providers/photoprovider.h \
-    backend/changeimage.h
+    backend/changeimage.h \
+    database/changedb.h
 
 DISTFILES += \
     database/DataBase.db
