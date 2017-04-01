@@ -53,8 +53,8 @@ void Variation_method_calibrate::oneIteration(Calibrate_known_info info){
     this->lat = this->lat - this->tau * functional_lat(info);
     this->lon = this->lon - this->tau * functional_lon(info);
     this->fi = this->fi - this->tau * functional_fi(info);
-    this->offsetX = this->offsetX - this->tau * functional_offsetX(info) * 0.1;
-    this->offsetY = this->offsetY - this->tau * functional_offsetY(info) * 0.1;
+    this->offsetX = this->offsetX - this->tau * functional_offsetX(info);
+    this->offsetY = this->offsetY - this->tau * functional_offsetY(info);
 }
 
 void Variation_method_calibrate::calcMethod(){

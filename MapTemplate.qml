@@ -301,17 +301,17 @@ Map {
         offset[0].latitude = lat; // координаты самой точки
         offset[0].longitude = lon;
         offset[1].latitude = lat + rotLat(offsetLat, 0, azimuth);   // точка, после поворота на угол,
-        offset[1].longitude = lon + rotLon(offsetLat, 0, azimuth);; //  показывающая направление
+        offset[1].longitude = lon + rotLon(0, offsetLon, azimuth);; //  показывающая направление
         lookAt.path = offset;
     }
     function rotLat(lat, lon, angle) // матрица поворота для широты https://ru.wikipedia.org/wiki/Матрица_поворота#.D0.9C.D0.B0.D1.82.D1.80.D0.B8.D1.86.D0.B0_.D0.BF.D0.BE.D0.B2.D0.BE.D1.80.D0.BE.D1.82.D0.B0_.D0.B2_.D0.B4.D0.B2.D1.83.D0.BC.D0.B5.D1.80.D0.BD.D0.BE.D0.BC_.D0.BF.D1.80.D0.BE.D1.81.D1.82.D1.80.D0.B0.D0.BD.D1.81.D1.82.D0.B2.D0.B5
     {
         angle = toRad(angle);
-        return lat * Math.cos(angle) - lon * Math.sin(angle);
+        return lat * Math.cos(angle) + lon * Math.sin(angle);
     }
     function rotLon(lat, lon, angle){ // матрица поворота для долготы
         angle = toRad(angle);
-        return lat * Math.sin(angle) + lon * Math.cos(angle);
+        return -lat * Math.sin(angle) + lon * Math.cos(angle);
     }
     function toDeg (angle) {           // функция преобразования радианов в градусы
       return angle * (180 / Math.PI);
