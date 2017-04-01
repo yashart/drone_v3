@@ -1,6 +1,7 @@
 #include "calibrate_known_info.h"
 #include "variation_method_calibrate.h"
 #include "math.h"
+#include <QDebug>
 
 Variation_method_calibrate::Variation_method_calibrate(QObject *parent):
     QObject(parent)
@@ -8,6 +9,7 @@ Variation_method_calibrate::Variation_method_calibrate(QObject *parent):
     this->lat = 0;
     this->lon = 0;
     this->infoCount = 0;
+    this->tau = 0.00001;
 }
 double Variation_method_calibrate::functional_lat(Calibrate_known_info info){
     return 2*lat - 2*info.plat + 2*cos(fi)*info.x*offsetX -
@@ -57,14 +59,16 @@ void Variation_method_calibrate::oneIteration(Calibrate_known_info info){
 
 void Variation_method_calibrate::calcMethod(){
     for (int i = 0; i < this->infoCount; i++){
-        for (int j = 0; j < 100; j++){
+        for (int j = 0; j < 10000; j++){
             oneIteration(this->info[i]);
+            qDebug() << "calcLat" << this->lat << lon << fi << offsetX << offsetY;
         }
     }
 }
 
 void Variation_method_calibrate::add_info(double plat, double plon, double x, double y)
 {
+    qDebug() << "add_info: " << plat << plon << x << y << this->tau;
     this->info[this->infoCount].setInfo(plat, plon, x, y);
     this->infoCount += 1;
 }
