@@ -5,6 +5,7 @@ import QtQuick.Window 2.0
 Item {
     id: mainPage
     property alias leftTabMenu: leftTabMenu
+    property alias mapComponent: mapComponent
     signal changeMapPlugin(variant map_name);
     onChangeMapPlugin: {
         if(map_name == "osmPlugin"){

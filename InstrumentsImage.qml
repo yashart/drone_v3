@@ -10,4 +10,7 @@ InstrumentsImageForm {
 
         imagePage.photoInformation.visible = !(imagePage.photoInformation.visible)
     }
+    calibrateButtonImage.onClicked: {
+        mainPage.mapComponent.instruments.calibrateButton.checked = true
+    }
 }

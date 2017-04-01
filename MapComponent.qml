@@ -11,6 +11,7 @@ Item {
     property alias herePlugin: herePlugin
     property alias customPlugin: customPlugin
     property alias rulerPopup: rulerPopup
+    property alias instruments: instruments
     property var newMap: defaultInitMap(osmPlugin)
 
     function defaultInitMap(plugin){

@@ -14,6 +14,7 @@ Window {
     property alias invertImageRadio: invertImageRadio
     property alias contrastSlider: contrastSlider
     property alias brghtnessImage: brghtnessImage
+    property alias instrumentsImage: instrumentsImage
     height: 560
     width: 360
     RowLayout {
@@ -169,6 +170,7 @@ Window {
                 z: 1
 
                 InstrumentsImage {
+                    id: instrumentsImage
                     z: 2
                 }
 
@@ -180,6 +182,7 @@ Window {
                     rightMargin: parent.width
                     topMargin: parent.height
                     bottomMargin: parent.height
+                    interactive : false
                     Image {
                         id: currentPhoto
                         fillMode: Image.PreserveAspectFit
@@ -191,7 +194,7 @@ Window {
                         property var alt: 0
                         property var imageName: 0
                         ListView {
-                            anchors.fill: parent
+                            anchors.fill: currentPhoto
                             id: pointsOnPicture
 
                             model: pointsPhotoModel
@@ -220,6 +223,7 @@ Window {
                                 MouseArea {
                                     anchors.fill: parent
                                     z: 4
+                                    preventStealing: true
                                     onClicked: {
                                         popupPoints.visible = false
                                         popupPoints.set_popup_points_position(lat,
@@ -231,6 +235,35 @@ Window {
                                 }
                             }
                         }
+                        ListView {
+                            anchors.fill: currentPhoto
+                            id: calibrateOnPicture
+                            model: calibratePopup.calibrateModel
+                            cacheBuffer: 0
+                            interactive: false
+                            delegate: Rectangle {
+                                width: 20
+                                height: 20
+                                color: "red"
+                                radius: 10
+                                x: xPos - 10
+                                y: yPos - 10
+                                z: 3
+
+                                Timer {
+                                interval: 500; running: true; repeat: true
+                                    onTriggered: {
+                                        console.log(currentPhoto.paintedHeight)
+                                        parent.x = -1;
+                                        parent.y = -1;
+                                        parent.x = xPos - 10
+                                        parent.y = yPos - 10
+                                        parent.z = 3
+                                    }
+                                }
+                            }
+                        }
+
                         BrightnessContrast {
                             id: brghtnessImage
                             anchors.fill: parent
@@ -238,16 +271,17 @@ Window {
                             brightness: 0
                             contrast: 0
                         }
-                    }
-                    MouseArea {
-                        id: dragAreaPhoto
-                        hoverEnabled: true
-                        anchors.fill: parent
-                        anchors.margins: 0
-                        drag.target: currentPhoto
-                        z: 2
-                        property var offsetLon: 0.00150 // эксперементальным путем
-                        property var offsetLat: 0.0016 // эксперементальным путем
+                        MouseArea {
+                            id: dragAreaPhoto
+                            hoverEnabled: true
+                            anchors.fill: parent
+                            anchors.margins: 0
+                            drag.target: currentPhoto
+                            drag.smoothed: false
+                            z: 2
+                            property var offsetLon: 0.00150 // эксперементальным путем
+                            property var offsetLat: 0.0016 // эксперементальным путем
+                        }
                     }
                 }
                 Image {

@@ -9,6 +9,7 @@ Item {
     property alias removeButton: removeButton
     property alias mouseButton: mouseButton
     property alias savePointsButton: savePointsButton
+    property alias calibrateButton: calibrateButton
 
     id: instruments
     z: 1
@@ -47,6 +48,13 @@ Item {
             ToolButton {
                 id: savePointsButton
                 text: qsTr("Сохранить карту")
+                checkable: true
+                autoExclusive: true
+            }
+
+            ToolButton {
+                id: calibrateButton
+                text: qsTr("Калибровать информацию")
                 checkable: true
                 autoExclusive: true
             }

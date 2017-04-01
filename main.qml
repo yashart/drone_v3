@@ -39,10 +39,15 @@ ApplicationWindow {
         id: addTracks
         visible: false
     }
-    VideoWindows
-    {
+
+    VideoWindows {
         id: videoPage
-        visible:false
+        visible: false
+    }
+
+    CalibratePopup {
+        id: calibratePopup
+        visible: true
     }
 
 }

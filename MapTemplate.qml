@@ -39,6 +39,28 @@ Map {
                         //TODO: send tiles coordinates
                     }
                 }
+                if(instruments.calibrateButton.checked == true){
+                    if(calibratePopup.calibrateModel.currentMap ==
+                            calibratePopup.calibrateModel.count){
+                        calibratePopup.calibrateModel.append({
+                        "xPos": -1,
+                        "yPos": -1,
+                        "lat": map.toCoordinate(Qt.point(mouseX, mouseY)).latitude,
+                        "lon": map.toCoordinate(Qt.point(mouseX, mouseY)).longitude
+                                                             })
+                        calibratePopup.calibrateModel.currentMap += 1
+                    }else{
+                        calibratePopup.calibrateModel.setProperty(
+                                    calibratePopup.calibrateModel.currentMap,
+                                    "lat",
+                                    map.toCoordinate(Qt.point(mouseX, mouseY)).latitude)
+                        calibratePopup.calibrateModel.setProperty(
+                                    calibratePopup.calibrateModel.currentMap,
+                                    "lon",
+                                    map.toCoordinate(Qt.point(mouseX, mouseY)).longitude)
+                        calibratePopup.calibrateModel.currentMap += 1
+                    }
+                }
             }
 
             if (mouse.button == Qt.RightButton){ //Все события связанные с правой кнопкой мыши
@@ -146,6 +168,19 @@ Map {
             }
         }
     }
+    MapItemView {
+        id: calibrateMapView
+        model: calibratePopup.calibrateModel
+        delegate: MapCircle {
+            center {
+                latitude: lat
+                longitude: lon
+            }
+            radius: 10
+            color: "red"
+        }
+    }
+
     MapPolygon{
         id: viewPort
         color: 'green'

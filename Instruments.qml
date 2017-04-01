@@ -20,4 +20,8 @@ InstrumentsForm {
     savePointsButton.onClicked: {
         rulerPopup.visible = false
     }
+    calibrateButton.onClicked: {
+        imagePage.instrumentsImage.calibrateButtonImage.checked = true
+        rulerPopup.visible = false
+    }
 }

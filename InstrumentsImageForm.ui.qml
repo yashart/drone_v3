@@ -8,6 +8,8 @@ Item {
     anchors.horizontalCenter: parent.horizontalCenter
 
     property alias hideButtonImage: hideButtonImage
+    property alias pointsButtonImage: pointsButtonImage
+    property alias calibrateButtonImage: calibrateButtonImage
 
     ToolBar {
         id: toolBar
@@ -40,6 +42,13 @@ Item {
             ToolButton {
                 id: hideButtonImage
                 text: qsTr("Скрыть информацию")
+            }
+
+            ToolButton {
+                id: calibrateButtonImage
+                text: qsTr("Калибровать информацию")
+                checkable: true
+                autoExclusive: true
             }
         }
     }

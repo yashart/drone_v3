@@ -66,5 +66,7 @@
         <file>VideoWindows.qml</file>
         <file>InstrumentsImage.qml</file>
         <file>InstrumentsImageForm.ui.qml</file>
+        <file>CalibratePopup.qml</file>
+        <file>CalibratePopupForm.ui.qml</file>
     </qresource>
 </RCC>
