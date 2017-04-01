@@ -22,6 +22,8 @@
 #include "backend/tilesdownloader.h"
 #include "backend/changeimage.h"
 
+#include "math/variation_method_calibrate.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -36,11 +38,12 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
+
+
     PhotoProvider * photoProvider = new PhotoProvider();
     ChangeDB changedb;
 
-
-
+    Variation_method_calibrate variationModel;
 
     TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
 
@@ -67,6 +70,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
     ctx->setContextProperty("tilesDownloader", &tilesDownloader);
+    ctx->setContextProperty("variationModel", &variationModel);
 
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());
     engine.addImageProvider(QLatin1String("Icons"), new IconProvider());
