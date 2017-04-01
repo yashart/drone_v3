@@ -27,7 +27,7 @@ CalibratePopupForm {
         variationModel.lon = imagePage.currentPhoto.lon
         variationModel.fi = imagePage.currentPhoto.azimuth
         variationModel.offsetX = 0.000005
-        variationModel.offsetY = -0.0000019
+        variationModel.offsetY = 0.0000019
 
         console.log(imagePage.currentPhoto.lat,
                     imagePage.currentPhoto.lon,
