@@ -190,31 +190,59 @@ Window {
                     z: 2
                 }
 
-                Flickable {
-                    anchors.fill: parent
-                    contentWidth: 3 * parent.width
-                    contentHeight: 3 * parent.height
-                    leftMargin: parent.width
-                    rightMargin: parent.width
-                    topMargin: parent.height
-                    bottomMargin: parent.height
-                    interactive : false
-                    Image {
-                        id: currentPhoto
-                        fillMode: Image.PreserveAspectFit
-                        height: pictureViewer.height
+                Image {
+                    id: currentPhoto
+                    fillMode: Image.PreserveAspectFit
+                    height: pictureViewer.height
+                    z: 2
+                    property var lat: 0
+                    property var lon: 0
+                    property var azimuth: 0
+                    property var alt: 0
+                    property var imageName: 0
+                    MouseArea {
+                        id: dragAreaPhoto
+                        hoverEnabled: true
+                        anchors.fill: parent
+                        anchors.margins: 0
+                        drag.target: currentPhoto
                         z: 2
-                        property var lat: 0
-                        property var lon: 0
-                        property var azimuth: 0
-                        property var alt: 0
-                        property var imageName: 0
-                        ListView {
-                            anchors.fill: currentPhoto
-                            id: pointsOnPicture
+                        property var offsetLon: 0.00150 // эксперементальным путем
+                        property var offsetLat: 0.0016 // эксперементальным путем
 
-                            model: pointsPhotoModel
-                            delegate: Image {
+                        BrightnessContrast {
+                            id: brghtnessImage
+                            anchors.fill: parent
+                            source: parent
+                            brightness: 0
+                            contrast: 0
+                        }
+                    }
+                    ListView {
+                        anchors.fill: currentPhoto
+                        id: calibrateOnPicture
+                        model: calibratePopup.calibrateModel
+                        delegate: Rectangle {
+                            anchors.fill: currentPhoto
+                            Rectangle {
+                                width: 20
+                                height: 20
+                                color: "red"
+                                radius: 10
+                                x: xPos - 10
+                                y: yPos - 10
+                                z: 5
+                            }
+                        }
+                    }
+                    ListView {
+                        anchors.fill: currentPhoto
+                        id: pointsOnPicture
+
+                        model: pointsPhotoModel
+                        delegate: Rectangle {
+                            anchors.fill: currentPhoto
+                                Image {
                                 x: (((lon-currentPhoto.lon)/dragAreaPhoto.offsetLon*Math.cos(currentPhoto.azimuth*3.1415/180)-
                                    (currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedWidth
                                 y: (((currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.cos(currentPhoto.azimuth*3.1415/180)-
@@ -225,17 +253,6 @@ Window {
                                 asynchronous: false
                                 enabled: false
 
-                                Timer {
-                                interval: 500; running: true; repeat: true
-                                    onTriggered: {
-                                        parent.x = -1;
-                                        parent.y = -1;
-                                        parent.x = (((lon-currentPhoto.lon)/dragAreaPhoto.offsetLon*Math.cos(currentPhoto.azimuth*3.1415/180)-
-                                                     (currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedWidth
-                                        parent.y = (((currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.cos(currentPhoto.azimuth*3.1415/180)-
-                                                     (currentPhoto.lon-lon)/dragAreaPhoto.offsetLon*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedHeight
-                                    }
-                                }
                                 MouseArea {
                                     anchors.fill: parent
                                     z: 4
@@ -251,55 +268,9 @@ Window {
                                 }
                             }
                         }
-                        ListView {
-                            anchors.fill: currentPhoto
-                            id: calibrateOnPicture
-                            model: calibratePopup.calibrateModel
-                            cacheBuffer: 0
-                            interactive: false
-                            delegate: Rectangle {
-                                width: 20
-                                height: 20
-                                color: "red"
-                                radius: 10
-                                x: xPos - 10
-                                y: yPos - 10
-                                z: 3
-
-                                Timer {
-                                interval: 500; running: true; repeat: true
-                                    onTriggered: {
-                                        console.log(currentPhoto.paintedHeight)
-                                        parent.x = -1;
-                                        parent.y = -1;
-                                        parent.x = xPos - 10
-                                        parent.y = yPos - 10
-                                        parent.z = 3
-                                    }
-                                }
-                            }
-                        }
-
-                        BrightnessContrast {
-                            id: brghtnessImage
-                            anchors.fill: parent
-                            source: parent
-                            brightness: 0
-                            contrast: 0
-                        }
-                        MouseArea {
-                            id: dragAreaPhoto
-                            hoverEnabled: true
-                            anchors.fill: parent
-                            anchors.margins: 0
-                            drag.target: currentPhoto
-                            drag.smoothed: false
-                            z: 2
-                            property var offsetLon: 0.00150 // эксперементальным путем
-                            property var offsetLat: 0.0016 // эксперементальным путем
-                        }
                     }
                 }
+
                 Image {
                     id: grid
                     anchors.centerIn: parent.Center
