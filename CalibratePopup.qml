@@ -17,8 +17,8 @@ CalibratePopupForm {
         for (var i = 0; i < itemCount; i++){
             var plat = calibrateModel.get(i).lat
             var plon = calibrateModel.get(i).lon
-            var x = calibrateModel.get(i).xPos - imagePage.currentPhoto.width/2
-            var y = calibrateModel.get(i).yPos - imagePage.currentPhoto.height/2
+            var x = calibrateModel.get(i).xPos// - imagePage.currentPhoto.width/2
+            var y = calibrateModel.get(i).yPos// - imagePage.currentPhoto.height/2
             console.log(plat, plon, x, y)
 
             variationModel.add_info(plat, plon, x, y)
@@ -26,12 +26,15 @@ CalibratePopupForm {
         variationModel.lat = imagePage.currentPhoto.lat
         variationModel.lon = imagePage.currentPhoto.lon
         variationModel.fi = imagePage.currentPhoto.azimuth
-        variationModel.offsetX = 0.00150
-        variationModel.offsetY = 0.0016
+        variationModel.offsetX = 0.000005
+        variationModel.offsetY = -0.0000019
 
         console.log(imagePage.currentPhoto.lat,
                     imagePage.currentPhoto.lon,
-                    imagePage.currentPhoto.azimuth)
+                    imagePage.currentPhoto.azimuth,
+                    variationModel.offsetX,
+                    variationModel.offsetY
+                    )
 
         variationModel.calcMethod()
         imagePage.currentPhoto.lat = variationModel.lat
@@ -40,7 +43,17 @@ CalibratePopupForm {
 
         console.log(imagePage.currentPhoto.lat,
                     imagePage.currentPhoto.lon,
-                    imagePage.currentPhoto.azimuth)
+                    imagePage.currentPhoto.azimuth,
+                    variationModel.offsetX,
+                    variationModel.offsetY
+                    )
+        mainPage.mapComponent.newMap.changeViewPortCenter(imagePage.currentPhoto.lat,
+                                                             imagePage.currentPhoto.lon,
+                                                             imagePage.currentPhoto.azimuth,
+                                                             variationModel.offsetX*imagePage.currentPhoto.width,
+                                                             variationModel.offsetY*imagePage.currentPhoto.height
+                                                             )
+
         //imagePage.currentPhoto.off = variationModel.lat
 
     }

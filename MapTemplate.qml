@@ -227,7 +227,7 @@ Map {
                     parent.opacity = 0;
                 }
                 onClicked: {
-                    changeViewPortCenter(lat, lon, azimuth)
+                    changeViewPortCenter(lat, lon, azimuth, 0.00150, 0.0016)
 
                     imagePage.currentPhoto.source = 'image://Photo/' + url //Для работы изображений используется провайдер
                     imagePage.currentPhoto.height = imagePage.pictureViewer.height
@@ -268,12 +268,14 @@ Map {
         console.log("TODO: Get tiles")
     }
 
-    function changeViewPortCenter(lat, lon, azimuth) // изменение положения четырехугольника отражающего примерный захват изображения
+    function changeViewPortCenter(lat, lon, azimuth,
+                                  offsetLat,
+                                  offsetLon) // изменение положения четырехугольника отражающего примерный захват изображения
     {
         console.log(azimuth);
 
-        var offsetLat = 0.00150; // ширина "прямоугольника захвата" полученная эксперементальным путем
-        var offsetLon = 0.0016; // ширина "прямоугольника захвата" полученная эксперементальным путем
+        //var offsetLat = 0.00150; // ширина "прямоугольника захвата" полученная эксперементальным путем
+        //var offsetLon = 0.0016; // ширина "прямоугольника захвата" полученная эксперементальным путем
 
         var offset = viewPort.path; // копируем в существующие кооординаты каждой точки четырехугольника
         // Задаем их смещение ОТНОСИТЕЛЬНО ЦЕНТРА САМОГО ЧЕТЫРЕХУГОЛЬНИКА

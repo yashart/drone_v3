@@ -59,7 +59,7 @@ private:
     double offsetX;
     double offsetY;
     double tau;
-    Calibrate_known_info info[5];
+    Calibrate_known_info info[100];
     int infoCount;
 public:
     Q_INVOKABLE void oneIteration(Calibrate_known_info info);

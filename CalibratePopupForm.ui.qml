@@ -65,13 +65,7 @@ Window {
     }
     ListModel {
         id: calibrateModel
-        property var currentImage: 1
-        property var currentMap: 1
-        ListElement {
-            xPos: 5
-            yPos: 6
-            lat: 18.5
-            lon: -22.5
-        }
+        property var currentImage: 0
+        property var currentMap: 0
     }
 }

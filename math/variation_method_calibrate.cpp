@@ -9,7 +9,7 @@ Variation_method_calibrate::Variation_method_calibrate(QObject *parent):
     this->lat = 0;
     this->lon = 0;
     this->infoCount = 0;
-    this->tau = 0.00001;
+    this->tau = 0.000001;
 }
 double Variation_method_calibrate::functional_lat(Calibrate_known_info info){
     return 2*lat - 2*info.plat + 2*cos(fi)*info.x*offsetX -
@@ -61,7 +61,6 @@ void Variation_method_calibrate::calcMethod(){
     for (int j = 0; j < 10000; j++){
         for (int i = 0; i < this->infoCount; i++){
             oneIteration(this->info[i]);
-            //qDebug() << "calcLat" << this->lat << lon << fi << offsetX << offsetY;
         }
     }
 }
