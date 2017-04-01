@@ -58,7 +58,7 @@ void Variation_method_calibrate::oneIteration(Calibrate_known_info info){
 }
 
 void Variation_method_calibrate::calcMethod(){
-    for (int j = 0; j < 10000; j++){
+    for (int j = 0; j < 1000000; j++){
         for (int i = 0; i < this->infoCount; i++){
             oneIteration(this->info[i]);
         }

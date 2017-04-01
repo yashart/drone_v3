@@ -17,8 +17,8 @@ CalibratePopupForm {
         for (var i = 0; i < itemCount; i++){
             var plat = calibrateModel.get(i).lat
             var plon = calibrateModel.get(i).lon
-            var x = calibrateModel.get(i).xPos// - imagePage.currentPhoto.width/2
-            var y = calibrateModel.get(i).yPos// - imagePage.currentPhoto.height/2
+            var x = calibrateModel.get(i).xPos - imagePage.currentPhoto.width/2
+            var y = calibrateModel.get(i).yPos - imagePage.currentPhoto.height/2
             console.log(plat, plon, x, y)
 
             variationModel.add_info(plat, plon, x, y)
@@ -50,8 +50,8 @@ CalibratePopupForm {
         mainPage.mapComponent.newMap.changeViewPortCenter(imagePage.currentPhoto.lat,
                                                              imagePage.currentPhoto.lon,
                                                              imagePage.currentPhoto.azimuth,
-                                                             variationModel.offsetX*imagePage.currentPhoto.width,
-                                                             variationModel.offsetY*imagePage.currentPhoto.height
+                                                             variationModel.offsetX*imagePage.currentPhoto.width/2,
+                                                             variationModel.offsetY*imagePage.currentPhoto.height/2
                                                              )
 
         //imagePage.currentPhoto.off = variationModel.lat
