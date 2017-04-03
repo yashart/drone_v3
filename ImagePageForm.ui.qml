@@ -8,16 +8,35 @@ Window {
     id: imagePage
     property alias currentPhoto: currentPhoto
     property alias dragAreaPhoto: dragAreaPhoto
+
     property alias pictureViewer: pictureViewer
     property alias photoInformation: photoInformation
+
     property alias standartImageRadio: standartImageRadio
     property alias invertImageRadio: invertImageRadio
+    property alias colorizeImageRadio: colorizeImageRadio
+    property alias brightnessImageRadio: brightnessImageRadio
+    property alias gammaImageRadio: gammaImageRadio
+    property alias desaturateImageRadio: desaturateImageRadio
+    property alias hueImageRadio: hueImageRadio
+
     property alias contrastSlider: contrastSlider
     property alias brightnessSlider: brightnessSlider
+    property alias colorizeSlider: colorizeSlider
+    property alias gammaSlider: gammaSlider
+    property alias desaturateSlider: desaturateSlider
+    property alias hueSlider: hueSlider
+
     property alias brghtnessImage: brghtnessImage
+    property alias colorizeImage: colorizeImage
     property alias instrumentsImage: instrumentsImage
+    property alias gammaImage: gammaImage
+    property alias desaturateImage: desaturateImage
+    property alias hueImage: hueImage
+
     height: 560
     width: 360
+
     RowLayout {
         anchors.fill: parent
         Window {
@@ -133,6 +152,26 @@ Window {
                         Layout.row: 3
                         Layout.column: 0
                     }
+                    Label {
+                        text: qsTr("Цветовой тон")
+                        Layout.row: 4
+                        Layout.column: 0
+                    }
+                    Label {
+                        text: qsTr("Гамма")
+                        Layout.row: 5
+                        Layout.column: 0
+                    }
+                    Label {
+                        text: qsTr("Ч-Б")
+                        Layout.row: 6
+                        Layout.column: 0
+                    }
+                    Label {
+                        text: qsTr("Оттенок")
+                        Layout.row: 7
+                        Layout.column: 0
+                    }
 
                     RadioButton {
                         id: standartImageRadio
@@ -149,24 +188,99 @@ Window {
                         Layout.column: 1
                     }
 
+                    RadioButton {
+                        id: brightnessImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 2
+                        Layout.column: 1
+                    }
+
+                    RadioButton {
+                        id: colorizeImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 4
+                        Layout.column: 1
+                    }
+
+                    RadioButton {
+                        id: gammaImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 5
+                        Layout.column: 1
+                    }
+
+                    RadioButton {
+                        id: desaturateImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 6
+                        Layout.column: 1
+                    }
+                    RadioButton {
+                        id: hueImageRadio
+                        exclusiveGroup: imagePropertyGroup
+                        Layout.row: 7
+                        Layout.column: 1
+                    }
+
                     Slider {
                         id: contrastSlider
                         maximumValue: 1
                         minimumValue: -1
-                        stepSize: 0.1
+                        stepSize: 0.05
                         value: 0
                         Layout.row: 2
-                        Layout.column: 1
+                        Layout.column: 2
                         Layout.fillWidth: true
                     }
                     Slider {
                         id: brightnessSlider
                         maximumValue: 1
                         minimumValue: -1
-                        stepSize: 0.1
+                        stepSize: 0.05
                         value: 0
                         Layout.row: 3
-                        Layout.column: 1
+                        Layout.column: 2
+                        Layout.fillWidth: true
+                    }
+                    Slider {
+                        id: colorizeSlider
+                        maximumValue: 1
+                        minimumValue: 0
+                        stepSize: 0.01
+                        value: 0
+                        Layout.row: 4
+                        Layout.column: 2
+                        Layout.fillWidth: true
+                    }
+                    Slider {
+                        id: gammaSlider
+                        maximumValue: 3
+                        minimumValue: 0
+                        stepSize: 0.01
+                        value: 1
+                        Layout.row: 5
+                        Layout.column: 2
+                        Layout.fillWidth: true
+                    }
+
+                    Slider {
+                        id: desaturateSlider
+                        maximumValue: 1
+                        minimumValue: 0
+                        stepSize: 0.01
+                        value: 0
+                        Layout.row: 6
+                        Layout.column: 2
+                        Layout.fillWidth: true
+                    }
+                    Slider {
+                        id: hueSlider
+                        maximumValue: 1
+                        minimumValue: -1
+                        stepSize: 0.01
+                        value: 0
+                        Layout.row: 7
+                        Layout.column: 2
                         Layout.fillWidth: true
                     }
                 }
@@ -195,11 +309,13 @@ Window {
                     fillMode: Image.PreserveAspectFit
                     height: pictureViewer.height
                     z: 2
+                    property int id_photo: -1
                     property var lat: 0
                     property var lon: 0
                     property var azimuth: 0
                     property var alt: 0
                     property var imageName: 0
+                    property var path: 0
                     MouseArea {
                         id: dragAreaPhoto
                         hoverEnabled: true
@@ -210,14 +326,48 @@ Window {
                         property var offsetLon: 0.00150 // эксперементальным путем
                         property var offsetLat: 0.0016 // эксперементальным путем
 
-                        BrightnessContrast {
-                            id: brghtnessImage
-                            anchors.fill: parent
-                            source: parent
-                            brightness: 0
-                            contrast: 0
-                        }
+
                     }
+                    BrightnessContrast {
+                        id: brghtnessImage
+                        anchors.fill: parent
+                        source: parent
+                        brightness: 0
+                        contrast: 0
+                        visible: false
+                    }
+                    Colorize {
+                        id: colorizeImage
+                        anchors.fill: parent
+                        source: parent
+                        hue: 0
+                        saturation: 1
+                        lightness: 0.0
+                        visible: false
+                    }
+                    GammaAdjust {
+                        id: gammaImage
+                        anchors.fill: parent
+                        source: parent
+                        gamma: 1.0
+                        visible: false
+                    }
+                    Desaturate {
+                        id: desaturateImage
+                        anchors.fill: parent
+                        source: parent
+                        desaturation: 0
+                        visible: false
+                    }
+                    HueSaturation {
+                       id: hueImage
+                       anchors.fill: parent
+                       source: parent
+                       hue: 0.0
+                       saturation: 0.0
+                       lightness: 0.0
+                       visible: false
+                   }
                     ListView {
                         anchors.fill: currentPhoto
                         id: calibrateOnPicture

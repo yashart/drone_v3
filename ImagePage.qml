@@ -20,6 +20,7 @@ ImagePageForm {
     dragAreaPhoto.onClicked: {
         if(instrumentsImage.pointsButtonImage.checked == true){
             popupPoints.visible = false
+            console.log("id " + currentPhoto.id_photo )
             var coordinate = QtPositioning.coordinate(
                 currentPhoto.lat + ((2*dragAreaPhoto.mouseX/currentPhoto.paintedWidth-1)*Math.sin(currentPhoto.azimuth*3.1415/180)-
                              (2*dragAreaPhoto.mouseY/currentPhoto.paintedHeight-1)*Math.cos(currentPhoto.azimuth*3.1415/180))*
@@ -67,16 +68,45 @@ ImagePageForm {
                 currentPhoto.imageName +
                 "/invert"
     }
+
+
+    brightnessImageRadio.onCheckedChanged: {
+        brghtnessImage.visible = brightnessImageRadio.checked;
+    }
+    colorizeImageRadio.onCheckedChanged: {
+        colorizeImage.visible = colorizeImageRadio.checked;
+    }
+    gammaImageRadio.onCheckedChanged: {
+        gammaImage.visible = gammaImageRadio.checked;
+    }
+    desaturateImageRadio.onCheckedChanged: {
+        desaturateImage.visible = desaturateImageRadio.checked;
+    }
+    hueImageRadio.onCheckedChanged: {
+        hueImage.visible = hueImageRadio.checked;
+    }
+
+    // Ползунки
+
     contrastSlider.onValueChanged: {
         brghtnessImage.contrast = contrastSlider.value
-        console.log(contrastSlider.value)
         //currentPhoto.source = "image://photo/" +
         //        currentPhoto.imageName +
         //        "/contrast/" + contrastSlider.value
     }
-    brightnessSlider.onValueChanged:
-    {
+    brightnessSlider.onValueChanged:{
         brghtnessImage.brightness = brightnessSlider.value
     }
-
+    colorizeSlider.onValueChanged: {
+        colorizeImage.hue = colorizeSlider.value
+    }
+    gammaSlider.onValueChanged: {
+        gammaImage.gamma = gammaSlider.value
+    }
+    desaturateSlider.onValueChanged: {
+        desaturateImage.desaturation = desaturateSlider.value
+    }
+    hueSlider.onValueChanged: {
+        hueImage.hue = hueSlider.value
+    }
 }

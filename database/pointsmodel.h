@@ -13,7 +13,8 @@ public:
      * Связано с тем, что информация ниже этого адреса не для кастомизаций
      * */
     enum Roles {
-        IdRole = Qt::UserRole + 1,      // id
+        TrackIdRole = Qt::UserRole + 1,
+        IdRole,
         LatRole,
         LonRole,
         AltRole,

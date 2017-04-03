@@ -47,7 +47,8 @@ QHash<int, QByteArray> PointsModel::roleNames() const {
      * по их номеру
      * */
     QHash<int, QByteArray> roles;
-    roles[IdRole] = "track_id";
+    roles[TrackIdRole] = "track_id";
+    roles[IdRole] = "id";
     roles[LatRole] = "lat";
     roles[LonRole] = "lon";
     roles[AltRole] = "alt";
@@ -65,6 +66,7 @@ void PointsModel::updateModel()
     // Обновление производится SQL-запросом к базе данных
     QString str_query("SELECT ");
     str_query.append("Points.track_id, ");
+    str_query.append("Points.id, ");
     str_query.append("Points.lat, ");
     str_query.append("Points.lon, ");
     str_query.append("Points.alt, ");

@@ -15,11 +15,11 @@ public:
     ~ChangeDB(){
         db.close();
     }
-    void changePhotoLat(int id, double lat);
-    void changePhotoLon(int id, double lon);
-    void changePhotoAzimuth(int id, double azimuth);
-    void changePhotoOffsetX(int id, double offsetX);
-    void changePhotoOffsetY(int id, double offsetY);
+    Q_INVOKABLE void changePhotoLat(int id, double lat);
+    Q_INVOKABLE void changePhotoLon(int id, double lon);
+    Q_INVOKABLE void changePhotoAzimuth(int id, double azimuth);
+    Q_INVOKABLE void changePhotoOffsetX(int id, double offsetX);
+    Q_INVOKABLE void changePhotoOffsetY(int id, double offsetY);
 
 signals:
 

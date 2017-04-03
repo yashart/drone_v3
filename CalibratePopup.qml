@@ -53,6 +53,13 @@ CalibratePopupForm {
                                                              variationModel.offsetX*imagePage.currentPhoto.width/2,
                                                              variationModel.offsetY*imagePage.currentPhoto.height/2
                                                              )
+        var id_photo = imagePage.currentPhoto.id_photo;
+        changedb.changePhotoLat(id_photo, imagePage.currentPhoto.lat);
+        changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon);
+        changedb.changePhotoAzimuth(id_photo, imagePage.currentPhoto.azimuth);
+        changedb.changePhotoOffsetX(id_photo, variationModel.offsetX);
+        changedb.changePhotoOffsetY(id_photo, variationModel.offsetY);
+
         variationModel.infoCount = 0
 
         //imagePage.currentPhoto.off = variationModel.lat

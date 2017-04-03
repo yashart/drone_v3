@@ -236,7 +236,9 @@ Map {
                     imagePage.currentPhoto.lat = lat
                     imagePage.currentPhoto.lon = lon
                     imagePage.currentPhoto.alt = alt
+                    imagePage.currentPhoto.id_photo = id
                     console.log(imagePage.currentPhoto.source)
+                    imagePage.currentPhoto
                     imagePage.currentPhoto.imageName = url
                     console.log(dir + url)
                     console.log(url)
