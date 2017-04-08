@@ -22,7 +22,12 @@ public:
         DirRole,
         URLRole,
         CommentRole,
-        TypeRole
+        TypeRole,
+        aCalibrateRole,
+        bCalibrateRole,
+        cCalibrateRole,
+        dCalibrateRole
+
     };
 
     // объявляем конструктор класса
