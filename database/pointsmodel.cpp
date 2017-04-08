@@ -57,6 +57,10 @@ QHash<int, QByteArray> PointsModel::roleNames() const {
     roles[URLRole] = "url";
     roles[CommentRole] = "comment";
     roles[TypeRole] = "type";
+    roles[aCalibrateRole] = "aCalibrate";
+    roles[bCalibrateRole] = "bCalibrate";
+    roles[cCalibrateRole] = "cCalibrate";
+    roles[dCalibrateRole] = "dCalibrate";
     return roles;
 }
 
@@ -75,6 +79,10 @@ void PointsModel::updateModel()
     str_query.append("Points.url, ");
     str_query.append("Points.comment, ");
     str_query.append("Points.type ");
+    str_query.append("Points.aCalibrate ");
+    str_query.append("Points.bCalibrate ");
+    str_query.append("Points.cCalibrate ");
+    str_query.append("Points.dCalibrate ");
     str_query.append("FROM Points ");
     str_query.append("LEFT OUTER JOIN Tracks ON Tracks.id = Points.track_id ");
     str_query.append("WHERE Points.track_id IN (");
