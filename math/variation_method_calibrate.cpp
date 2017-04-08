@@ -54,32 +54,27 @@ double Variation_method_calibrate::functional_d(Calibrate_known_info info)
 
 void Variation_method_calibrate::calcMethod(){
 
-    for (int j = 0; j < 10000; j++){
-        double meanFunctionalLat = 0;
-        double meanFunctionalLon = 0;
-        for (int i = 0; i < this->infoCount; i++){
-            meanFunctionalLat += functional_lat(this->info[i])*this->tau;
-            meanFunctionalLon += functional_lon(this->info[i])*this->tau;
-        }
-        this->lat -= meanFunctionalLat;
-        this->lon -= meanFunctionalLon;
-        //qDebug() << lat << lon << a << b << c << d;
-    }
     for (int j = 0; j < 100000; j++){
         double meanFunctionalA = 0;
         double meanFunctionalB = 0;
         double meanFunctionalC = 0;
         double meanFunctionalD = 0;
+        double meanFunctionalLat = 0;
+        double meanFunctionalLon = 0;
         for (int i = 0; i < this->infoCount; i++){
             meanFunctionalA += functional_a(this->info[i])*this->tau;
             meanFunctionalB += functional_b(this->info[i])*this->tau;
             meanFunctionalC += functional_c(this->info[i])*this->tau;
             meanFunctionalD += functional_d(this->info[i])*this->tau;
+            meanFunctionalLat += functional_lat(this->info[i])*this->tau*100;
+            meanFunctionalLon += functional_lon(this->info[i])*this->tau*100;
         }
         this->a -= meanFunctionalA;
         this->b -= meanFunctionalB;
         this->c -= meanFunctionalC;
         this->d -= meanFunctionalD;
+        this->lat -= meanFunctionalLat;
+        this->lon -= meanFunctionalLon;
         qDebug() << lat << lon << a << b << c << d;
     }
 
