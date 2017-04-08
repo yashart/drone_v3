@@ -25,28 +25,17 @@ CalibratePopupForm {
         }
         variationModel.lat = imagePage.currentPhoto.lat
         variationModel.lon = imagePage.currentPhoto.lon
-        variationModel.fi = imagePage.currentPhoto.azimuth
-        variationModel.offsetX = 0.000003
-        variationModel.offsetY = 0.000003
-
-        console.log(imagePage.currentPhoto.lat,
-                    imagePage.currentPhoto.lon,
-                    imagePage.currentPhoto.azimuth,
-                    variationModel.offsetX,
-                    variationModel.offsetY
-                    )
+        variationModel.a = 0
+        variationModel.b = 0
+        variationModel.c = 0
+        variationModel.d = 0
 
         variationModel.calcMethod()
         imagePage.currentPhoto.lat = variationModel.lat
         imagePage.currentPhoto.lon = variationModel.lon
         imagePage.currentPhoto.azimuth = variationModel.fi
 
-        console.log(imagePage.currentPhoto.lat,
-                    imagePage.currentPhoto.lon,
-                    imagePage.currentPhoto.azimuth,
-                    variationModel.offsetX,
-                    variationModel.offsetY
-                    )
+        console.log("offset: " + variationModel.offsetX + variationModel.a)
         mainPage.mapComponent.newMap.changeViewPortCenter(imagePage.currentPhoto.lat,
                                                              imagePage.currentPhoto.lon,
                                                              imagePage.currentPhoto.azimuth,
@@ -54,11 +43,11 @@ CalibratePopupForm {
                                                              variationModel.offsetY*imagePage.currentPhoto.height/2
                                                              )
         var id_photo = imagePage.currentPhoto.id_photo;
-        changedb.changePhotoLat(id_photo, imagePage.currentPhoto.lat);
-        changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon);
-        changedb.changePhotoAzimuth(id_photo, imagePage.currentPhoto.azimuth);
-        changedb.changePhotoOffsetX(id_photo, variationModel.offsetX);
-        changedb.changePhotoOffsetY(id_photo, variationModel.offsetY);
+        //changedb.changePhotoLat(id_photo, imagePage.currentPhoto.lat);
+        //changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon);
+        //changedb.changePhotoAzimuth(id_photo, imagePage.currentPhoto.azimuth);
+        //changedb.changePhotoOffsetX(id_photo, variationModel.offsetX);
+        //changedb.changePhotoOffsetY(id_photo, variationModel.offsetY);
 
         variationModel.infoCount = 0
 

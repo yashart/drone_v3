@@ -208,7 +208,7 @@ Map {
             coordinate: QtPositioning.coordinate(lat, lon)
             anchorPoint.x: markerTrackPoint.width / 2;
             anchorPoint.y: markerTrackPoint.height / 2;
-            opacity:0
+            opacity: 0
             sourceItem: Image {
                 id: markerTrackPoint
                 z: 2
