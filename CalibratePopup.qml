@@ -67,6 +67,8 @@ CalibratePopupForm {
         changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon)
         changedb.changePhotoGeoreferencing(id_photo, variationModel.a, variationModel.b,
                                            variationModel.c, variationModel.d)
+        linesModel.updateModel()
+        pointsModel.updateModel()
 
         imagePage.currentPhoto.aCalibrate = variationModel.a
         imagePage.currentPhoto.bCalibrate = variationModel.b
