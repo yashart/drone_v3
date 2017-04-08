@@ -40,8 +40,6 @@ int main(int argc, char *argv[])
     RulerModel rulerModel;
     ChangeDB changedb;
 
-    changedb.changePhotoGeoreferencing(1,0,0,0,0);
-
     PhotoProvider * photoProvider = new PhotoProvider();    
 
     Variation_method_calibrate variationModel;
