@@ -63,14 +63,6 @@ CalibratePopupForm {
                                                   variationModel.lon)
         mainPage.mapComponent.newMap.addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
 
-/*
-        mainPage.mapComponent.newMap.changeViewPortCenter(imagePage.currentPhoto.lat,
-                                                             imagePage.currentPhoto.lon,
-                                                             imagePage.currentPhoto.azimuth,
-                                                             variationModel.offsetX*imagePage.currentPhoto.width/2,
-                                                             variationModel.offsetY*imagePage.currentPhoto.height/2
-                                                             )
-                                                             */
         var id_photo = imagePage.currentPhoto.id_photo;
         //changedb.changePhotoLat(id_photo, imagePage.currentPhoto.lat);
         //changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon);
