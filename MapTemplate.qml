@@ -321,4 +321,13 @@ Map {
     function toRad (angle) {           // функция преобразования градусов в радианы
       return angle * (Math.PI / 180);
     }
+
+    function addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown){
+        var path = viewPort.path;
+        path[0] = leftHeight;
+        path[1] = leftDown;
+        path[2] = rightDown;
+        path[3] = rightHeight;
+        viewPort.path = path;
+    }
 }

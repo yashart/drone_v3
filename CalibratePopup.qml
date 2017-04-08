@@ -1,4 +1,5 @@
 import QtQuick 2.7
+import QtPositioning 5.3
 
 CalibratePopupForm {
     clearCalibrateModelButton.onClicked: {
@@ -36,12 +37,40 @@ CalibratePopupForm {
         imagePage.currentPhoto.azimuth = variationModel.fi
 
         console.log("offset: " + variationModel.offsetX + variationModel.a)
+        var leftHeight = QtPositioning.coordinate(variationModel.a*(-imagePage.currentPhoto.width/2) +
+                                                  variationModel.b*(-imagePage.currentPhoto.height/2) +
+                                                  variationModel.lat,
+                                                  variationModel.c*(-imagePage.currentPhoto.width/2) +
+                                                  variationModel.d*(-imagePage.currentPhoto.height/2) +
+                                                  variationModel.lon)
+        var leftDown = QtPositioning.coordinate(variationModel.a*(-imagePage.currentPhoto.width/2) +
+                                                  variationModel.b*(imagePage.currentPhoto.height/2) +
+                                                  variationModel.lat,
+                                                  variationModel.c*(-imagePage.currentPhoto.width/2) +
+                                                  variationModel.d*(imagePage.currentPhoto.height/2) +
+                                                  variationModel.lon)
+        var rightHeight = QtPositioning.coordinate(variationModel.a*(imagePage.currentPhoto.width/2) +
+                                                  variationModel.b*(-imagePage.currentPhoto.height/2) +
+                                                  variationModel.lat,
+                                                  variationModel.c*(imagePage.currentPhoto.width/2) +
+                                                  variationModel.d*(-imagePage.currentPhoto.height/2) +
+                                                  variationModel.lon)
+        var rightDown = QtPositioning.coordinate(variationModel.a*(imagePage.currentPhoto.width/2) +
+                                                  variationModel.b*(imagePage.currentPhoto.height/2) +
+                                                  variationModel.lat,
+                                                  variationModel.c*(imagePage.currentPhoto.width/2) +
+                                                  variationModel.d*(imagePage.currentPhoto.height/2) +
+                                                  variationModel.lon)
+        mainPage.mapComponent.newMap.addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
+
+/*
         mainPage.mapComponent.newMap.changeViewPortCenter(imagePage.currentPhoto.lat,
                                                              imagePage.currentPhoto.lon,
-                  +                                          imagePage.currentPhoto.azimuth,
+                                                             imagePage.currentPhoto.azimuth,
                                                              variationModel.offsetX*imagePage.currentPhoto.width/2,
                                                              variationModel.offsetY*imagePage.currentPhoto.height/2
                                                              )
+                                                             */
         var id_photo = imagePage.currentPhoto.id_photo;
         //changedb.changePhotoLat(id_photo, imagePage.currentPhoto.lat);
         //changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon);
