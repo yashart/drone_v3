@@ -185,6 +185,7 @@ Map {
         id: viewPort
         color: 'green'
         opacity: 0.5
+        z: 2
         path: [
             { latitude: 0, longitude: 0},
             { latitude: 0, longitude: 0},
@@ -227,7 +228,35 @@ Map {
                     parent.opacity = 0;
                 }
                 onClicked: {
-                    changeViewPortCenter(lat, lon, azimuth, 0.00150, 0.0016)
+                    var radAzimuth = toRad(azimuth)
+                    var scaleCoeff = 0.0007
+                    var leftHeight = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff -
+                                                              Math.sin(radAzimuth)*scaleCoeff +
+                                                              lat,
+                                                              -Math.cos(radAzimuth)*scaleCoeff +
+                                                              Math.sin(radAzimuth)*scaleCoeff +
+                                                              lon)
+                    var leftDown = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff +
+                                                            Math.sin(radAzimuth)*scaleCoeff +
+                                                            lat,
+                                                            -Math.cos(radAzimuth)*scaleCoeff -
+                                                            Math.sin(radAzimuth)*scaleCoeff +
+                                                            lon)
+                    var rightHeight = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff -
+                                                               Math.sin(radAzimuth)*scaleCoeff +
+                                                               lat,
+                                                               Math.cos(radAzimuth)*scaleCoeff +
+                                                               Math.sin(radAzimuth)*scaleCoeff +
+                                                               lon)
+                    var rightDown = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff +
+                                                             Math.sin(radAzimuth)*scaleCoeff +
+                                                             lat,
+                                                             Math.cos(radAzimuth)*scaleCoeff -
+                                                             Math.sin(radAzimuth)*scaleCoeff +
+                                                             lon)
+                    console.log(radAzimuth)
+
+                    addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
 
                     imagePage.currentPhoto.source = 'image://Photo/' + url //Для работы изображений используется провайдер
                     imagePage.currentPhoto.height = imagePage.pictureViewer.height
@@ -270,42 +299,6 @@ Map {
         console.log("TODO: Get tiles")
     }
 
-    function changeViewPortCenter(lat, lon, azimuth,
-                                  offsetLat,
-                                  offsetLon) // изменение положения четырехугольника отражающего примерный захват изображения
-    {
-        console.log(azimuth);
-
-        //var offsetLat = 0.00150; // ширина "прямоугольника захвата" полученная эксперементальным путем
-        //var offsetLon = 0.0016; // ширина "прямоугольника захвата" полученная эксперементальным путем
-
-        var offset = viewPort.path; // копируем в существующие кооординаты каждой точки четырехугольника
-        // Задаем их смещение ОТНОСИТЕЛЬНО ЦЕНТРА САМОГО ЧЕТЫРЕХУГОЛЬНИКА
-        offset[0].latitude = offsetLat;    //смещение первой точки
-        offset[0].longitude = offsetLon;
-        offset[1].latitude = offsetLat;    //Смещение второй точки
-        offset[1].longitude = - offsetLon;
-        offset[2].latitude = - offsetLat;  // и т.д.
-        offset[2].longitude = - offsetLon;
-        offset[3].latitude = - offsetLat;
-        offset[3].longitude = offsetLon;
-
-        var path = viewPort.path;      // А теперь поворачиваем каждую точку и сложением с центром получаем глобалные координаты (их настоящие широту и долготу)
-        for (var i = 0; i <= 3; i++){
-            var ofLat = offset[i].latitude;  // для удобства сохраняем
-            var ofLon = offset[i].longitude; //  смещения в переменные
-            path[i].latitude = lat + rotLat(ofLat, ofLon, azimuth); // первое слагаемое центр четырехугольника, второе - поворот точки
-            path[i].longitude = lon + rotLon(ofLat, ofLon, azimuth);
-        }
-        viewPort.path = path; // сохраняем полученные глобальные координаты
-
-        offset = lookAt.path; // координаты вектора мгновенной скорости самолета(на самом деле направление)
-        offset[0].latitude = lat; // координаты самой точки
-        offset[0].longitude = lon;
-        offset[1].latitude = lat + rotLat(offsetLat, 0, azimuth);   // точка, после поворота на угол,
-        offset[1].longitude = lon + rotLon(0, offsetLon, azimuth);; //  показывающая направление
-        lookAt.path = offset;
-    }
     function rotLat(lat, lon, angle) // матрица поворота для широты https://ru.wikipedia.org/wiki/Матрица_поворота#.D0.9C.D0.B0.D1.82.D1.80.D0.B8.D1.86.D0.B0_.D0.BF.D0.BE.D0.B2.D0.BE.D1.80.D0.BE.D1.82.D0.B0_.D0.B2_.D0.B4.D0.B2.D1.83.D0.BC.D0.B5.D1.80.D0.BD.D0.BE.D0.BC_.D0.BF.D1.80.D0.BE.D1.81.D1.82.D1.80.D0.B0.D0.BD.D1.81.D1.82.D0.B2.D0.B5
     {
         angle = toRad(angle);
