@@ -54,15 +54,30 @@ double Variation_method_calibrate::functional_d(Calibrate_known_info info)
 
 void Variation_method_calibrate::calcMethod(){
     for (int j = 0; j < 10000000; j++){
+        double meanFunctionalLat = 0;
+        double meanFunctionalLon = 0;
+        double meanFunctionalA = 0;
+        double meanFunctionalB = 0;
+        double meanFunctionalC = 0;
+        double meanFunctionalD = 0;
         for (int i = 0; i < this->infoCount; i++){
-            this->lat -= functional_lat(this->info[i])*this->tau;
-            this->lon -= functional_lon(this->info[i])*this->tau;
-            this->a -= functional_a(this->info[i])*this->tau;
-            this->b -= functional_b(this->info[i])*this->tau;
-            this->c -= functional_c(this->info[i])*this->tau;
-            this->d -= functional_d(this->info[i])*this->tau;
+            meanFunctionalLat += functional_lat(this->info[i])*this->tau;
+            meanFunctionalLon += functional_lon(this->info[i])*this->tau;
+            meanFunctionalA += functional_a(this->info[i])*this->tau;
+            meanFunctionalB += functional_b(this->info[i])*this->tau;
+            meanFunctionalC += functional_c(this->info[i])*this->tau;
+            meanFunctionalD += functional_d(this->info[i])*this->tau;
+
         }
+        this->lat -= meanFunctionalLat;
+        this->lon -= meanFunctionalLon;
+        this->a -= meanFunctionalA;
+        this->b -= meanFunctionalB;
+        this->c -= meanFunctionalC;
+        this->d -= meanFunctionalD;
+
     }
+
     this->fi = acos(a/sqrt(a*a + c*c))*360/3.14159265358979323846;
     this->offsetX = sqrt(a*a + c*c);
     this->offsetY = sqrt(b*b + d*d);

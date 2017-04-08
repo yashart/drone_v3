@@ -38,7 +38,7 @@ CalibratePopupForm {
         console.log("offset: " + variationModel.offsetX + variationModel.a)
         mainPage.mapComponent.newMap.changeViewPortCenter(imagePage.currentPhoto.lat,
                                                              imagePage.currentPhoto.lon,
-                                                             imagePage.currentPhoto.azimuth,
+                  +                                          imagePage.currentPhoto.azimuth,
                                                              variationModel.offsetX*imagePage.currentPhoto.width/2,
                                                              variationModel.offsetY*imagePage.currentPhoto.height/2
                                                              )
