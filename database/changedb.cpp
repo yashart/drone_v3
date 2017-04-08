@@ -60,3 +60,23 @@ void ChangeDB::changePhotoOffsetY(int id, double offsetY)
         qDebug() << "Error SQLite:" << query.lastError().text();
     }
 }
+
+void ChangeDB::changePhotoGeoreferencing(int id,
+                                               double a,
+                                               double b,
+                                               double c,
+                                               double d)
+
+{
+    query.prepare("UPDATE Points SET aCalibrate = :a, bCalibrate = :b, cCalibrate = :c, dCalibrate = :d WHERE id = :id;");
+    query.bindValue(":id", id);
+    query.bindValue(":a", a);
+    query.bindValue(":b", b);
+    query.bindValue(":c", c);
+    query.bindValue(":d", d);
+
+    if (!query.exec()){
+        qDebug() << "Error SQLite:" << query.lastError().text();
+    }
+}
+

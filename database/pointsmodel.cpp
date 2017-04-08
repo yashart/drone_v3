@@ -78,10 +78,10 @@ void PointsModel::updateModel()
     str_query.append("Tracks.dir, ");
     str_query.append("Points.url, ");
     str_query.append("Points.comment, ");
-    str_query.append("Points.type ");
-    str_query.append("Points.aCalibrate ");
-    str_query.append("Points.bCalibrate ");
-    str_query.append("Points.cCalibrate ");
+    str_query.append("Points.type, ");
+    str_query.append("Points.aCalibrate, ");
+    str_query.append("Points.bCalibrate, ");
+    str_query.append("Points.cCalibrate, ");
     str_query.append("Points.dCalibrate ");
     str_query.append("FROM Points ");
     str_query.append("LEFT OUTER JOIN Tracks ON Tracks.id = Points.track_id ");

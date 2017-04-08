@@ -38,14 +38,15 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
-
-
-    PhotoProvider * photoProvider = new PhotoProvider();
     ChangeDB changedb;
+
+    changedb.changePhotoGeoreferencing(1,0,0,0,0);
+
+    PhotoProvider * photoProvider = new PhotoProvider();    
 
     Variation_method_calibrate variationModel;
 
-    TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
+    //TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
 
 
     QObject::connect(&db, &DataBase::updateLocationsModel,
@@ -69,7 +70,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("linesModel", &linesModel);
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
-    ctx->setContextProperty("tilesDownloader", &tilesDownloader);
+    //ctx->setContextProperty("tilesDownloader", &tilesDownloader);
     ctx->setContextProperty("variationModel", &variationModel);
 
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());

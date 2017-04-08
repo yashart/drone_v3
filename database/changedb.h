@@ -20,6 +20,11 @@ public:
     Q_INVOKABLE void changePhotoAzimuth(int id, double azimuth);
     Q_INVOKABLE void changePhotoOffsetX(int id, double offsetX);
     Q_INVOKABLE void changePhotoOffsetY(int id, double offsetY);
+    Q_INVOKABLE void changePhotoGeoreferencing(int id,
+                                               double aCalibrate,
+                                               double bCalibrate,
+                                               double cCalibrate,
+                                               double dCalibrate);
 
 signals:
 
