@@ -22,12 +22,14 @@ ImagePageForm {
             popupPoints.visible = false
             console.log("id " + currentPhoto.id_photo )
             var coordinate = QtPositioning.coordinate(
-                currentPhoto.lat + ((2*dragAreaPhoto.mouseX/currentPhoto.paintedWidth-1)*Math.sin(currentPhoto.azimuth*3.1415/180)-
-                             (2*dragAreaPhoto.mouseY/currentPhoto.paintedHeight-1)*Math.cos(currentPhoto.azimuth*3.1415/180))*
-                dragAreaPhoto.offsetLat,
-                currentPhoto.lon + ((2*dragAreaPhoto.mouseX/currentPhoto.paintedWidth-1)*Math.cos(currentPhoto.azimuth*3.1415/180)+
-                             (2*dragAreaPhoto.mouseY/currentPhoto.paintedHeight-1)*Math.sin(currentPhoto.azimuth*3.1415/180))*
-                dragAreaPhoto.offsetLon
+                currentPhoto.lat + currentPhoto.aCalibrate*
+                        (dragAreaPhoto.mouseX - currentPhoto.width/2) +
+                        currentPhoto.bCalibrate*
+                        (dragAreaPhoto.mouseY - currentPhoto.height/2),
+                currentPhoto.lon + currentPhoto.cCalibrate*
+                        (dragAreaPhoto.mouseX - currentPhoto.width/2) +
+                        currentPhoto.dCalibrate*
+                        (dragAreaPhoto.mouseY - currentPhoto.height/2)
                 )
             console.log("picture clicked: " + coordinate)
             popupPoints.set_popup_points_position(coordinate.latitude,

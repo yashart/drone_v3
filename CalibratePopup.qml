@@ -36,7 +36,6 @@ CalibratePopupForm {
         imagePage.currentPhoto.lon = variationModel.lon
         imagePage.currentPhoto.azimuth = variationModel.fi
 
-        console.log("offset: " + variationModel.offsetX + variationModel.a)
         var leftHeight = QtPositioning.coordinate(variationModel.a*(-imagePage.currentPhoto.width/2) +
                                                   variationModel.b*(-imagePage.currentPhoto.height/2) +
                                                   variationModel.lat,
@@ -63,16 +62,17 @@ CalibratePopupForm {
                                                   variationModel.lon)
         mainPage.mapComponent.newMap.addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
 
-        var id_photo = imagePage.currentPhoto.id_photo;
-        //changedb.changePhotoLat(id_photo, imagePage.currentPhoto.lat);
-        //changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon);
-        //changedb.changePhotoAzimuth(id_photo, imagePage.currentPhoto.azimuth);
-        //changedb.changePhotoOffsetX(id_photo, variationModel.offsetX);
-        //changedb.changePhotoOffsetY(id_photo, variationModel.offsetY);
+        var id_photo = imagePage.currentPhoto.id_photo
+        changedb.changePhotoLat(id_photo, imagePage.currentPhoto.lat)
+        changedb.changePhotoLon(id_photo, imagePage.currentPhoto.lon)
+        changedb.changePhotoGeoreferencing(id_photo, variationModel.a, variationModel.b,
+                                           variationModel.c, variationModel.d)
+
+        imagePage.currentPhoto.aCalibrate = variationModel.a
+        imagePage.currentPhoto.bCalibrate = variationModel.b
+        imagePage.currentPhoto.cCalibrate = variationModel.c
+        imagePage.currentPhoto.dCalibrate = variationModel.d
 
         variationModel.infoCount = 0
-
-        //imagePage.currentPhoto.off = variationModel.lat
-
     }
 }

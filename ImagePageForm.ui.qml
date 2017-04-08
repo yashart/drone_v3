@@ -42,8 +42,6 @@ Window {
         Window {
             color: "#E0E0E0"
             id: photoInformation
-            //Layout.preferredWidth: parent.width * 0.2
-            //Layout.preferredHeight: parent.height
             width: 360
             height: 560
             visible: imagePage.visible
@@ -316,6 +314,11 @@ Window {
                     property var alt: 0
                     property var imageName: 0
                     property var path: 0
+                    property var aCalibrate: 0
+                    property var bCalibrate: 0
+                    property var cCalibrate: 0
+                    property var dCalibrate: 0
+
                     MouseArea {
                         id: dragAreaPhoto
                         hoverEnabled: true
@@ -393,10 +396,21 @@ Window {
                         delegate: Rectangle {
                             anchors.fill: currentPhoto
                                 Image {
-                                x: (((lon-currentPhoto.lon)/dragAreaPhoto.offsetLon*Math.cos(currentPhoto.azimuth*3.1415/180)-
-                                   (currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedWidth
-                                y: (((currentPhoto.lat-lat)/dragAreaPhoto.offsetLat*Math.cos(currentPhoto.azimuth*3.1415/180)-
-                                   (currentPhoto.lon-lon)/dragAreaPhoto.offsetLon*Math.sin(currentPhoto.azimuth*3.1415/180))/2 + 0.5)*currentPhoto.paintedHeight
+                                x: (lat-currentPhoto.lat)*currentPhoto.dCalibrate/
+                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
+                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)-
+                                   (lon-currentPhoto.lon)*currentPhoto.bCalibrate/
+                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
+                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)+
+                                   currentPhoto.width/2
+
+                                y: -(lat-currentPhoto.lat)*currentPhoto.cCalibrate/
+                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
+                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)+
+                                   (lon-currentPhoto.lon)*currentPhoto.aCalibrate/
+                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
+                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)+
+                                   currentPhoto.height/2
                                 z: 3
                                 source: "qrc:///img/popupIconsSet/" + type + ".png"
                                 cache: false

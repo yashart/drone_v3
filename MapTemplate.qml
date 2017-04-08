@@ -229,32 +229,60 @@ Map {
                 }
                 onClicked: {
                     var radAzimuth = toRad(azimuth)
-                    var scaleCoeff = 0.0007
-                    var leftHeight = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff -
-                                                              Math.sin(radAzimuth)*scaleCoeff +
-                                                              lat,
-                                                              -Math.cos(radAzimuth)*scaleCoeff +
-                                                              Math.sin(radAzimuth)*scaleCoeff +
-                                                              lon)
-                    var leftDown = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff +
-                                                            Math.sin(radAzimuth)*scaleCoeff +
-                                                            lat,
-                                                            -Math.cos(radAzimuth)*scaleCoeff -
-                                                            Math.sin(radAzimuth)*scaleCoeff +
-                                                            lon)
-                    var rightHeight = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff -
-                                                               Math.sin(radAzimuth)*scaleCoeff +
-                                                               lat,
-                                                               Math.cos(radAzimuth)*scaleCoeff +
-                                                               Math.sin(radAzimuth)*scaleCoeff +
-                                                               lon)
-                    var rightDown = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff +
-                                                             Math.sin(radAzimuth)*scaleCoeff +
-                                                             lat,
-                                                             Math.cos(radAzimuth)*scaleCoeff -
-                                                             Math.sin(radAzimuth)*scaleCoeff +
-                                                             lon)
-                    console.log(radAzimuth)
+                    if (aCalibrate == "") {
+                        var scaleCoeff = 0.0007
+                        var leftHeight = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff -
+                                                                  Math.sin(radAzimuth)*scaleCoeff +
+                                                                  lat,
+                                                                  -Math.cos(radAzimuth)*scaleCoeff +
+                                                                  Math.sin(radAzimuth)*scaleCoeff +
+                                                                  lon)
+                        var leftDown = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff +
+                                                                Math.sin(radAzimuth)*scaleCoeff +
+                                                                lat,
+                                                                -Math.cos(radAzimuth)*scaleCoeff -
+                                                                Math.sin(radAzimuth)*scaleCoeff +
+                                                                lon)
+                        var rightHeight = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff -
+                                                                   Math.sin(radAzimuth)*scaleCoeff +
+                                                                   lat,
+                                                                   Math.cos(radAzimuth)*scaleCoeff +
+                                                                   Math.sin(radAzimuth)*scaleCoeff +
+                                                                   lon)
+                        var rightDown = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff +
+                                                                 Math.sin(radAzimuth)*scaleCoeff +
+                                                                 lat,
+                                                                 Math.cos(radAzimuth)*scaleCoeff -
+                                                                 Math.sin(radAzimuth)*scaleCoeff +
+                                                                 lon)
+                    }else {
+                        var leftHeight = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(-imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.bCalibrate*(-imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lat,
+                                                                  imagePage.currentPhoto.cCalibrate*(-imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.dCalibrate*(-imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lon)
+                        var leftDown = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(-imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.bCalibrate*(imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lat,
+                                                                  imagePage.currentPhoto.cCalibrate*(-imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.dCalibrate*(imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lon)
+                        var rightHeight = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.bCalibrate*(-imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lat,
+                                                                  imagePage.currentPhoto.cCalibrate*(imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.dCalibrate*(-imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lon)
+                        var rightDown = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.bCalibrate*(imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lat,
+                                                                  imagePage.currentPhoto.cCalibrate*(imagePage.currentPhoto.width/2) +
+                                                                  imagePage.currentPhoto.dCalibrate*(imagePage.currentPhoto.height/2) +
+                                                                  imagePage.currentPhoto.lon)
+                    }
+
+                    console.log("a: " + aCalibrate)
 
                     addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
 
@@ -266,8 +294,19 @@ Map {
                     imagePage.currentPhoto.lon = lon
                     imagePage.currentPhoto.alt = alt
                     imagePage.currentPhoto.id_photo = id
+                    if(aCalibrate == ""){
+                        scaleCoeff = 0.00001
+                        imagePage.currentPhoto.aCalibrate = Math.cos(radAzimuth)*scaleCoeff
+                        imagePage.currentPhoto.bCalibrate = Math.sin(radAzimuth)*scaleCoeff
+                        imagePage.currentPhoto.cCalibrate = -Math.sin(radAzimuth)*scaleCoeff
+                        imagePage.currentPhoto.dCalibrate = Math.cos(radAzimuth)*scaleCoeff
+                    }else{
+                        imagePage.currentPhoto.aCalibrate = aCalibrate
+                        imagePage.currentPhoto.bCalibrate = bCalibrate
+                        imagePage.currentPhoto.cCalibrate = cCalibrate
+                        imagePage.currentPhoto.dCalibrate = dCalibrate
+                    }
                     console.log(imagePage.currentPhoto.source)
-                    imagePage.currentPhoto
                     imagePage.currentPhoto.imageName = url
                     console.log(dir + url)
                     console.log(url)
