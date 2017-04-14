@@ -8,10 +8,12 @@ Item {
                     id: imagePage
                     visible: Jvisible
                 }
+                /*
                 CalibratePopup {
                     id: calibratePopup
                     visible: true
                 }
+                */
         }
     }
 

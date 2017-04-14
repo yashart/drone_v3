@@ -49,11 +49,9 @@ ApplicationWindow {
         id: videoPage
         visible: false
     }
-    /*
+
     CalibratePopup {
         id: calibratePopup
         visible: true
     }
-    */
-
 }

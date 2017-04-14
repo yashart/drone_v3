@@ -4,6 +4,8 @@ import QtPositioning 5.3
 
 Map {
     property alias mouseAreaMap: mouseAreaMap
+    property var currentTrack: -1
+    property alias tempProviderImage: tempProviderImage
     id: map
     anchors.fill: parent
     center: QtPositioning.coordinate(59.91, 10.75)
@@ -228,11 +230,15 @@ Map {
                     parent.opacity = 0;
                 }
                 onClicked: {
+                    map.currentTrack = track_id
                     imagePages.setPhotoParams(track_id, url, 0, azimuth, azimuth, lat, lon,
                                               alt, id, aCalibrate, bCalibrate, cCalibrate,
                                               dCalibrate)
 
                     tempProviderImage.source = 'image://Photo/' + url
+                    tempProviderImage.lat = lat
+                    tempProviderImage.lon = lon
+                    tempProviderImage.id_photo = id
 
                     console.log("tempImage Width: " + tempProviderImage.width)
 
@@ -310,6 +316,11 @@ Map {
         id: tempProviderImage
         visible: false
         source: ""
+        fillMode: Image.PreserveAspectFit
+        height: 392
+        property var lat: 0
+        property var lon: 0
+        property var id_photo: 0
     }
 
     MapRectangle {
