@@ -1,12 +1,11 @@
 import QtQuick 2.4
-import QtQuick.Controls 2.0
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
 
 Item {
     property alias pointsButton: pointsButton
     property alias rulerButton: rulerButton
     property alias leftMenuButton: leftMenuButton
-    property alias removeButton: removeButton
     property alias mouseButton: mouseButton
     property alias savePointsButton: savePointsButton
     property alias calibrateButton: calibrateButton
@@ -16,60 +15,58 @@ Item {
 
     ToolBar {
         id: toolBar
-        transformOrigin: Item.Center
+        /*transformOrigin: Item.Center
         anchors.horizontalCenterOffset: 0
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter*/
+        height: 30
 
         RowLayout {
             id: rowLayout
+            height: parent
+
+            ExclusiveGroup { id: toolBarsButtonts }
 
             ToolButton {
                 id: mouseButton
-                text: qsTr("Мышь")
-                autoExclusive: true
+                iconSource: "qrc:/img/cursor.png"
                 checkable: true
                 checked: true
+                exclusiveGroup : toolBarsButtonts
             }
 
             ToolButton {
                 id: pointsButton
-                text: qsTr("Отметки")
-                autoExclusive: true
+                iconSource: "qrc:/img/placeholder.png"
                 checkable: true
+                exclusiveGroup : toolBarsButtonts
             }
 
             ToolButton {
                 id: rulerButton
-                text: qsTr("Линейка")
-                autoExclusive: true
+                iconSource: "qrc:/img/ruler.png"
                 checkable: true
+                exclusiveGroup : toolBarsButtonts
             }
 
             ToolButton {
                 id: savePointsButton
-                text: qsTr("Сохранить карту")
+                iconSource: "qrc:/img/getmap.png"
                 checkable: true
-                autoExclusive: true
+                exclusiveGroup : toolBarsButtonts
             }
 
             ToolButton {
                 id: calibrateButton
-                text: qsTr("Калибровать информацию")
+                iconSource: "qrc:/img/georefer.png"
                 checkable: true
-                autoExclusive: true
-            }
-
-            ToolButton {
-                id: removeButton
-                text: qsTr("Корзина")
-                checkable: true
-                autoExclusive: true
+                exclusiveGroup : toolBarsButtonts
             }
 
             ToolButton {
                 id: leftMenuButton
-                text: qsTr("Меню")
+                iconSource: "qrc:/img/menu.png"
                 checkable: false
+                exclusiveGroup : toolBarsButtonts
             }
         }
     }
