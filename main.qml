@@ -25,9 +25,14 @@ ApplicationWindow {
         visible: false
     }
 
+    /*
     ImagePage {
         id: imagePage
         visible: false
+    }
+    */
+    ImagePageModel {
+        id: imagePages
     }
 
     PopupPoints {
@@ -44,10 +49,11 @@ ApplicationWindow {
         id: videoPage
         visible: false
     }
-
+    /*
     CalibratePopup {
         id: calibratePopup
         visible: true
     }
+    */
 
 }

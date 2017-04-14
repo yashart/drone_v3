@@ -67,17 +67,19 @@ Window {
                                     checked: (is_check === "true") ? true : false
                                     onClicked:{
                                         if (checked == true){
-                                            pointsModel.addId(id);
-                                            tracksModel.setChecked(id);
-                                            linesModel.addId(id);
+                                            pointsModel.addId(id)
+                                            tracksModel.setChecked(id)
+                                            linesModel.addId(id)
+                                            imagePages.addTrack(id, name)
                                         }
                                         if (checked == false){
-                                            pointsModel.delId(id);
-                                            tracksModel.setUnchecked(id);
-                                            linesModel.delId(id);
+                                            pointsModel.delId(id)
+                                            tracksModel.setUnchecked(id)
+                                            linesModel.delId(id)
+                                            imagePages.removeTrack(id)
                                         }
-                                        pointsModel.updateModel();
-                                        tracksModel.updateModel();
+                                        pointsModel.updateModel()
+                                        tracksModel.updateModel()
                                     }
                                     MouseArea {
                                         anchors.fill: parent

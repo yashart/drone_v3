@@ -228,93 +228,88 @@ Map {
                     parent.opacity = 0;
                 }
                 onClicked: {
+                    imagePages.setPhotoParams(track_id, url, 0, azimuth, azimuth, lat, lon,
+                                              alt, id, aCalibrate, bCalibrate, cCalibrate,
+                                              dCalibrate)
+
+                    tempProviderImage.source = 'image://Photo/' + url
+
+                    console.log("tempImage Width: " + tempProviderImage.width)
+
                     var radAzimuth = toRad(azimuth)
+                    var leftHeight = 0
+                    var leftDown = 0
+                    var rightHeight = 0
+                    var rightDown = 0
                     if (aCalibrate == "") {
                         var scaleCoeff = 0.0007
-                        var leftHeight = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff -
+                        leftHeight = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff -
                                                                   Math.sin(radAzimuth)*scaleCoeff +
                                                                   lat,
                                                                   -Math.cos(radAzimuth)*scaleCoeff +
                                                                   Math.sin(radAzimuth)*scaleCoeff +
                                                                   lon)
-                        var leftDown = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff +
+                        leftDown = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff +
                                                                 Math.sin(radAzimuth)*scaleCoeff +
                                                                 lat,
                                                                 -Math.cos(radAzimuth)*scaleCoeff -
                                                                 Math.sin(radAzimuth)*scaleCoeff +
                                                                 lon)
-                        var rightHeight = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff -
+                        rightHeight = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff -
                                                                    Math.sin(radAzimuth)*scaleCoeff +
                                                                    lat,
                                                                    Math.cos(radAzimuth)*scaleCoeff +
                                                                    Math.sin(radAzimuth)*scaleCoeff +
                                                                    lon)
-                        var rightDown = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff +
+                        rightDown = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff +
                                                                  Math.sin(radAzimuth)*scaleCoeff +
                                                                  lat,
                                                                  Math.cos(radAzimuth)*scaleCoeff -
                                                                  Math.sin(radAzimuth)*scaleCoeff +
                                                                  lon)
                     }else {
-                        var leftHeight = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(-imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.bCalibrate*(-imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lat,
-                                                                  imagePage.currentPhoto.cCalibrate*(-imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.dCalibrate*(-imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lon)
-                        var leftDown = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(-imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.bCalibrate*(imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lat,
-                                                                  imagePage.currentPhoto.cCalibrate*(-imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.dCalibrate*(imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lon)
-                        var rightHeight = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.bCalibrate*(-imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lat,
-                                                                  imagePage.currentPhoto.cCalibrate*(imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.dCalibrate*(-imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lon)
-                        var rightDown = QtPositioning.coordinate(imagePage.currentPhoto.aCalibrate*(imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.bCalibrate*(imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lat,
-                                                                  imagePage.currentPhoto.cCalibrate*(imagePage.currentPhoto.width/2) +
-                                                                  imagePage.currentPhoto.dCalibrate*(imagePage.currentPhoto.height/2) +
-                                                                  imagePage.currentPhoto.lon)
+                        leftHeight = QtPositioning.coordinate(aCalibrate*(-tempProviderImage.width/2) +
+                                                                  bCalibrate*(-tempProviderImage.height/2) +
+                                                                  lat,
+                                                                  cCalibrate*(-tempProviderImage.width/2) +
+                                                                  dCalibrate*(-tempProviderImage.height/2) +
+                                                                  lon)
+                        leftDown = QtPositioning.coordinate(aCalibrate*(-tempProviderImage.width/2) +
+                                                                  bCalibrate*(tempProviderImage.height/2) +
+                                                                  lat,
+                                                                  cCalibrate*(-tempProviderImage.width/2) +
+                                                                  dCalibrate*(tempProviderImage.height/2) +
+                                                                  lon)
+                        rightHeight = QtPositioning.coordinate(aCalibrate*(tempProviderImage.width/2) +
+                                                                  bCalibrate*(-tempProviderImage.height/2) +
+                                                                  lat,
+                                                                  cCalibrate*(tempProviderImage.width/2) +
+                                                                  dCalibrate*(-tempProviderImage.height/2) +
+                                                                  lon)
+                        rightDown = QtPositioning.coordinate(aCalibrate*(tempProviderImage.width/2) +
+                                                                  bCalibrate*(tempProviderImage.height/2) +
+                                                                  lat,
+                                                                  cCalibrate*(tempProviderImage.width/2) +
+                                                                  dCalibrate*(tempProviderImage.height/2) +
+                                                                  lon)
                     }
 
                     console.log("a: " + aCalibrate)
 
                     addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
 
-                    imagePage.currentPhoto.source = 'image://Photo/' + url //Для работы изображений используется провайдер
-                    imagePage.currentPhoto.height = imagePage.pictureViewer.height
-                    imagePage.currentPhoto.rotation = azimuth
-                    imagePage.currentPhoto.azimuth = azimuth
-                    imagePage.currentPhoto.lat = lat
-                    imagePage.currentPhoto.lon = lon
-                    imagePage.currentPhoto.alt = alt
-                    imagePage.currentPhoto.id_photo = id
-                    if(aCalibrate == ""){
-                        scaleCoeff = 0.00001
-                        imagePage.currentPhoto.aCalibrate = Math.cos(radAzimuth)*scaleCoeff
-                        imagePage.currentPhoto.bCalibrate = Math.sin(radAzimuth)*scaleCoeff
-                        imagePage.currentPhoto.cCalibrate = -Math.sin(radAzimuth)*scaleCoeff
-                        imagePage.currentPhoto.dCalibrate = Math.cos(radAzimuth)*scaleCoeff
-                    }else{
-                        imagePage.currentPhoto.aCalibrate = aCalibrate
-                        imagePage.currentPhoto.bCalibrate = bCalibrate
-                        imagePage.currentPhoto.cCalibrate = cCalibrate
-                        imagePage.currentPhoto.dCalibrate = dCalibrate
-                    }
-                    console.log(imagePage.currentPhoto.source)
-                    imagePage.currentPhoto.imageName = url
                     console.log(dir + url)
                     console.log(url)
                     pointsPhotoModel.setCenter(lat, lon)
-                    imagePage.visible = true
                 }
             }
         }
+    }
+
+    Image {
+        id: tempProviderImage
+        visible: false
+        source: ""
     }
 
     MapRectangle {

@@ -68,5 +68,6 @@
         <file>InstrumentsImageForm.ui.qml</file>
         <file>CalibratePopup.qml</file>
         <file>CalibratePopupForm.ui.qml</file>
+        <file>ImagePageModel.qml</file>
     </qresource>
 </RCC>

@@ -307,17 +307,18 @@ Window {
                     fillMode: Image.PreserveAspectFit
                     height: pictureViewer.height
                     z: 2
-                    property int id_photo: -1
-                    property var lat: 0
-                    property var lon: 0
-                    property var azimuth: 0
-                    property var alt: 0
+                    property int id_photo: Jid_photo
+                    property var lat: parseFloat(Jlat)
+                    property var lon: parseFloat(Jlon)
+                    property var azimuth: parseFloat(Jazimuth)
+                    property var alt: parseFloat(Jalt)
                     property var imageName: 0
                     property var path: 0
-                    property var aCalibrate: 0
-                    property var bCalibrate: 0
-                    property var cCalibrate: 0
-                    property var dCalibrate: 0
+                    property var aCalibrate: parseFloat(JaCalibrate)
+                    property var bCalibrate: parseFloat(JbCalibrate)
+                    property var cCalibrate: parseFloat(JcCalibrate)
+                    property var dCalibrate: parseFloat(JdCalibrate)
+                    source: 'image://Photo/' + Jurl
 
                     MouseArea {
                         id: dragAreaPhoto
@@ -328,8 +329,6 @@ Window {
                         z: 2
                         property var offsetLon: 0.00150 // эксперементальным путем
                         property var offsetLat: 0.0016 // эксперементальным путем
-
-
                     }
                     BrightnessContrast {
                         id: brghtnessImage
