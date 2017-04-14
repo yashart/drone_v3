@@ -69,5 +69,11 @@
         <file>CalibratePopup.qml</file>
         <file>CalibratePopupForm.ui.qml</file>
         <file>ImagePageModel.qml</file>
+        <file>img/cursor.png</file>
+        <file>img/georefer.png</file>
+        <file>img/getmap.png</file>
+        <file>img/menu.png</file>
+        <file>img/placeholder.png</file>
+        <file>img/ruler.png</file>
     </qresource>
 </RCC>

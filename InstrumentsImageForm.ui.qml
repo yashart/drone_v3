@@ -1,11 +1,11 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import QtQuick.Controls 2.1
+import QtQuick.Controls 1.4
 
 Item {
     id: instrumentsImage
     anchors.horizontalCenterOffset: 0
-    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.horizontalCenter: parent.left
 
     property alias hideButtonImage: hideButtonImage
     property alias pointsButtonImage: pointsButtonImage
@@ -13,42 +13,38 @@ Item {
 
     ToolBar {
         id: toolBar
-        transformOrigin: Item.Center
+        /*transformOrigin: Item.Center
         anchors.horizontalCenterOffset: 0
-        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenter: parent.horizontalCenter*/
+        height: 30
+
         RowLayout {
+            ExclusiveGroup { id: toolBarsButtonts }
             ToolButton {
                 id: mouseButtonImage
-                text: qsTr("Мышь")
-                autoExclusive: true
+                iconSource: "qrc:/img/cursor.png"
+                exclusiveGroup: toolBarsButtonts
                 checkable: true
                 checked: true
             }
 
             ToolButton {
                 id: pointsButtonImage
-                text: qsTr("Отметки")
+                iconSource: "qrc:/img/placeholder.png"
                 checkable: true
-                autoExclusive: true
-            }
-
-            ToolButton {
-                id: moveButtonImage
-                text: qsTr("Переставить")
-                checkable: true
-                autoExclusive: true
+                exclusiveGroup: toolBarsButtonts
             }
 
             ToolButton {
                 id: hideButtonImage
-                text: qsTr("Скрыть информацию")
+                iconSource: "qrc:/img/menu.png"
             }
 
             ToolButton {
                 id: calibrateButtonImage
-                text: qsTr("Калибровать информацию")
+                iconSource: "qrc:/img/georefer.png"
                 checkable: true
-                autoExclusive: true
+                exclusiveGroup: toolBarsButtonts
             }
         }
     }
