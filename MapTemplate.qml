@@ -317,7 +317,7 @@ Map {
         visible: false
         source: ""
         fillMode: Image.PreserveAspectFit
-        height: 392
+        height: 500
         property var lat: 0
         property var lon: 0
         property var id_photo: 0

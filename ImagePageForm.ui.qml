@@ -34,7 +34,7 @@ Window {
     property alias desaturateImage: desaturateImage
     property alias hueImage: hueImage
 
-    height: 560
+    height: 392
     width: 360
 
     RowLayout {
@@ -210,16 +210,16 @@ Window {
             }
         }
 
-        ColumnLayout {
+        RowLayout {
             Layout.preferredHeight: parent.height
-            Layout.preferredWidth: parent.width * 0.8
+            Layout.preferredWidth: parent.width
             id: columnLayout
             z: 1
 
             Item {
                 id: pictureViewer
-                Layout.preferredHeight: 0.7 * parent.height
-                Layout.preferredWidth: parent.width
+                Layout.preferredHeight: parent.height
+                Layout.preferredWidth: parent.width * 0.7
                 z: 1
 
                 InstrumentsImage {
@@ -230,7 +230,7 @@ Window {
                 Image {
                     id: currentPhoto
                     fillMode: Image.PreserveAspectFit
-                    height: pictureViewer.height
+                    height: mainPage.mapComponent.newMap.tempProviderImage.height
                     z: 2
                     property int id_photo: Jid_photo
                     property var lat: parseFloat(Jlat)
@@ -370,26 +370,28 @@ Window {
 
             Rectangle {
                 id: photoScroll
-                Layout.preferredHeight: 0.28 * parent.height
-                Layout.preferredWidth: parent.width
+                Layout.preferredHeight: parent.height
+                Layout.preferredWidth: 0.3 * parent.width
                 Layout.fillWidth: true
                 color: "#E0E0E0"
                 z: 2
                 ScrollView {
                     id: scrollPhotoView
                     anchors.fill: parent
-                    Row {
+                    Column {
                         LayoutMirroring.enabled: true
                         LayoutMirroring.childrenInherit: true
                         Repeater {
                             model: imagesModel
-                            Image {
-                                width:166
-                                source: "image://SliderImages/" + dir + url
-                                height: scrollPhotoView.height * 0.9
-                                fillMode: Image.PreserveAspectFit
-                                asynchronous: true
-                                z: 2
+                            Rectangle {
+                                height: 150
+                                Image {
+                                    source: "image://SliderImages/" + dir + url
+                                    height: parent.height * 0.9
+                                    fillMode: Image.PreserveAspectFit
+                                    asynchronous: true
+                                    z: 2
+                                }
                             }
                         }
                     }
