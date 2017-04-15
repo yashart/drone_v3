@@ -183,6 +183,52 @@ Map {
         }
     }
 
+    MapItemView {
+        id: mapPictureRectangle
+        model: imagePages.imagePageModel
+        delegate: MapPolygon{
+            color: 'red'
+            opacity: 0.5
+            z: 2
+
+            property var leftHeight: QtPositioning.coordinate(parseFloat(JaCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(-tempProviderImage.height/2) +
+                                                      parseFloat(Jlat),
+                                                      parseFloat(JcCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(-tempProviderImage.height/2) +
+                                                      parseFloat(Jlon))
+            property var leftDown: QtPositioning.coordinate(parseFloat(JaCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(tempProviderImage.height/2) +
+                                                      parseFloat(Jlat),
+                                                      parseFloat(JcCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(tempProviderImage.height/2) +
+                                                      parseFloat(Jlon))
+            property var rightHeight: QtPositioning.coordinate(parseFloat(JaCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(-tempProviderImage.height/2) +
+                                                      parseFloat(Jlat),
+                                                      parseFloat(JcCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(-tempProviderImage.height/2) +
+                                                      parseFloat(Jlon))
+            property var rightDown: QtPositioning.coordinate(parseFloat(JaCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(tempProviderImage.height/2) +
+                                                      parseFloat(Jlat),
+                                                      parseFloat(JcCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(tempProviderImage.height/2) +
+                                                      parseFloat(Jlon))
+            path: [
+                leftHeight,
+                leftDown,
+                rightDown,
+                rightHeight
+            ]
+            Component.onCompleted: {
+                console.log("newPath")
+                console.log(leftHeight)
+            }
+        }
+
+    }
+
     MapPolygon{
         id: viewPort
         color: 'green'
@@ -247,6 +293,7 @@ Map {
                     var leftDown = 0
                     var rightHeight = 0
                     var rightDown = 0
+                    /*
                     if (aCalibrate == "") {
                         var scaleCoeff = 0.0007
                         leftHeight = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff -
@@ -299,10 +346,11 @@ Map {
                                                                   dCalibrate*(tempProviderImage.height/2) +
                                                                   lon)
                     }
+                    */
 
-                    console.log("a: " + aCalibrate)
+                    console.log("imagePages.imagePageModel " + imagePages.imagePageModel)
 
-                    addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
+                    //addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
 
                     console.log(dir + url)
                     console.log(url)

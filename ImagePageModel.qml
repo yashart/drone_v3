@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 Item {
+    property alias imagePageModel: imagePageModel
     ListView {
         model: imagePageModel
         delegate: Item {
@@ -8,12 +9,6 @@ Item {
                     id: imagePage
                     visible: Jvisible
                 }
-                /*
-                CalibratePopup {
-                    id: calibratePopup
-                    visible: true
-                }
-                */
         }
     }
 

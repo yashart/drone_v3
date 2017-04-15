@@ -378,20 +378,18 @@ Window {
                 ScrollView {
                     id: scrollPhotoView
                     anchors.fill: parent
-                    Column {
+                    ColumnLayout {
                         LayoutMirroring.enabled: true
                         LayoutMirroring.childrenInherit: true
                         Repeater {
                             model: imagesModel
-                            Rectangle {
-                                height: 150
-                                Image {
-                                    source: "image://SliderImages/" + dir + url
-                                    height: parent.height * 0.9
-                                    fillMode: Image.PreserveAspectFit
-                                    asynchronous: true
-                                    z: 2
-                                }
+                            Image {
+                                source: "image://SliderImages/" + dir + url
+                                //height: parent.height * 0.9
+                                width: parent.width - 10
+                                fillMode: Image.PreserveAspectFit
+                                asynchronous: true
+                                z: 2
                             }
                         }
                     }
