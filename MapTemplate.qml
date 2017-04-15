@@ -228,7 +228,7 @@ Map {
         }
 
     }
-
+/*
     MapPolygon{
         id: viewPort
         color: 'green'
@@ -241,6 +241,7 @@ Map {
             { latitude: 0, longitude: 0}
         ]
     }
+ */
     MapPolyline {
        id: lookAt
        line.width: 4
@@ -408,6 +409,7 @@ Map {
       return angle * (Math.PI / 180);
     }
 
+    /*
     function addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown){
         var path = viewPort.path;
         path[0] = leftHeight;
@@ -416,4 +418,5 @@ Map {
         path[3] = rightHeight;
         viewPort.path = path;
     }
+    */
 }
