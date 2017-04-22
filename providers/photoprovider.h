@@ -1,6 +1,8 @@
 #ifndef PHOTOPROVIDER_H
 #define PHOTOPROVIDER_H
 
+#include <string>
+
 #include <QObject>
 #include <QQuickImageProvider>
 #include <QPainter>
@@ -17,13 +19,16 @@ public:
     PhotoProvider()
         : QQuickImageProvider(QQuickImageProvider::Image)
     {
-        curImg = cv::imread("C:/Users/Vladislav/Downloads/Capture_01.JPG" , 1 );
-        tempImg = curImg.clone();
+        // setImage(QUrl("file:///C:/Users/Vladislav/Downloads/Capture_01.JPG?contrast=1")); TODO убрать
     }
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
     void changePath(QString path);
 private:
+
+    void setImage(const QUrl & url);
+
+    QUrl curImgPath;
 
     cv::Mat curImg;
     cv::Mat tempImg;

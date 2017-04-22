@@ -13,7 +13,12 @@ QImage Mat2QImage(const cv::Mat3b &src) {
     return dest;
 }
 
-
+void PhotoProvider::setImage(const QUrl & url)
+{
+    qDebug() << "Set path: " << url.toLocalFile();
+    curImg = cv::imread( url.toLocalFile().toStdString(), 1 );
+    tempImg = curImg.clone();
+}
 
 
 QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
@@ -22,14 +27,18 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
     QTime time;
     time.start();
 
-
-    sUrl.insert(0, "image://");
+    sUrl.insert(0, "file:///");
 
 
     QUrl url(sUrl);
     QUrlQuery urlQuery(url.query());
 
-    qDebug() << url.query();
+    if ( url.toLocalFile() != curImgPath.toLocalFile() )
+    {
+        qDebug() << "Hello";
+        setImage(url);
+        curImgPath = url;
+    }
 
     if(urlQuery.hasQueryItem("standart") == true)
     {

@@ -19,7 +19,8 @@ Item {
     function addTrack(id, name){
         imagePageModel.append({"name": name,
                               "id": id,
-                              "Jurl": "",
+                              "Jdir": "",
+                              "Jname": "",
                               "Jheight": 0,
                               "Jrotation": 0,
                               "Jazimuth": 0,
@@ -34,7 +35,7 @@ Item {
                               "Jvisible": false})
     }
 
-    function setPhotoParams(id, url, height, rotation, azimuth, lat, lon,
+    function setPhotoParams(id, url, dir, height, rotation, azimuth, lat, lon,
                             alt, id_photo, aCalibrate, bCalibrate, cCalibrate,
                             dCalibrate){
         for (var i = 0; i < imagePageModel.count; i+=1){
@@ -42,7 +43,8 @@ Item {
                 imagePageModel.set(i,
                                    {"name": imagePageModel.get(i).name,
                                        "id": id,
-                                       "Jurl": url,
+                                       "Jdir": dir,
+                                       "Jname": url,
                                        "Jheight": height,
                                        "Jrotation": rotation,
                                        "Jazimuth": azimuth,

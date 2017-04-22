@@ -71,20 +71,15 @@ ImagePageForm {
         }
     }
     standartImageRadio.onClicked: {
-        var pathImg = "D:/tracks/Furmanovka/"
-        var nameImg = "DSC01706.JPG"
-
         currentPhoto.source = "image://photo/" +
-                pathImg +
-                nameImg + "?" + "standart=true"
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "standart=true"
     }
-    invertImageRadio.onClicked: {
-        var pathImg = "D:/tracks/Furmanovka/"
-        var nameImg = "DSC01706.JPG"
 
+    invertImageRadio.onClicked: {
         currentPhoto.source = "image://photo/" +
-                pathImg +
-                nameImg + "?" + "invert=true"
+                currentPhoto.dir +
+                currentPhoto.name +  "?" + "invert=true"
     }
 
 
@@ -107,12 +102,10 @@ ImagePageForm {
     // Ползунки
 
     contrastSlider.onValueChanged: {
-        var pathImg = "D:/tracks/Furmanovka/"
-        var nameImg = "DSC01706.JPG"
-
+        console.log(currentPhoto.dir + " " + currentPhoto.name)
         currentPhoto.source = "image://photo/" +
-                pathImg +
-                nameImg + "?" + "contrast=" +
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "contrast=" +
                 Math.round(contrastSlider.value * 100) / 100
     }
     brightnessSlider.onValueChanged:{
@@ -122,12 +115,9 @@ ImagePageForm {
         //colorizeImage.hue = colorizeSlider.value
     }
     gammaSlider.onValueChanged: {
-        var pathImg = "D:/tracks/Furmanovka/"
-        var nameImg = "DSC01706.JPG"
-
         currentPhoto.source = "image://photo/" +
-                pathImg +
-                nameImg + "?" + "gamma=" +
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "gamma=" +
                 Math.round(gammaSlider.value * 100) / 100
     }
     desaturateSlider.onValueChanged: {

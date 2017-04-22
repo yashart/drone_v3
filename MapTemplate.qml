@@ -278,11 +278,11 @@ Map {
                 }
                 onClicked: {
                     map.currentTrack = track_id
-                    imagePages.setPhotoParams(track_id, url, 0, azimuth, azimuth, lat, lon,
+                    imagePages.setPhotoParams(track_id, url, dir, 0, azimuth, azimuth, lat, lon,
                                               alt, id, aCalibrate, bCalibrate, cCalibrate,
                                               dCalibrate)
 
-                    tempProviderImage.source = 'image://Photo/' + url
+                    tempProviderImage.source = 'image://Photo/' + dir + url
                     tempProviderImage.lat = lat
                     tempProviderImage.lon = lon
                     tempProviderImage.id_photo = id

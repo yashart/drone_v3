@@ -235,6 +235,8 @@ Window {
 
                     z: 2
                     property int id_photo: Jid_photo
+                    property var dir: Jdir
+                    property var name: Jname
                     property var lat: parseFloat(Jlat)
                     property var lon: parseFloat(Jlon)
                     property var azimuth: parseFloat(Jazimuth)
@@ -245,7 +247,7 @@ Window {
                     property var bCalibrate: parseFloat(JbCalibrate)
                     property var cCalibrate: parseFloat(JcCalibrate)
                     property var dCalibrate: parseFloat(JdCalibrate)
-                    source: 'image://Photo/' + Jurl
+                    source: 'image://Photo/' + Jdir + Jname
 
                     MouseArea {
                         id: dragAreaPhoto
