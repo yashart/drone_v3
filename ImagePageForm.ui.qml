@@ -27,12 +27,6 @@ Window {
     property alias desaturateSlider: desaturateSlider
     property alias hueSlider: hueSlider
 
-    property alias brghtnessImage: brghtnessImage
-    property alias colorizeImage: colorizeImage
-    property alias instrumentsImage: instrumentsImage
-    property alias gammaImage: gammaImage
-    property alias desaturateImage: desaturateImage
-    property alias hueImage: hueImage
 
     height: 392
     width: 360
@@ -147,10 +141,10 @@ Window {
 
                     Slider {
                         id: contrastSlider
-                        maximumValue: 1
-                        minimumValue: -1
-                        stepSize: 0.05
-                        value: 0
+                        maximumValue: 3
+                        minimumValue: 0
+                        stepSize: 0.10
+                        value: 1
                         Layout.row: 2
                         Layout.column: 2
                         Layout.fillWidth: true
@@ -255,46 +249,6 @@ Window {
                         property var offsetLon: 0.00150 // эксперементальным путем
                         property var offsetLat: 0.0016 // эксперементальным путем
                     }
-                    BrightnessContrast {
-                        id: brghtnessImage
-                        anchors.fill: parent
-                        source: parent
-                        brightness: 0
-                        contrast: 0
-                        visible: false
-                    }
-                    Colorize {
-                        id: colorizeImage
-                        anchors.fill: parent
-                        source: parent
-                        hue: 0
-                        saturation: 1
-                        lightness: 0.0
-                        visible: false
-                    }
-                    GammaAdjust {
-                        id: gammaImage
-                        anchors.fill: parent
-                        source: parent
-                        gamma: 1.0
-                        visible: false
-                    }
-                    Desaturate {
-                        id: desaturateImage
-                        anchors.fill: parent
-                        source: parent
-                        desaturation: 0
-                        visible: false
-                    }
-                    HueSaturation {
-                       id: hueImage
-                       anchors.fill: parent
-                       source: parent
-                       hue: 0.0
-                       saturation: 0.0
-                       lightness: 0.0
-                       visible: false
-                   }
                     ListView {
                         anchors.fill: currentPhoto
                         id: calibrateOnPicture

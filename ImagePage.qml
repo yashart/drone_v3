@@ -61,14 +61,20 @@ ImagePageForm {
         }
     }
     standartImageRadio.onClicked: {
+        var pathImg = "D:/tracks/Furmanovka/"
+        var nameImg = "DSC01706.JPG"
+
         currentPhoto.source = "image://photo/" +
-                currentPhoto.imageName +
-                "/standart"
+                pathImg +
+                nameImg + "?" + "standart=true"
     }
     invertImageRadio.onClicked: {
+        var pathImg = "D:/tracks/Furmanovka/"
+        var nameImg = "DSC01706.JPG"
+
         currentPhoto.source = "image://photo/" +
-                currentPhoto.imageName +
-                "/invert"
+                pathImg +
+                nameImg + "?" + "invert=true"
     }
 
 
@@ -91,24 +97,33 @@ ImagePageForm {
     // Ползунки
 
     contrastSlider.onValueChanged: {
-        brghtnessImage.contrast = contrastSlider.value
-        //currentPhoto.source = "image://photo/" +
-        //        currentPhoto.imageName +
-        //        "/contrast/" + contrastSlider.value
+        var pathImg = "D:/tracks/Furmanovka/"
+        var nameImg = "DSC01706.JPG"
+
+        currentPhoto.source = "image://photo/" +
+                pathImg +
+                nameImg + "?" + "contrast=" +
+                Math.round(contrastSlider.value * 100) / 100
     }
     brightnessSlider.onValueChanged:{
-        brghtnessImage.brightness = brightnessSlider.value
+        //brghtnessImage.brightness = brightnessSlider.value
     }
     colorizeSlider.onValueChanged: {
-        colorizeImage.hue = colorizeSlider.value
+        //colorizeImage.hue = colorizeSlider.value
     }
     gammaSlider.onValueChanged: {
-        gammaImage.gamma = gammaSlider.value
+        var pathImg = "D:/tracks/Furmanovka/"
+        var nameImg = "DSC01706.JPG"
+
+        currentPhoto.source = "image://photo/" +
+                pathImg +
+                nameImg + "?" + "gamma=" +
+                Math.round(gammaSlider.value * 100) / 100
     }
     desaturateSlider.onValueChanged: {
-        desaturateImage.desaturation = desaturateSlider.value
+       // desaturateImage.desaturation = desaturateSlider.value
     }
     hueSlider.onValueChanged: {
-        hueImage.hue = hueSlider.value
+        //hueImage.hue = hueSlider.value
     }
 }

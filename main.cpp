@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+
 //#include <VLCQtCore/Common.h> For vlc-qt lib
 //#include <VLCQtQml/QmlVideoPlayer.h>
 
