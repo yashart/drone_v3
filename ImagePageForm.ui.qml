@@ -10,6 +10,7 @@ Window {
     property alias dragAreaPhoto: dragAreaPhoto
 
     property alias pictureViewer: pictureViewer
+    property alias pictureViewerArea: pictureViewerArea
     property alias photoInformation: photoInformation
 
     property alias standartImageRadio: standartImageRadio
@@ -216,15 +217,22 @@ Window {
                 Layout.preferredWidth: parent.width * 0.7
                 z: 1
 
+                MouseArea {
+                    id: pictureViewerArea
+                    anchors.fill: parent
+                }
+
                 InstrumentsImage {
                     id: instrumentsImage
-                    z: 2
+                    z: 3
                 }
 
                 Image {
                     id: currentPhoto
                     fillMode: Image.PreserveAspectFit
                     height: mainPage.mapComponent.newMap.tempProviderImage.height
+                    rotation: parseFloat(Jazimuth)
+
                     z: 2
                     property int id_photo: Jid_photo
                     property var lat: parseFloat(Jlat)
@@ -292,6 +300,7 @@ Window {
                                 z: 3
                                 source: "qrc:///img/popupIconsSet/" + type + ".png"
                                 cache: false
+                                scale: 1/currentPhoto.scale
                                 asynchronous: false
                                 enabled: false
 
