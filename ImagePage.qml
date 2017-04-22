@@ -15,6 +15,16 @@ ImagePageForm {
                 currentPhoto.rotation = 0;
             var scaleBefore = currentPhoto.scale;
             currentPhoto.scale += currentPhoto.scale * wheel.angleDelta.y / 120 / 10;
+
+            var pictureViewerCoordinates = currentPhoto.mapToItem(pictureViewer, 0, 0)
+
+            //currentPhoto.x += (dragAreaPhoto.mouseX - currentPhoto.width/2) *
+            //        (scaleBefore -  dragAreaPhoto.scale)
+
+            //currentPhoto.x -= dragAreaPhoto.mouseX - currentPhoto.width/2
+            //currentPhoto.y -= dragAreaPhoto.mouseY - currentPhoto.height/2
+
+            console.log(currentPhoto.scale)
         }
     }
     dragAreaPhoto.onClicked: {
