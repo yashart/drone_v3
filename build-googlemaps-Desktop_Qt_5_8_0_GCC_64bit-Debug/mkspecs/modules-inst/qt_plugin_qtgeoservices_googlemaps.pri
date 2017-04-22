@@ -1,4 +1,0 @@
-QT_PLUGIN.qtgeoservices_googlemaps.TYPE = geoservices
-QT_PLUGIN.qtgeoservices_googlemaps.EXTENDS =
-QT_PLUGIN.qtgeoservices_googlemaps.CLASS_NAME = QGeoServiceProviderFactoryGooglemaps
-QT_PLUGINS += qtgeoservices_googlemaps
