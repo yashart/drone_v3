@@ -282,7 +282,9 @@ Map {
                                               alt, id, aCalibrate, bCalibrate, cCalibrate,
                                               dCalibrate)
 
-                    tempProviderImage.source = 'image://Photo/' + dir + url
+                    console.log("image://photo/" + dir + url)
+                    tempProviderImage.source = "image://photo/" + dir + url
+                    console.log("Send to image" + tempProviderImage.source)
                     tempProviderImage.lat = lat
                     tempProviderImage.lon = lon
                     tempProviderImage.id_photo = id
@@ -352,9 +354,6 @@ Map {
                     console.log("imagePages.imagePageModel " + imagePages.imagePageModel)
 
                     //addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
-
-                    console.log(dir + url)
-                    console.log(url)
                     pointsPhotoModel.setCenter(lat, lon)
                 }
             }
@@ -363,7 +362,7 @@ Map {
 
     Image {
         id: tempProviderImage
-        visible: false
+        visible: true
         source: ""
         fillMode: Image.PreserveAspectFit
         height: 500

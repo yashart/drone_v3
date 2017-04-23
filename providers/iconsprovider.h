@@ -29,7 +29,7 @@ public:
             iconName.append(colorFigure);
             iconName.append(".png");
 
-            QImage image(iconName);
+            QImage image(":/img/popupIconsSet/points/tank_light.png");
             return image;
         }
     }

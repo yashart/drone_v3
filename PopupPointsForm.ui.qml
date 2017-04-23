@@ -81,6 +81,7 @@ Window {
                     }
                     checkable: true
                 }
+
             }
 
             RowLayout {

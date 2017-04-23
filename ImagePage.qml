@@ -102,11 +102,11 @@ ImagePageForm {
     // Ползунки
 
     contrastSlider.onValueChanged: {
-        console.log(currentPhoto.dir + " " + currentPhoto.name)
+        console.log(">>>>>>>>" + currentPhoto.dir + " " + currentPhoto.name)
         currentPhoto.source = "image://photo/" +
                 currentPhoto.dir +
-                currentPhoto.name + "?" + "contrast=" +
-                Math.round(contrastSlider.value * 100) / 100
+                "DSC00998.JPG" + "?" + "contrast=" +
+                Math.round(1.5 * 100) / 100
     }
     brightnessSlider.onValueChanged:{
         //brghtnessImage.brightness = brightnessSlider.value
@@ -115,10 +115,10 @@ ImagePageForm {
         //colorizeImage.hue = colorizeSlider.value
     }
     gammaSlider.onValueChanged: {
-        currentPhoto.source = "image://photo/" +
-                currentPhoto.dir +
-                currentPhoto.name + "?" + "gamma=" +
-                Math.round(gammaSlider.value * 100) / 100
+       /* currentPhoto.source = "image://photo/" +
+                "D:/tracks/first_fly/" +
+                "DSC00998.JPG" + "?" + "gamma=" +
+                Math.round(0.5 * 100) / 100*/
     }
     desaturateSlider.onValueChanged: {
        // desaturateImage.desaturation = desaturateSlider.value

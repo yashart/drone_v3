@@ -19,7 +19,6 @@ public:
     PhotoProvider()
         : QQuickImageProvider(QQuickImageProvider::Image)
     {
-        // setImage(QUrl("file:///C:/Users/Vladislav/Downloads/Capture_01.JPG?contrast=1")); TODO убрать
     }
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);

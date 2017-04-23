@@ -14,7 +14,6 @@ SOURCES += main.cpp \
     exif/exifinfo.cpp \
     backend/tilesdownloader.cpp \
     providers/photoprovider.cpp \
-    backend/changeimage.cpp \
     math/variation_method_calibrate.cpp \
     math/calibrate_known_info.cpp \
     database/changedb.cpp
@@ -57,7 +56,6 @@ HEADERS += \
     exif/exifinfo.h \
     backend/tilesdownloader.h \
     providers/photoprovider.h \
-    backend/changeimage.h \
     math/variation_method_calibrate.h \
     math/calibrate_known_info.h \
     database/changedb.h

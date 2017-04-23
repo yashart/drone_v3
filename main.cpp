@@ -21,7 +21,6 @@
 #include "providers/photoprovider.h"
 
 #include "backend/tilesdownloader.h"
-#include "backend/changeimage.h"
 
 #include "math/variation_method_calibrate.h"
 

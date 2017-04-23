@@ -105,6 +105,7 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
     QImage image;
     image  = Mat2QImage(tempImg);
     qDebug() << time.elapsed();
+    //QImage image("D:/tracks/first_fly/DSC00998.JPG");
     return image;
 }
 
