@@ -1,53 +1,192 @@
 #include "providers/photoprovider.h"
 #include <QDebug>
 
+QImage Mat2QImage(const cv::Mat3b &src) {
+    QImage dest(src.cols, src.rows, QImage::Format_ARGB32);
+    for (int y = 0; y < src.rows; ++y) {
+        const cv::Vec3b *srcrow = src[y];
+        QRgb *destrow = (QRgb*)dest.scanLine(y);
+        for (int x = 0; x < src.cols; ++x) {
+            destrow[x] = qRgba(srcrow[x][2], srcrow[x][1], srcrow[x][0], 255);
+        }
+    }
+    return dest;
+}
+
+void PhotoProvider::setImage(const QUrl & url)
+{
+    qDebug() << "Set path: " << url.toLocalFile();
+    curImg = cv::imread( url.toLocalFile().toStdString(), 1 );
+    tempImg = curImg.clone();
+}
 
 
 QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
 {
-    QStringList temp = id.split('/');
+    QString sUrl(id);
+    QTime time;
+    time.start();
 
-    int sz = temp.size();
+    sUrl.insert(0, "file:///");
 
-    if(sz >= 1)
+
+    QUrl url(sUrl);
+    QUrlQuery urlQuery(url.query());
+
+    if ( url.toLocalFile() != curImgPath.toLocalFile() )
     {
-        QString photoPath;
-        QString namePhoto(temp.at(0));
-        QString typePhoto;
-        if (sz >= 2)
-            typePhoto = temp.at(1);
+        qDebug() << "Hello";
+        setImage(url);
+        curImgPath = url;
+    }
 
-        //qDebug() << "Имя изображения: " << namePhoto << " Сделать из него: " << typePhoto;
+    if(urlQuery.hasQueryItem("standart") == true)
+    {
+        tempImg = curImg.clone();
+    }
 
-        photoPath.append("/home/yashart/Downloads/first_fly/"); // Название изображения
-        // D:/first_fly/
-        // /home/yashart/Downloads/first_fly/
-        photoPath.append(namePhoto);
+    if (urlQuery.hasQueryItem("invert") == true) // инверсия цветов
+    {
+        cv::bitwise_not ( tempImg, tempImg );
+    }
 
-        QImage image(photoPath);
+    if (urlQuery.hasQueryItem("contrast") == true)
+    {
+        double alpha = urlQuery.queryItemValue("contrast").toDouble();
+        int beta = 0;
 
-        if (typePhoto == "invert") // инверсия цветов
+        double preCalc[256];
+
+        for (int i = 0; i <= 255; i++)
         {
-            image.invertPixels();
+            preCalc[i] =  (alpha * i) + beta ;
         }
-        if (typePhoto == "contrast")
+
+
+        for( int y = 0; y < tempImg.rows; y++ )
         {
-            int lightness = temp.at(2).toInt();
-            int w = image.width();
-            int h = image.height();
-            for (int y = 0; y < h; ++y)
+            for( int x = 0; x < tempImg.cols; x++ )
             {
-                for(int x = 0; x < w; ++x)
+                for( int c = 0; c < 3; c++ )
                 {
-                    QColor pixel = image.pixel(x, y);
-                    pixel.setHsl(pixel.hue(), pixel.saturation(), lightness, pixel.alpha());
-                    image.setPixel(x, y, pixel.rgba());
+                    tempImg.at<cv::Vec3b>(y,x)[c] =
+                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
                 }
             }
         }
-        return image;
     }
+
+    if (urlQuery.hasQueryItem("gamma") == true)
+    {
+        double gamma = urlQuery.queryItemValue("gamma").toDouble();
+        double G = 1/gamma;
+
+        double preCalc[256];
+
+        for (int i = 0; i <= 255; i++)
+        {
+            preCalc[i] =  pow((i / 255.0), G) * 255 ;
+        }
+
+
+        for( int y = 0; y < tempImg.rows; y++ )
+        {
+            for( int x = 0; x < tempImg.cols; x++ )
+            {
+                for( int c = 0; c < 3; c++ )
+                {
+                    tempImg.at<cv::Vec3b>(y,x)[c] =
+                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
+                }
+            }
+        }
+    }
+
+    QImage image;
+    image  = Mat2QImage(tempImg);
+    qDebug() << time.elapsed();
+    //QImage image("D:/tracks/first_fly/DSC00998.JPG");
+    return image;
+}
+
+    /*
+    if (sz >= 2)
+        typePhoto = temp.at(1);
+
+    cv::Mat tempImg = curImg.clone();
+
+    photoPath.append("D:/tracks/first_fly/"); // Название изображения
+    // D:/first_fly/
+    // /home/yashart/Downloads/first_fly/
+    photoPath.append(namePhoto);
+
+    //QImage image(photoPath);
+
+    if (typePhoto == "invert") // инверсия цветов
+    {
+        bitwise_not ( tempImg, tempImg );
+    }
+    if (typePhoto == "contrast")
+    {
+        double alpha = 1;
+        int beta = 100;
+
+        double preCalc[256];
+
+        for (int i = 0; i <= 255; i++)
+        {
+            preCalc[i] =  (alpha * i) + beta ;
+        }
+
+
+        for( int y = 0; y < tempImg.rows; y++ )
+        {
+            for( int x = 0; x < tempImg.cols; x++ )
+            {
+                for( int c = 0; c < 3; c++ )
+                {
+                    tempImg.at<cv::Vec3b>(y,x)[c] =
+                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
+                }
+            }
+        }
+    }
+    if (typePhoto == "gamma")
+    {
+        QTime time;
+        time.start();
+        double gamma = 0.5;
+        double G = 1/gamma;
+
+        double preCalc[256];
+
+        for (int i = 0; i <= 255; i++)
+        {
+            preCalc[i] =  pow((i / 255.0), G) * 255 ;
+        }
+
+
+        for( int y = 0; y < tempImg.rows; y++ )
+        {
+            for( int x = 0; x < tempImg.cols; x++ )
+            {
+                for( int c = 0; c < 3; c++ )
+                {
+                    tempImg.at<cv::Vec3b>(y,x)[c] =
+                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
+                }
+            }
+        }
+        qDebug() << time.elapsed();
+    }
+
+    size->setWidth(tempImg.cols);
+    size->setHeight(tempImg.rows);
+
+    QImage image;
+    image  = Mat2QImage(tempImg);
+    return image;
     //QImage ret(":/img/photo_example.jpg");
     return QImage(":/img/photo_example.jpg");
     //ToDo: Сделать возвращаемое изображение в случае ошибки
-}
+    */

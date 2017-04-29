@@ -14,7 +14,6 @@ SOURCES += main.cpp \
     exif/exifinfo.cpp \
     backend/tilesdownloader.cpp \
     providers/photoprovider.cpp \
-    backend/changeimage.cpp \
     math/variation_method_calibrate.cpp \
     math/calibrate_known_info.cpp \
     database/changedb.cpp
@@ -57,12 +56,27 @@ HEADERS += \
     exif/exifinfo.h \
     backend/tilesdownloader.h \
     providers/photoprovider.h \
-    backend/changeimage.h \
     math/variation_method_calibrate.h \
     math/calibrate_known_info.h \
     database/changedb.h
 
 DISTFILES += \
     database/DataBase.db
+
+win32
+{
+    INCLUDEPATH += C:/opencv/build/include
+    LIBS += -LC:/opencv/build/lib -lopencv_core320 \
+        -lopencv_highgui320 \
+        -lopencv_imgcodecs320 \
+        -lopencv_imgproc320 \
+        -lopencv_features2d320 \
+        -lopencv_calib3d320
+}
+unix
+{
+# Указать путь к библиотекам OpenCV через INCLUDEPATH и LIBS
+}
+
 
 #LIBS       += -lVLCQtCore -lVLCQtWidgets -lVLCQtQml

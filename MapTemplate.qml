@@ -277,7 +277,6 @@ Map {
                     parent.opacity = 0;
                 }
                 onClicked: {
-
                     var currentACalibrate = 0
                     var currentBCalibrate = 0
                     var currentCCalibrate = 0
@@ -339,6 +338,7 @@ Map {
                     console.log(dir + url)
                     console.log(url)
                     pointsPhotoModel.setCenter(lat + tempProviderImage.deltaLat, lon + tempProviderImage.deltaLon)
+
                 }
             }
         }
@@ -346,7 +346,7 @@ Map {
 
     Image {
         id: tempProviderImage
-        visible: false
+        visible: true
         source: ""
         fillMode: Image.PreserveAspectFit
         height: 500

@@ -75,5 +75,11 @@
         <file>img/menu.png</file>
         <file>img/placeholder.png</file>
         <file>img/ruler.png</file>
+        <file>img/popupIconsSet/points/bmp.png</file>
+        <file>img/popupIconsSet/points/btr.png</file>
+        <file>img/popupIconsSet/points/machine_gun.png</file>
+        <file>img/popupIconsSet/points/tank_heavy.png</file>
+        <file>img/popupIconsSet/points/tank_light.png</file>
+        <file>img/popupIconsSet/points/tank_medium.png</file>
     </qresource>
 </RCC>

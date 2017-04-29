@@ -72,13 +72,14 @@ ImagePageForm {
     }
     standartImageRadio.onClicked: {
         currentPhoto.source = "image://photo/" +
-                currentPhoto.imageName +
-                "/standart"
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "standart=true"
     }
+
     invertImageRadio.onClicked: {
         currentPhoto.source = "image://photo/" +
-                currentPhoto.imageName +
-                "/invert"
+                currentPhoto.dir +
+                currentPhoto.name +  "?" + "invert=true"
     }
 
 
@@ -101,24 +102,28 @@ ImagePageForm {
     // Ползунки
 
     contrastSlider.onValueChanged: {
-        brghtnessImage.contrast = contrastSlider.value
-        //currentPhoto.source = "image://photo/" +
-        //        currentPhoto.imageName +
-        //        "/contrast/" + contrastSlider.value
+        console.log(">>>>>>>>" + currentPhoto.dir + " " + currentPhoto.name)
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.dir +
+                "DSC00998.JPG" + "?" + "contrast=" +
+                Math.round(1.5 * 100) / 100
     }
     brightnessSlider.onValueChanged:{
-        brghtnessImage.brightness = brightnessSlider.value
+        //brghtnessImage.brightness = brightnessSlider.value
     }
     colorizeSlider.onValueChanged: {
-        colorizeImage.hue = colorizeSlider.value
+        //colorizeImage.hue = colorizeSlider.value
     }
     gammaSlider.onValueChanged: {
-        gammaImage.gamma = gammaSlider.value
+       /* currentPhoto.source = "image://photo/" +
+                "D:/tracks/first_fly/" +
+                "DSC00998.JPG" + "?" + "gamma=" +
+                Math.round(0.5 * 100) / 100*/
     }
     desaturateSlider.onValueChanged: {
-        desaturateImage.desaturation = desaturateSlider.value
+       // desaturateImage.desaturation = desaturateSlider.value
     }
     hueSlider.onValueChanged: {
-        hueImage.hue = hueSlider.value
+        //hueImage.hue = hueSlider.value
     }
 }

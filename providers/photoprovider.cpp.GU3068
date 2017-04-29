@@ -1,0 +1,78 @@
+#include "providers/photoprovider.h"
+#include <QDebug>
+
+QImage Mat2QImage(const cv::Mat3b &src) {
+        QImage dest(src.cols, src.rows, QImage::Format_ARGB32);
+        for (int y = 0; y < src.rows; ++y) {
+                const cv::Vec3b *srcrow = src[y];
+                QRgb *destrow = (QRgb*)dest.scanLine(y);
+                for (int x = 0; x < src.cols; ++x) {
+                        destrow[x] = qRgba(srcrow[x][2], srcrow[x][1], srcrow[x][0], 255);
+                }
+        }
+        return dest;
+}
+
+
+QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)
+{
+    QStringList temp = id.split('/');
+
+    int sz = temp.size();
+
+    if(sz >= 1)
+    {
+        qDebug() << id;
+        QString photoPath;
+        QString namePhoto(temp.at(0));
+        QString typePhoto;
+        if (sz >= 2)
+            typePhoto = temp.at(1);
+
+        cv::Mat tempImg = curImg.clone() ;
+
+        photoPath.append("D:/tracks/first_fly/"); // Название изображения
+        // D:/first_fly/
+        // /home/yashart/Downloads/first_fly/
+        photoPath.append(namePhoto);
+
+
+        /*cv::Mat bgr[3];   //destination array
+        cv::split(img,bgr);//split source
+
+        /*cv::bitwise_not( bgr[1], bgr[1] );
+        cv::imshow("My Image", bgr[1]);*/
+
+
+        //QImage image(photoPath);
+
+        if (typePhoto == "invert") // инверсия цветов
+        {
+            bitwise_not ( tempImg, tempImg );
+        }
+        if (typePhoto == "contrast")
+        {
+            double alpha = temp.at(2).toDouble();
+            int beta = 100;
+
+
+            for( int y = 0; y < tempImg.rows; y++ )
+            {
+                for( int x = 0; x < tempImg.cols; x++ )
+                {
+                    for( int c = 0; c < 3; c++ )
+                    {
+                        tempImg.at<cv::Vec3b>(y,x)[c] =
+                        cv::saturate_cast<uchar>( alpha*( tempImg.at<cv::Vec3b>(y,x)[c] ) + beta );
+                    }
+                }
+            }
+        }
+        QImage image;
+        image  = Mat2QImage(tempImg);
+        return image;
+    }
+    //QImage ret(":/img/photo_example.jpg");
+    return QImage(":/img/photo_example.jpg");
+    //ToDo: Сделать возвращаемое изображение в случае ошибки
+}

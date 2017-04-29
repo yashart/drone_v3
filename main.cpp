@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+
 //#include <VLCQtCore/Common.h> For vlc-qt lib
 //#include <VLCQtQml/QmlVideoPlayer.h>
 
@@ -20,7 +21,6 @@
 #include "providers/photoprovider.h"
 
 #include "backend/tilesdownloader.h"
-#include "backend/changeimage.h"
 
 #include "math/variation_method_calibrate.h"
 
