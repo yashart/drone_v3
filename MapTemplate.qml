@@ -277,85 +277,68 @@ Map {
                     parent.opacity = 0;
                 }
                 onClicked: {
+
+                    var currentACalibrate = 0
+                    var currentBCalibrate = 0
+                    var currentCCalibrate = 0
+                    var currentDCalibrate = 0
+                    var currentDeltaLat = 0
+                    var currentDeltaLon = 0
+
+                    if(aCalibrate != ""){
+                        currentACalibrate = aCalibrate
+                        currentBCalibrate = bCalibrate
+                        currentCCalibrate = cCalibrate
+                        currentDCalibrate = dCalibrate
+                    }
+
+                    if ((mouse.button == Qt.LeftButton) && (mouse.modifiers & Qt.ShiftModifier))
+                    {
+                        if(tempProviderImage.aCalibrate != "")
+                        {
+                            currentACalibrate = parseFloat(tempProviderImage.aCalibrate)
+                            currentBCalibrate = parseFloat(tempProviderImage.bCalibrate)
+                            currentCCalibrate = parseFloat(tempProviderImage.cCalibrate)
+                            currentDCalibrate = parseFloat(tempProviderImage.dCalibrate)
+                            currentDeltaLat = tempProviderImage.deltaLat
+                            currentDeltaLon = tempProviderImage.deltaLon
+
+                            changedb.changePhotoLat(id, lat + tempProviderImage.deltaLat)
+                            changedb.changePhotoLon(id, lon + tempProviderImage.deltaLon)
+                            changedb.changePhotoGeoreferencing(parseInt(id), currentACalibrate, currentBCalibrate,
+                                                               currentCCalibrate, currentDCalibrate)
+                            pointsModel.updateModel()
+                            tracksModel.updateModel()
+                            linesModel.updateModel()
+                        }
+
+                        console.log("shift pressed")
+                    }
+
                     map.currentTrack = track_id
-                    imagePages.setPhotoParams(track_id, url, 0, azimuth, azimuth, lat, lon,
-                                              alt, id, aCalibrate, bCalibrate, cCalibrate,
-                                              dCalibrate)
+                    imagePages.setPhotoParams(track_id, url, 0, azimuth, azimuth,
+                                              lat + tempProviderImage.deltaLat,
+                                              lon + tempProviderImage.deltaLon,
+                                              alt, id, currentACalibrate, currentBCalibrate,
+                                              currentCCalibrate, currentDCalibrate)
 
                     tempProviderImage.source = 'image://Photo/' + url
-                    tempProviderImage.lat = lat
-                    tempProviderImage.lon = lon
+                    tempProviderImage.lat = lat + tempProviderImage.deltaLat
+                    tempProviderImage.lon = lon + tempProviderImage.deltaLon
                     tempProviderImage.id_photo = id
+
+                    tempProviderImage.aCalibrate = currentACalibrate
+                    tempProviderImage.bCalibrate = currentBCalibrate
+                    tempProviderImage.cCalibrate = currentCCalibrate
+                    tempProviderImage.dCalibrate = currentDCalibrate
+                    tempProviderImage.deltaLat = currentDeltaLat
+                    tempProviderImage.deltaLon = currentDeltaLon
 
                     console.log("tempImage Width: " + tempProviderImage.width)
 
-                    var radAzimuth = toRad(azimuth)
-                    var leftHeight = 0
-                    var leftDown = 0
-                    var rightHeight = 0
-                    var rightDown = 0
-                    /*
-                    if (aCalibrate == "") {
-                        var scaleCoeff = 0.0007
-                        leftHeight = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff -
-                                                                  Math.sin(radAzimuth)*scaleCoeff +
-                                                                  lat,
-                                                                  -Math.cos(radAzimuth)*scaleCoeff +
-                                                                  Math.sin(radAzimuth)*scaleCoeff +
-                                                                  lon)
-                        leftDown = QtPositioning.coordinate(-Math.cos(radAzimuth)*scaleCoeff +
-                                                                Math.sin(radAzimuth)*scaleCoeff +
-                                                                lat,
-                                                                -Math.cos(radAzimuth)*scaleCoeff -
-                                                                Math.sin(radAzimuth)*scaleCoeff +
-                                                                lon)
-                        rightHeight = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff -
-                                                                   Math.sin(radAzimuth)*scaleCoeff +
-                                                                   lat,
-                                                                   Math.cos(radAzimuth)*scaleCoeff +
-                                                                   Math.sin(radAzimuth)*scaleCoeff +
-                                                                   lon)
-                        rightDown = QtPositioning.coordinate(Math.cos(radAzimuth)*scaleCoeff +
-                                                                 Math.sin(radAzimuth)*scaleCoeff +
-                                                                 lat,
-                                                                 Math.cos(radAzimuth)*scaleCoeff -
-                                                                 Math.sin(radAzimuth)*scaleCoeff +
-                                                                 lon)
-                    }else {
-                        leftHeight = QtPositioning.coordinate(aCalibrate*(-tempProviderImage.width/2) +
-                                                                  bCalibrate*(-tempProviderImage.height/2) +
-                                                                  lat,
-                                                                  cCalibrate*(-tempProviderImage.width/2) +
-                                                                  dCalibrate*(-tempProviderImage.height/2) +
-                                                                  lon)
-                        leftDown = QtPositioning.coordinate(aCalibrate*(-tempProviderImage.width/2) +
-                                                                  bCalibrate*(tempProviderImage.height/2) +
-                                                                  lat,
-                                                                  cCalibrate*(-tempProviderImage.width/2) +
-                                                                  dCalibrate*(tempProviderImage.height/2) +
-                                                                  lon)
-                        rightHeight = QtPositioning.coordinate(aCalibrate*(tempProviderImage.width/2) +
-                                                                  bCalibrate*(-tempProviderImage.height/2) +
-                                                                  lat,
-                                                                  cCalibrate*(tempProviderImage.width/2) +
-                                                                  dCalibrate*(-tempProviderImage.height/2) +
-                                                                  lon)
-                        rightDown = QtPositioning.coordinate(aCalibrate*(tempProviderImage.width/2) +
-                                                                  bCalibrate*(tempProviderImage.height/2) +
-                                                                  lat,
-                                                                  cCalibrate*(tempProviderImage.width/2) +
-                                                                  dCalibrate*(tempProviderImage.height/2) +
-                                                                  lon)
-                    }
-                    */
-
-                    console.log("imagePages.imagePageModel " + imagePages.imagePageModel)
-
-                    //addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
-
                     console.log(dir + url)
                     console.log(url)
-                    pointsPhotoModel.setCenter(lat, lon)
+                    pointsPhotoModel.setCenter(lat + tempProviderImage.deltaLat, lon + tempProviderImage.deltaLon)
                 }
             }
         }
@@ -370,6 +353,12 @@ Map {
         property var lat: 0
         property var lon: 0
         property var id_photo: 0
+        property var aCalibrate: 0
+        property var bCalibrate: 0
+        property var cCalibrate: 0
+        property var dCalibrate: 0
+        property var deltaLat: 0
+        property var deltaLon: 0
     }
 
     MapRectangle {

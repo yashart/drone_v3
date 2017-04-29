@@ -32,13 +32,14 @@ Item {
                               "JcCalibrate": 0,
                               "JdCalibrate": 0,
                               "Jvisible": false})
+        console.log("addTrack")
     }
 
     function setPhotoParams(id, url, height, rotation, azimuth, lat, lon,
                             alt, id_photo, aCalibrate, bCalibrate, cCalibrate,
                             dCalibrate){
-        for (var i = 0; i < imagePageModel.count; i+=1){
-            if(imagePageModel.get(i).id == id){
+        for (var i = 0; i < imagePageModel.count; i+=1) {
+            if(imagePageModel.get(i).id === id){
                 imagePageModel.set(i,
                                    {"name": imagePageModel.get(i).name,
                                        "id": id,
