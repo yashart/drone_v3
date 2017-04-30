@@ -35,39 +35,17 @@ CalibratePopupForm {
         console.log("")
 
         variationModel.calcMethod()
-        //imagePage.currentPhoto.lat = variationModel.lat
-        //imagePage.currentPhoto.lon = variationModel.lon
-        //imagePage.currentPhoto.azimuth = variationModel.fi
-    /*
-        var leftHeight = QtPositioning.coordinate(variationModel.a*(-mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.b*(-mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lat,
-                                                  variationModel.c*(-mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.d*(-mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lon)
-        var leftDown = QtPositioning.coordinate(variationModel.a*(-mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.b*(mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lat,
-                                                  variationModel.c*(-mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.d*(mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lon)
-        var rightHeight = QtPositioning.coordinate(variationModel.a*(mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.b*(-mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lat,
-                                                  variationModel.c*(mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.d*(-mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lon)
-        var rightDown = QtPositioning.coordinate(variationModel.a*(mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.b*(mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lat,
-                                                  variationModel.c*(mainPage.mapComponent.newMap.tempProviderImage.width/2) +
-                                                  variationModel.d*(mainPage.mapComponent.newMap.tempProviderImage.height/2) +
-                                                  variationModel.lon)
-        mainPage.mapComponent.newMap.addViewCoordinates(leftHeight, leftDown, rightHeight, rightDown)
-        */
+
+        mainPage.mapComponent.newMap.tempProviderImage.deltaLat = variationModel.lat -
+                mainPage.mapComponent.newMap.tempProviderImage.lat
+        mainPage.mapComponent.newMap.tempProviderImage.deltaLon = variationModel.lon -
+                mainPage.mapComponent.newMap.tempProviderImage.lon
+
+        console.log("delta Lon: " + mainPage.mapComponent.newMap.tempProviderImage.deltaLon)
+
         var id_photo = mainPage.mapComponent.newMap.tempProviderImage.id_photo
-        changedb.changePhotoLat(id_photo, mainPage.mapComponent.newMap.tempProviderImage.lat)
-        changedb.changePhotoLon(id_photo, mainPage.mapComponent.newMap.tempProviderImage.lon)
+        changedb.changePhotoLat(id_photo, variationModel.lat)
+        changedb.changePhotoLon(id_photo, variationModel.lon)
         changedb.changePhotoGeoreferencing(id_photo, variationModel.a, variationModel.b,
                                            variationModel.c, variationModel.d)
         linesModel.updateModel()
