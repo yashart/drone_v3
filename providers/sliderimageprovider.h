@@ -16,7 +16,9 @@ public:
     {
         QImage image(id);
 
-        image = image.scaled(166, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        image = image.scaled(120, 70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        size->setWidth( requestedSize.width() );
+        size->setHeight( requestedSize.height() );
         return image;
     }
 };

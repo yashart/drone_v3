@@ -17,6 +17,9 @@ Window {
     property alias yandexRadio: yandexRadio
     property alias offlineGoogleRadio: offlineGoogleRadio
 
+    maximumHeight: 560
+    maximumWidth: 360
+
     visible: parent.visible
     opacity: 0.75
 

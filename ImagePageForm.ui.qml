@@ -240,7 +240,7 @@ Window {
             Item {
                 id: pictureViewer
                 Layout.preferredHeight: parent.height
-                Layout.preferredWidth: parent.width * 0.7
+                Layout.preferredWidth: parent.width - 120
                 z: 1
 
                 MouseArea {
@@ -361,25 +361,30 @@ Window {
             Rectangle {
                 id: photoScroll
                 Layout.preferredHeight: parent.height
-                Layout.preferredWidth: 0.3 * parent.width
+                Layout.preferredWidth: 120
                 Layout.fillWidth: true
                 color: "#E0E0E0"
                 z: 2
                 ScrollView {
                     id: scrollPhotoView
                     anchors.fill: parent
-                    ColumnLayout {
+                    Column {
                         LayoutMirroring.enabled: true
                         LayoutMirroring.childrenInherit: true
                         Repeater {
                             model: imagesModel
-                            Image {
-                                source: "image://SliderImages/" + dir + url
-                                //height: parent.height * 0.9
-                                width: parent.width - 10
-                                fillMode: Image.PreserveAspectFit
-                                asynchronous: true
-                                z: 2
+                            Rectangle {
+                                width: 110
+                                height: 70
+                                Image {
+                                    source: "image://SliderImages/" + dir + url
+                                    //height: parent.height * 0.9
+                                    //width: 120 - 10
+                                    anchors.fill: parents
+                                    fillMode: Image.PreserveAspectFit
+                                    asynchronous: true
+                                    z: 2
+                                }
                             }
                         }
                     }

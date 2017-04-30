@@ -319,7 +319,9 @@ Map {
                     }
 
                     map.currentTrack = track_id
-                    imagePages.setPhotoParams(track_id, url, dir, azimuth, azimuth,
+
+                    imagePages.setPhotoParams(track_id, url, dir, tempProviderImage.height,
+                                              azimuth, azimuth,
                                               lat + tempProviderImage.deltaLat,
                                               lon + tempProviderImage.deltaLon,
                                               alt, id, currentACalibrate, currentBCalibrate,
