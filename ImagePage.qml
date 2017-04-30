@@ -102,11 +102,13 @@ ImagePageForm {
     // Ползунки
 
     contrastSlider.onValueChanged: {
-        console.log(">>>>>>>>" + currentPhoto.dir + " " + currentPhoto.name)
-        currentPhoto.source = "image://photo/" +
-                currentPhoto.dir +
-                "DSC00998.JPG" + "?" + "contrast=" +
-                Math.round(1.5 * 100) / 100
+        if(currentPhoto.dir != "1"){
+            console.log(">>>>>>>>" + currentPhoto.dir + " " + currentPhoto.name)
+            currentPhoto.source = "image://photo/" +
+                    currentPhoto.dir +
+                    currentPhoto.name + "?" + "contrast=" +
+                    Math.round(1.5 * 100) / 100
+        }
     }
     brightnessSlider.onValueChanged:{
         //brghtnessImage.brightness = brightnessSlider.value

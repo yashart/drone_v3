@@ -315,13 +315,14 @@ Map {
                     }
 
                     map.currentTrack = track_id
-                    imagePages.setPhotoParams(track_id, url, 0, azimuth, azimuth,
+                    imagePages.setPhotoParams(track_id, url, dir, tempProviderImage.height,
+                                              azimuth, azimuth,
                                               lat + tempProviderImage.deltaLat,
                                               lon + tempProviderImage.deltaLon,
                                               alt, id, currentACalibrate, currentBCalibrate,
                                               currentCCalibrate, currentDCalibrate)
 
-                    tempProviderImage.source = 'image://Photo/' + url
+                    tempProviderImage.source = 'image://Photo/' + dir + url
                     tempProviderImage.lat = lat + tempProviderImage.deltaLat
                     tempProviderImage.lon = lon + tempProviderImage.deltaLon
                     tempProviderImage.id_photo = id
