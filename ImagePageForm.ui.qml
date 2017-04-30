@@ -380,7 +380,7 @@ Window {
                                     source: "image://SliderImages/" + dir + url
                                     //height: parent.height * 0.9
                                     //width: 120 - 10
-                                    anchors.fill: parents
+                                    anchors.fill: parent
                                     fillMode: Image.PreserveAspectFit
                                     asynchronous: true
                                     z: 2

@@ -9,11 +9,12 @@ PopupPointsForm {
         opacity = 0.75
     }
 
-    function set_popup_points_position(lat, lon, id){
+    function set_popup_points_position(lat, lon, id, label){
         popupPointsForm.latitude = lat
         popupPointsForm.longitude = lon
         popupPointsForm.pointId = id
-        //popupPointsForm.label = label
+        popupPointsForm.label = label
+        console.log(label);
     }
 
     redRadioButton.onClicked: {
@@ -42,7 +43,9 @@ PopupPointsForm {
             dataBase.createLocalPoint(popupPoints.latitude,
                                       popupPoints.longitude,
                                       popupPointsForm.iconType + "/" +
-                                      popupPointsForm.iconColor)
+                                      popupPointsForm.iconColor,
+                                      popupPointsForm.label)
+            console.log(">>" + popupPoints.label);
         }else{
             dataBase.prepareDeletePoint(popupPoints.pointId)
             dataBase.deleteLocalPoint()
@@ -50,11 +53,13 @@ PopupPointsForm {
             dataBase.createLocalPoint(popupPoints.latitude,
                                       popupPoints.longitude,
                                       popupPointsForm.iconType + "/" +
-                                      popupPointsForm.iconColor)
+                                      popupPointsForm.iconColor,
+                                      popupPointsForm.label)
+             console.log(">>>" + popupPointsForm.label);
         }
         popupPointsForm.visible = false
 
-        //Вот тут пофикси как-нить
+        //Вот тут пофикси
     }
     deletePointPopupButton.onClicked: {
         dataBase.prepareDeletePoint(popupPoints.pointId)

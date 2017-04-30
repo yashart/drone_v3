@@ -44,7 +44,8 @@ ImagePageForm {
             console.log("picture clicked: " + coordinate)
             popupPoints.set_popup_points_position(coordinate.latitude,
                                                   coordinate.longitude,
-                                                  0)
+                                                  0,
+                                                  popupPoints.label)
             popupPoints.visible = true
         }
         if(instrumentsImage.calibrateButtonImage.checked == true){

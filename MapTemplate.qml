@@ -19,7 +19,7 @@ Map {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
                 if(instruments.pointsButton.checked == true){
                     var point = map.toCoordinate(Qt.point(mouseX, mouseY))
-                    popupPoints.set_popup_points_position(point.latitude, point.longitude, 0)
+                    popupPoints.set_popup_points_position(point.latitude, point.longitude, 0, "")
                     popupPoints.visible = true
                 }
 
@@ -149,7 +149,7 @@ Map {
                 anchors.fill: parent;
                 onClicked: {
                     if( mouse.button == Qt.LeftButton){
-                        popupPoints.set_popup_points_position(lat, lon, id)
+                        popupPoints.set_popup_points_position(lat, lon, id, label)
                         popupPoints.visible = true
                     }
                 }

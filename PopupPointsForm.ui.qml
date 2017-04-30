@@ -18,7 +18,7 @@ Window {
 
     property var latitude: 0
     property var longitude: 0
-    property var label: ""
+    property var label: " "
     property var iconColor: "red"
     property var iconType: "triangle"
     property var pointId: 0
@@ -114,7 +114,7 @@ Window {
 
                 GridLayout {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    columns: 4
+                    columns: 6
 
                     Rectangle {
                         id: redRectangle
@@ -147,6 +147,15 @@ Window {
                         id: yellowRectangle
                         width: 50
                         height: 50
+                        color: "blue"
+                        border.color: "black"
+                        border.width: 2
+                        radius: 5
+                    }
+                    Rectangle {
+                        id: blueRectangle
+                        width: 50
+                        height: 50
                         color: "yellow"
                         border.color: "black"
                         border.width: 2
@@ -164,6 +173,9 @@ Window {
                         id: blackRadioButton
                     }
                     RadioButton {
+                        id: blueRadioButton
+                    }
+                    RadioButton {
                         id: yellowRadioButton
                     }
                 }
@@ -175,8 +187,7 @@ Window {
             }
 
             TextField {
-                text: qsTr(String("В разработке"))
-                enabled: false
+                text: qsTr(String(popupPointsForm.label))
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
 

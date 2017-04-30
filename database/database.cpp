@@ -64,13 +64,16 @@ double DataBase::getAvgLon(int track_id)
     return -1; //ошибка
 }
 
-void DataBase::createLocalPoint(double lat, double lon, QString type)
+void DataBase::createLocalPoint(double lat, double lon, QString type, QString label)
 {
    QSqlQuery query;
-    query.prepare("INSERT INTO LocationsPoints (lat, lon, type) VALUES (:lat, :lon, :type);");
+    query.prepare("INSERT INTO LocationsPoints (lat, lon, type, label) VALUES (:lat, :lon, :type, :label);");
     query.bindValue(":lat", lat);
     query.bindValue(":lon", lon);
     query.bindValue(":type", type);
+    query.bindValue(":label", label);
+
+    qDebug() << "Супер важно! " <<label;
 
     if (!query.exec()){
         qDebug() << "Error SQLite:" << query.lastError().text();

@@ -41,7 +41,7 @@ public slots:
     double getAvgLon(int track_id);
     void insertIntoTable(QString name);
     int parseCSV(QString path);
-    void createLocalPoint(double lat, double lon, QString type);
+    Q_INVOKABLE void createLocalPoint(double lat, double lon, QString type, QString label);
     void prepareDeletePoint(int id);
     void deleteLocalPoint();
     void addExifDir(QString photoPath, QString trackName);
