@@ -1,7 +1,7 @@
 #include "providers/photoprovider.h"
 #include <QDebug>
 
-QImage Mat2QImage(const cv::Mat3b &src) {
+/*QImage Mat2QImage(const cv::Mat3b &src) {
     QImage dest(src.cols, src.rows, QImage::Format_ARGB32);
     for (int y = 0; y < src.rows; ++y) {
         const cv::Vec3b *srcrow = src[y];
@@ -11,7 +11,7 @@ QImage Mat2QImage(const cv::Mat3b &src) {
         }
     }
     return dest;
-}
+}*/
 
 void PhotoProvider::setImage(const QUrl & url)
 {
@@ -136,13 +136,13 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
                 }
             }
         }
-        image  = Mat2QImage(channels);
+        image  =  cvHelper::Mat2QImage(channels);
         qDebug() << time.elapsed();
         return image;
 
     }
 
-    image  = Mat2QImage(tempImg);
+    image  = cvHelper::Mat2QImage(tempImg);
     qDebug() << time.elapsed();
     return image;
 }

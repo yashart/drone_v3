@@ -61,7 +61,7 @@ Window {
                     id: triangleRadioButton
                     Image {
                         anchors.fill: parent
-                        source: "image://Icons/triangle/" + popupPointsForm.iconColor
+                        source: "image://Icons/tank_light/" + popupPointsForm.iconColor
                     }
                     checkable: true
                     checked: true
@@ -70,7 +70,7 @@ Window {
                     id: squareRadioButton
                     Image {
                         anchors.fill: parent
-                        source: "image://Icons/square/" + popupPointsForm.iconColor
+                        source: "image://Icons/tank_medium/" + popupPointsForm.iconColor
                     }
                     checkable: true
                 }
@@ -78,7 +78,31 @@ Window {
                     id: questionRadioButton
                     Image {
                         anchors.fill: parent
-                        source: "image://Icons/question/" + popupPointsForm.iconColor
+                        source: "image://Icons/tank_heavy/" + popupPointsForm.iconColor
+                    }
+                    checkable: true
+                }
+                RadioButton {
+                    id: btrRadioButton
+                    Image {
+                        anchors.fill: parent
+                        source: "image://Icons/btr/" + popupPointsForm.iconColor
+                    }
+                    checkable: true
+                }
+                RadioButton {
+                    id: bmpRadioButton
+                    Image {
+                        anchors.fill: parent
+                        source: "image://Icons/bmp/" + popupPointsForm.iconColor
+                    }
+                    checkable: true
+                }
+                RadioButton {
+                    id: gunRadioButton
+                    Image {
+                        anchors.fill: parent
+                        source: "image://Icons/machine_gun/" + popupPointsForm.iconColor
                     }
                     checkable: true
                 }

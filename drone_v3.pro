@@ -16,7 +16,9 @@ SOURCES += main.cpp \
     providers/photoprovider.cpp \
     math/variation_method_calibrate.cpp \
     math/calibrate_known_info.cpp \
-    database/changedb.cpp
+    database/changedb.cpp \
+    providers/iconsprovider.cpp \
+    providers/qcvhelper.cpp
 
 RESOURCES += qml.qrc
 
@@ -58,7 +60,8 @@ HEADERS += \
     providers/photoprovider.h \
     math/variation_method_calibrate.h \
     math/calibrate_known_info.h \
-    database/changedb.h
+    database/changedb.h \
+    providers/qcvhelper.h
 
 DISTFILES += \
     database/DataBase.db

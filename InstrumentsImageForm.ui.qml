@@ -18,6 +18,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter*/
         height: 30
 
+
         RowLayout {
             ExclusiveGroup { id: toolBarsButtonts }
             ToolButton {
