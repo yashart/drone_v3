@@ -87,7 +87,9 @@ ImagePageForm {
         brghtnessImage.visible = brightnessImageRadio.checked;
     }
     colorizeImageRadio.onCheckedChanged: {
-        colorizeImage.visible = colorizeImageRadio.checked;
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "green=true"
     }
     gammaImageRadio.onCheckedChanged: {
         gammaImage.visible = gammaImageRadio.checked;
@@ -98,15 +100,29 @@ ImagePageForm {
     hueImageRadio.onCheckedChanged: {
         hueImage.visible = hueImageRadio.checked;
     }
+    channelRed.onCheckedStateChanged: {
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "red=true"
+    }
+    channelGreen.onCheckedStateChanged: {
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "green=true"
+    }
+    channelBlue.onCheckedStateChanged: {
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "blue=true"
+    }
 
     // Ползунки
 
     contrastSlider.onValueChanged: {
-        console.log(">>>>>>>>" + currentPhoto.dir + " " + currentPhoto.name)
         currentPhoto.source = "image://photo/" +
                 currentPhoto.dir +
-                "DSC00998.JPG" + "?" + "contrast=" +
-                Math.round(1.5 * 100) / 100
+                currentPhoto.name + "?" + "contrast=" +
+                Math.round(contrastSlider.value * 100) / 100
     }
     brightnessSlider.onValueChanged:{
         //brghtnessImage.brightness = brightnessSlider.value
@@ -115,10 +131,10 @@ ImagePageForm {
         //colorizeImage.hue = colorizeSlider.value
     }
     gammaSlider.onValueChanged: {
-       /* currentPhoto.source = "image://photo/" +
-                "D:/tracks/first_fly/" +
-                "DSC00998.JPG" + "?" + "gamma=" +
-                Math.round(0.5 * 100) / 100*/
+        currentPhoto.source = "image://photo/" +
+                currentPhoto.dir +
+                currentPhoto.name + "?" + "gamma=" +
+                Math.round(gammaSlider.value * 100) / 100
     }
     desaturateSlider.onValueChanged: {
        // desaturateImage.desaturation = desaturateSlider.value

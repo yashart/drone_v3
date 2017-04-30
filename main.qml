@@ -54,4 +54,7 @@ ApplicationWindow {
         id: calibratePopup
         visible: true
     }
+    ExportFileDialog{
+        id: exportFileDialog
+    }
 }

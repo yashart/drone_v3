@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.4
+import QtQuick.Dialogs 1.2
 
 MenuBar {
     Menu {
@@ -37,11 +38,14 @@ MenuBar {
         MenuItem {text: "Создать метку"}
         MenuItem {text: "Изменить метку"}
         MenuItem {text: "Удалить метку"}
-        MenuItem {text: "Загрузить из GPS"}
     }
     Menu {
         title: qsTr("Анализ")
         MenuItem {text: "LOG-файл"}
+        MenuItem {
+            text: "Выгрузить точки в файл"
+            onTriggered: {locationsModel.exportPoints()}
+        }
     }
     Menu {
         title: qsTr("Параметры")

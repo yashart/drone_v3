@@ -50,6 +50,7 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
         cv::bitwise_not ( tempImg, tempImg );
     }
 
+
     if (urlQuery.hasQueryItem("contrast") == true)
     {
         double alpha = urlQuery.queryItemValue("contrast").toDouble();
@@ -103,9 +104,46 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
     }
 
     QImage image;
+
+    if (urlQuery.hasQueryItem("red")
+        || urlQuery.hasQueryItem("green")
+        || urlQuery.hasQueryItem("blue")) // обработка каналов
+    {
+        cv::Mat channels = tempImg.clone();
+        for( int c = 0; c < 3; c++ ) // 0 =blue ; 1 = green ; 2=red
+        {
+            if(urlQuery.hasQueryItem("red") && c == 2)
+            {
+                qDebug() << "red";
+                continue;
+            }
+            if(urlQuery.hasQueryItem("green") && c == 1)
+            {
+                qDebug() << "green";
+                continue;
+            }
+            if(urlQuery.hasQueryItem("blue") && c == 0)
+            {
+                qDebug() << "blue";
+                continue;
+            }
+
+            for( int y = 0; y < tempImg.rows; y++ )
+            {
+                for( int x = 0; x < tempImg.cols; x++ )
+                {
+                    channels.at<cv::Vec3b>(y,x)[c] = cv::saturate_cast<uchar>(0);
+                }
+            }
+        }
+        image  = Mat2QImage(channels);
+        qDebug() << time.elapsed();
+        return image;
+
+    }
+
     image  = Mat2QImage(tempImg);
     qDebug() << time.elapsed();
-    //QImage image("D:/tracks/first_fly/DSC00998.JPG");
     return image;
 }
 

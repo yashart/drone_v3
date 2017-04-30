@@ -9,6 +9,7 @@ class LocationsModel : public QSqlQueryModel
     Q_OBJECT
 public:
     QVariantList list;
+    Q_INVOKABLE void exportPoints();
 
     /* Перечисляем все роли, которые будут использоваться в TableView
      * Как видите, они должны лежать в памяти выше параметра Qt::UserRole
@@ -18,6 +19,7 @@ public:
         IdRole = Qt::UserRole + 1,      // id
         LatRole,
         LonRole,
+        LabelRole,
         TypeRole
     };
 
@@ -33,6 +35,7 @@ protected:
      * от которого наследован класс QSqlQueryModel
      * */
     QHash<int, QByteArray> roleNames() const;
+
 
 signals:
 

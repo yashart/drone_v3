@@ -137,9 +137,13 @@ Map {
             }
             anchorPoint.x: markerCustomPoint.width / 2;
             anchorPoint.y: markerCustomPoint.height / 2;
-            sourceItem: Image {
-                id: markerCustomPoint
-                source: "/img/popupIconsSet/" + type + ".png"
+
+            sourceItem: Column {
+                Image {
+                    id: markerCustomPoint
+                    source: "/img/popupIconsSet/" + type + ".png"
+                }
+                Text { text: label; font.bold: true }
             }
             MouseArea{
                 anchors.fill: parent;
@@ -362,7 +366,7 @@ Map {
 
     Image {
         id: tempProviderImage
-        visible: true
+        visible: false
         source: ""
         fillMode: Image.PreserveAspectFit
         height: 500

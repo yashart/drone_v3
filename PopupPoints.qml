@@ -13,6 +13,7 @@ PopupPointsForm {
         popupPointsForm.latitude = lat
         popupPointsForm.longitude = lon
         popupPointsForm.pointId = id
+        //popupPointsForm.label = label
     }
 
     redRadioButton.onClicked: {

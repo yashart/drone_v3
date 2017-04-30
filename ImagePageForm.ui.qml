@@ -12,6 +12,7 @@ Window {
     property alias pictureViewer: pictureViewer
     property alias pictureViewerArea: pictureViewerArea
     property alias photoInformation: photoInformation
+    property alias instrumentsImage: instrumentsImage
 
     property alias standartImageRadio: standartImageRadio
     property alias invertImageRadio: invertImageRadio
@@ -20,6 +21,10 @@ Window {
     property alias gammaImageRadio: gammaImageRadio
     property alias desaturateImageRadio: desaturateImageRadio
     property alias hueImageRadio: hueImageRadio
+
+    property alias channelRed: channelRed
+    property alias channelGreen: channelGreen
+    property alias channelBlue: channelBlue
 
     property alias contrastSlider: contrastSlider
     property alias brightnessSlider: brightnessSlider
@@ -200,6 +205,27 @@ Window {
                         Layout.row: 7
                         Layout.column: 2
                         Layout.fillWidth: true
+                    }
+
+                    Column {
+                        Layout.row: 8
+                        Layout.column: 2
+                        Layout.fillWidth: true
+                        CheckBox {
+                            id: channelRed
+                            text: qsTr("Красный")
+                            checked: true
+                        }
+                        CheckBox {
+                            id: channelGreen
+                            text: qsTr("Зеленый")
+                            checked: true
+                        }
+                        CheckBox {
+                            id: channelBlue
+                            text: qsTr("Синий")
+                            checked: true
+                        }
                     }
                 }
             }

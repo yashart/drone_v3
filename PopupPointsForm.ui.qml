@@ -18,6 +18,7 @@ Window {
 
     property var latitude: 0
     property var longitude: 0
+    property var label: ""
     property var iconColor: "red"
     property var iconType: "triangle"
     property var pointId: 0
@@ -142,6 +143,17 @@ Window {
                         id: yellowRadioButton
                     }
                 }
+            }
+
+            Label {
+                text: qsTr("Название")
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            }
+
+            TextField {
+                text: qsTr(String("В разработке"))
+                enabled: false
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
 
             Label {
