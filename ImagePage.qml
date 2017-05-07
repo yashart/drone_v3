@@ -23,7 +23,7 @@ ImagePageForm {
 
             //currentPhoto.x -= dragAreaPhoto.mouseX - currentPhoto.width/2
             //currentPhoto.y -= dragAreaPhoto.mouseY - currentPhoto.height/2
-
+            grid.gridCanvas.clear_canvas()
             console.log(currentPhoto.scale)
         }
     }

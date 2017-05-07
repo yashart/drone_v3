@@ -82,5 +82,6 @@
         <file>img/popupIconsSet/points/tank_light.png</file>
         <file>img/popupIconsSet/points/tank_medium.png</file>
         <file>ExportFileDialog.qml</file>
+        <file>ImageGrid.qml</file>
     </qresource>
 </RCC>

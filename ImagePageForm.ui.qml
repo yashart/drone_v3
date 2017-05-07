@@ -8,6 +8,7 @@ Window {
     id: imagePage
     property alias currentPhoto: currentPhoto
     property alias dragAreaPhoto: dragAreaPhoto
+    property alias grid: grid
 
     property alias pictureViewer: pictureViewer
     property alias pictureViewerArea: pictureViewerArea
@@ -284,6 +285,12 @@ Window {
                         property var offsetLon: 0.00150 // эксперементальным путем
                         property var offsetLat: 0.0016 // эксперементальным путем
                     }
+                    ImageGrid {
+                        id: grid
+                        anchors.centerIn: parent.Center
+                        anchors.fill: parent
+                        z: 3
+                    }
                     ListView {
                         anchors.fill: currentPhoto
                         id: calibrateOnPicture
@@ -347,14 +354,6 @@ Window {
                             }
                         }
                     }
-                }
-
-                Image {
-                    id: grid
-                    anchors.centerIn: parent.Center
-                    source: "img/grid.png"
-                    anchors.fill: parent
-                    z: 2
                 }
             }
 

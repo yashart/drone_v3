@@ -68,17 +68,34 @@ DISTFILES += \
 
 win32
 {
-    INCLUDEPATH += C:/opencv/build/include
-    LIBS += -LC:/opencv/build/lib -lopencv_core320 \
-        -lopencv_highgui320 \
-        -lopencv_imgcodecs320 \
-        -lopencv_imgproc320 \
-        -lopencv_features2d320 \
-        -lopencv_calib3d320
+    INCLUDEPATH += /usr/local/include/opencv2
+    LIBS += -L/usr/local/lib
+    LIBS += -lopencv_core
+    LIBS += -lopencv_imgproc
+    LIBS += -lopencv_highgui
+    LIBS += -lopencv_imgcodecs
+    LIBS += -lopencv_features2d
+    LIBS += -lopencv_calib3d
+
+#    INCLUDEPATH += C:/opencv/build/include
+#    LIBS += -LC:/opencv/build/lib -lopencv_core320 \
+#        -lopencv_highgui320 \
+#        -lopencv_imgcodecs320 \
+#        -lopencv_imgproc320 \
+#        -lopencv_features2d320 \
+#        -lopencv_calib3d320
+
 }
 unix
 {
-# Указать путь к библиотекам OpenCV через INCLUDEPATH и LIBS
+    INCLUDEPATH += /usr/local/include/opencv2
+    LIBS += -L/usr/local/lib
+    LIBS += -lopencv_core
+    LIBS += -lopencv_imgproc
+    LIBS += -lopencv_highgui
+    LIBS += -lopencv_imgcodecs
+    LIBS += -lopencv_features2d
+    LIBS += -lopencv_calib3d
 }
 
 
