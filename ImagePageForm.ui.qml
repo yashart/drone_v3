@@ -8,6 +8,8 @@ Window {
     id: imagePage
     property alias currentPhoto: currentPhoto
     property alias dragAreaPhoto: dragAreaPhoto
+    property alias gridNorth: gridNorth
+    property alias gridPicture: gridPicture
 
     property alias pictureViewer: pictureViewer
     property alias pictureViewerArea: pictureViewerArea
@@ -253,6 +255,15 @@ Window {
                     z: 3
                 }
 
+                ImageGrid {
+                    id: gridNorth
+                    anchors.centerIn: parent.Center
+                    anchors.fill: parent
+                    z: 3
+                    visible: false
+                    property var currentParent: "north"
+                }
+
                 Image {
                     id: currentPhoto
                     fillMode: Image.PreserveAspectFit
@@ -283,6 +294,13 @@ Window {
                         z: 2
                         property var offsetLon: 0.00150 // эксперементальным путем
                         property var offsetLat: 0.0016 // эксперементальным путем
+                    }
+                    ImageGrid {
+                        id: gridPicture
+                        anchors.centerIn: parent.Center
+                        anchors.fill: parent
+                        z: 3
+                        property var currentParent: "picture"
                     }
                     ListView {
                         anchors.fill: currentPhoto
@@ -347,14 +365,6 @@ Window {
                             }
                         }
                     }
-                }
-
-                Image {
-                    id: grid
-                    anchors.centerIn: parent.Center
-                    source: "img/grid.png"
-                    anchors.fill: parent
-                    z: 2
                 }
             }
 

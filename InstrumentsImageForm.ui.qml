@@ -10,6 +10,7 @@ Item {
     property alias hideButtonImage: hideButtonImage
     property alias pointsButtonImage: pointsButtonImage
     property alias calibrateButtonImage: calibrateButtonImage
+    property alias gridButtonImage: gridButtonImage
 
     ToolBar {
         id: toolBar
@@ -44,6 +45,13 @@ Item {
             ToolButton {
                 id: calibrateButtonImage
                 iconSource: "qrc:/img/georefer.png"
+                checkable: true
+                exclusiveGroup: toolBarsButtonts
+            }
+
+            ToolButton {
+                id: gridButtonImage
+                iconSource: "qrc:/img/grid.png"
                 checkable: true
                 exclusiveGroup: toolBarsButtonts
             }

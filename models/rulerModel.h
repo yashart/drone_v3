@@ -43,6 +43,7 @@ public:
     QVariant distance();
     QVariant checkPoint();
 
+    Q_INVOKABLE double distanceBetween(QGeoCoordinate point1, QGeoCoordinate point2);
     Q_INVOKABLE void addPoint(QGeoCoordinate point);
     Q_INVOKABLE void delPoint();
     Q_INVOKABLE void distanceToMouse(QGeoCoordinate point);

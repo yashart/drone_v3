@@ -53,6 +53,12 @@ QVariant RulerModel::distance()
     return QVariant(QString::number(sum).append(" м"));
 }
 
+double RulerModel::distanceBetween(QGeoCoordinate point1, QGeoCoordinate point2)
+{
+    return point1.distanceTo(point2);
+}
+
+
 void RulerModel::distanceToMouse(QGeoCoordinate point)
 {
     double sum = 0;
