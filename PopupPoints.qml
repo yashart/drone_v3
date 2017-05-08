@@ -14,7 +14,8 @@ PopupPointsForm {
         popupPointsForm.longitude = lon
         popupPointsForm.pointId = id
         popupPointsForm.label = label
-        console.log(label);
+        popupPoints.label = label
+
     }
 
     redRadioButton.onClicked: {
@@ -44,8 +45,8 @@ PopupPointsForm {
                                       popupPoints.longitude,
                                       popupPointsForm.iconType + "/" +
                                       popupPointsForm.iconColor,
-                                      popupPointsForm.label)
-            console.log(">>" + popupPoints.label);
+                                      labelField.text)
+            console.log(">>" + popupPoints.label + " " +popupPointsForm.label);
         }else{
             dataBase.prepareDeletePoint(popupPoints.pointId)
             dataBase.deleteLocalPoint()
@@ -54,8 +55,8 @@ PopupPointsForm {
                                       popupPoints.longitude,
                                       popupPointsForm.iconType + "/" +
                                       popupPointsForm.iconColor,
-                                      popupPointsForm.label)
-             console.log(">>>" + popupPointsForm.label);
+                                      labelField.text)
+             console.log(">>>" + popupPoints.label + " " +popupPointsForm.label);
         }
         popupPointsForm.visible = false
 

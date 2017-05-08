@@ -21,6 +21,7 @@
 #include "providers/photoprovider.h"
 
 #include "backend/tilesdownloader.h"
+#include "backend/photototiles.h"
 
 #include "math/variation_method_calibrate.h"
 
@@ -43,6 +44,9 @@ int main(int argc, char *argv[])
     PhotoProvider * photoProvider = new PhotoProvider();    
 
     Variation_method_calibrate variationModel;
+
+    PhotoToTiles photoToTiles;
+    photoToTiles.translate(QString("karer.tif"), QString("17-19"));
 
     //TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
 
@@ -68,6 +72,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("linesModel", &linesModel);
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
+    ctx->setContextProperty("photoToTiles", &photoToTiles);
     //ctx->setContextProperty("tilesDownloader", &tilesDownloader);
     ctx->setContextProperty("variationModel", &variationModel);
 

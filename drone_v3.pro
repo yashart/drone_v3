@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     math/calibrate_known_info.cpp \
     database/changedb.cpp \
     providers/iconsprovider.cpp \
-    providers/qcvhelper.cpp
+    providers/qcvhelper.cpp \
+    backend/photototiles.cpp
 
 RESOURCES += qml.qrc
 
@@ -61,7 +62,8 @@ HEADERS += \
     math/variation_method_calibrate.h \
     math/calibrate_known_info.h \
     database/changedb.h \
-    providers/qcvhelper.h
+    providers/qcvhelper.h \
+    backend/photototiles.h
 
 DISTFILES += \
     database/DataBase.db
@@ -75,6 +77,8 @@ win32
         -lopencv_imgproc320 \
         -lopencv_features2d320 \
         -lopencv_calib3d320
+    #LIBS += C:/OSGeo4W/apps/Python27/libs/python27.lib
+    #INCLUDEPATH += C:/OSGeo4W/apps/Python27/include
 }
 unix
 {

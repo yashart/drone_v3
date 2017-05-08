@@ -23,6 +23,7 @@ MenuBar {
         MenuItem {text: "Прейти в заданную точку"}
         MenuItem {text: "Сохранить выделенную область в кэш"}
         MenuItem {text: "Видео"; onTriggered: {videoPage.visible=true}}
+        MenuItem {text: "Фотоплан в тайлы"; onTriggered: {}}
     }
     Menu {
         title: qsTr("Вид")

@@ -15,7 +15,7 @@ Window {
     property alias questionRadioButton: questionRadioButton
     property alias submitPopupButton: submitPopupButton
     property alias deletePointPopupButton: deletePointPopupButton
-
+    property alias labelField: labelField
     property var latitude: 0
     property var longitude: 0
     property var label: " "
@@ -187,6 +187,7 @@ Window {
             }
 
             TextField {
+                id: labelField
                 text: qsTr(String(popupPointsForm.label))
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }

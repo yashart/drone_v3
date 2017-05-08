@@ -16,6 +16,7 @@ Window {
     property alias googleRadio: googleRadio
     property alias yandexRadio: yandexRadio
     property alias offlineGoogleRadio: offlineGoogleRadio
+    property alias offlinePhotoplan: offlinePhotoplan
 
     maximumHeight: 560
     maximumWidth: 360
@@ -138,6 +139,10 @@ Window {
                             RadioButton {
                                 id: offlineGoogleRadio
                                 text: qsTr("Offline Google Maps")
+                            }
+                            RadioButton {
+                                id: offlinePhotoplan
+                                text: qsTr("Фотопланы")
                             }
                             RadioButton {
                                 id: osmRadio

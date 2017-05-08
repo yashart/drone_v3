@@ -49,6 +49,12 @@ LeftTabMenuForm {
         linesModel.updateModel();
         pointsModel.updateModel();
     }
+    offlinePhotoplan.onClicked: {
+        changeMapPlugin("customPlugin");
+        mapComponent.changeMapType(6);
+        linesModel.updateModel();
+        pointsModel.updateModel();
+    }
 
     leftTabMenuArea.onEntered: {
         opacity = 1
