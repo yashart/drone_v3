@@ -381,28 +381,40 @@ Window {
                     Layout.fillWidth: true
                     id: scrollPhotoView
                     anchors.fill: parent
-
                     z: 2
-                        ListView {
-                            //property int counte: value
-                            model: imagesModel
-                            delegate: Rectangle {
-                                width: 110
-                                height: 70
-                                border.width: 3
-                                color: "#E0E0E0"
+                    ListView {
+                        id: sliderList
+                        //property int counte: value
+                        model: imagesModel
+                        spacing: 10
+                        highlightMoveDuration: 200
+                        highlight: Rectangle {color: "red"; radius: 5;}
+                        //Component.onCompleted: positionViewAtIndex(10, ListView.Beginning)
+                        delegate: //Text {text: "image://SliderImages/" + dir + url}
+                        Rectangle { // Объект для регулировки прозрачной области
+                            width: 120
+                            height: 80
+                            color: "transparent"
+                            Rectangle{
+                                width: parent.width - 10;
+                                height: parent.height - 10;
+                                anchors.centerIn: parent
                                 Image {
                                     source: "image://SliderImages/" + dir + url
-                                    //height: parent.height * 0.9
-                                    //width: 120 - 10
                                     anchors.fill: parent
-                                    fillMode: Image.PreserveAspectFit
+                                    //fillMode: Image.PreserveAspectFit
                                     asynchronous: true
-                                    z: 2
-
+                                    MouseArea{
+                                        anchors.fill:parent
+                                        onClicked: {
+                                            currentPhoto.source = "image://photo/" + dir + url;
+                                            console.log( 'image://photo/' + dir + url);
+                                            sliderList.currentIndex = index
+                                        }
+                                    }
                                 }
-
                             }
+                        }
                     }
                 }
             }
