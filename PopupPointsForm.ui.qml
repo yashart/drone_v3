@@ -2,6 +2,8 @@ import QtQuick 2.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.1
 import QtQuick.Window 2.2
+import QtQuick.Controls.Styles 1.4
+
 
 Window {
     property alias popupPointsArea: popupPointsArea
@@ -10,9 +12,12 @@ Window {
     property alias greenRadioButton: greenRadioButton
     property alias blackRadioButton: blackRadioButton
     property alias yellowRadioButton: yellowRadioButton
-    property alias triangleRadioButton: triangleRadioButton
-    property alias squareRadioButton: squareRadioButton
-    property alias questionRadioButton: questionRadioButton
+    property alias tankLightRadioButton: tankLightRadioButton
+    property alias tankMediumRadioButton: tankMediumRadioButton
+    property alias tankHeavyRadioButton: tankHeavyRadioButton
+    property alias btrRadioButton: btrRadioButton
+    property alias bmpRadioButton: bmpRadioButton
+    property alias gunRadioButton: gunRadioButton
     property alias submitPopupButton: submitPopupButton
     property alias deletePointPopupButton: deletePointPopupButton
     property alias labelField: labelField
@@ -58,16 +63,17 @@ Window {
                 columns: 3
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 RadioButton {
-                    id: triangleRadioButton
+                    id: tankLightRadioButton
                     Image {
                         anchors.fill: parent
                         source: "image://Icons/tank_light/" + popupPointsForm.iconColor
                     }
                     checkable: true
                     checked: true
+
                 }
                 RadioButton {
-                    id: squareRadioButton
+                    id: tankMediumRadioButton
                     Image {
                         anchors.fill: parent
                         source: "image://Icons/tank_medium/" + popupPointsForm.iconColor
@@ -75,7 +81,7 @@ Window {
                     checkable: true
                 }
                 RadioButton {
-                    id: questionRadioButton
+                    id: tankHeavyRadioButton
                     Image {
                         anchors.fill: parent
                         source: "image://Icons/tank_heavy/" + popupPointsForm.iconColor

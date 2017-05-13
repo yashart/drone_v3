@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QDir>
 #include <QDebug>
+#include <QUrl>
 
 class PhotoToTiles : public QObject
 {
@@ -16,9 +17,9 @@ public:
 
     Q_INVOKABLE void translate(QString url, QString range)
     {
-        qDebug() << QDir::currentPath() << " " << url << " " << range;
+        qDebug() << QDir::currentPath() << " " << range << " " << QUrl(url).toLocalFile();
         this->proc.setWorkingDirectory(QDir::currentPath());
-        proc.start("python", QStringList() << "gdal2tiles.py" <<"--profile=mercator"<< "-z"<< "17-19"<< url << "orthophoto");
+        proc.start("python", QStringList() << "gdal2tiles.py" <<"--profile=mercator"<< "-z"<< range << QUrl(url).toLocalFile() << "orthophoto");
     }
 private:
     QProcess proc;

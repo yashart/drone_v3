@@ -376,16 +376,21 @@ Window {
                 color: "#E0E0E0"
                 z: 2
                 ScrollView {
+                    Layout.preferredHeight: parent.height
+                    Layout.preferredWidth: 120
+                    Layout.fillWidth: true
                     id: scrollPhotoView
                     anchors.fill: parent
-                    Column {
-                        LayoutMirroring.enabled: true
-                        LayoutMirroring.childrenInherit: true
-                        Repeater {
+
+                    z: 2
+                        ListView {
+                            //property int counte: value
                             model: imagesModel
-                            Rectangle {
+                            delegate: Rectangle {
                                 width: 110
                                 height: 70
+                                border.width: 3
+                                color: "#E0E0E0"
                                 Image {
                                     source: "image://SliderImages/" + dir + url
                                     //height: parent.height * 0.9
@@ -394,9 +399,10 @@ Window {
                                     fillMode: Image.PreserveAspectFit
                                     asynchronous: true
                                     z: 2
+
                                 }
+
                             }
-                        }
                     }
                 }
             }

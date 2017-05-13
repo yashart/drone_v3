@@ -141,7 +141,7 @@ Map {
             sourceItem: Column {
                 Image {
                     id: markerCustomPoint
-                    source: "/img/popupIconsSet/" + type + ".png"
+                    source: "image://Icons/" + type
                 }
                 Text { text: label; font.bold: true }
             }

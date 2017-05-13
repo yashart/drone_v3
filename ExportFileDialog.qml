@@ -6,7 +6,7 @@ FileDialog {
     title: "Please choose a file"
     folder: shortcuts.home
     onAccepted: {
-        console.log("You chose: " + fileDialog.fileUrls)
+         photoToTiles.translate(exportFileDialog.fileUrls,"17-20")
     }
     onRejected: {
         console.log("Canceled")

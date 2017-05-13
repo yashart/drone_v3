@@ -30,15 +30,25 @@ PopupPointsForm {
     yellowRadioButton.onClicked: {
         popupPoints.iconColor = "yellow"
     }
-    triangleRadioButton.onClicked: {
-        popupPoints.iconType = "triangle"
+    tankLightRadioButton.onClicked: {
+        popupPoints.iconType = "tank_light"
     }
-    squareRadioButton.onClicked: {
-        popupPoints.iconType = "square"
+    tankMediumRadioButton.onClicked: {
+        popupPoints.iconType = "tank_medium"
     }
-    questionRadioButton.onClicked: {
-        popupPoints.iconType = "question"
+    tankHeavyRadioButton.onClicked: {
+        popupPoints.iconType = "tank_heavy"
     }
+    btrRadioButton.onClicked: {
+        popupPoints.iconType = "btr"
+    }
+    bmpRadioButton.onClicked: {
+        popupPoints.iconType = "bmp"
+    }
+    gunRadioButton.onClicked: {
+        popupPoints.iconType = "machine_gun"
+    }
+
     submitPopupButton.onClicked: {
         if(popupPoints.id == 0){
             dataBase.createLocalPoint(popupPoints.latitude,

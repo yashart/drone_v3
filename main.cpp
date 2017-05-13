@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     Variation_method_calibrate variationModel;
 
     PhotoToTiles photoToTiles;
-    photoToTiles.translate(QString("karer.tif"), QString("17-19"));
+    //photoToTiles.translate(QString("karer.tif"), QString("17-19"));
 
     //TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
 
