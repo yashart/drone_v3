@@ -32,6 +32,7 @@ private:
     QUrl curImgPath;
 
     cv::Mat curImg;
+    cv::Mat snapImg;
     cv::Mat tempImg;
     QString path;
 };

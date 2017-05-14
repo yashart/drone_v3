@@ -17,6 +17,7 @@ void PhotoProvider::setImage(const QUrl & url)
 {
     qDebug() << "Set path: " << url.toLocalFile();
     curImg = cv::imread( url.toLocalFile().toStdString(), 1 );
+    snapImg = curImg.clone();
     tempImg = curImg.clone();
 }
 
@@ -33,6 +34,8 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
     QUrl url(sUrl);
     QUrlQuery urlQuery(url.query());
 
+    // Если предыдущий путь отличается от текущего загружаем новое изображение
+
     if ( url.toLocalFile() != curImgPath.toLocalFile() )
     {
         qDebug() << "Hello";
@@ -40,118 +43,238 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
         curImgPath = url;
     }
 
-    if(urlQuery.hasQueryItem("standart") == true)
+
+    // нажали кнопку "инверсия изображения"
+
+
+    // Если послана команда "подтвердить сохранение"
+
+    if(urlQuery.hasQueryItem("temp") != true)
     {
-        tempImg = curImg.clone();
-    }
 
-    if (urlQuery.hasQueryItem("invert") == true) // инверсия цветов
-    {
-        cv::bitwise_not ( tempImg, tempImg );
-    }
+        // загрузить оригинальное изображение в память
 
-
-    if (urlQuery.hasQueryItem("contrast") == true)
-    {
-        double alpha = urlQuery.queryItemValue("contrast").toDouble();
-        int beta = 0;
-
-        double preCalc[256];
-
-        for (int i = 0; i <= 255; i++)
+        if(urlQuery.hasQueryItem("standart") == true)
         {
-            preCalc[i] =  (alpha * i) + beta ;
+            snapImg = curImg.clone();
         }
 
 
-        for( int y = 0; y < tempImg.rows; y++ )
+        // инверсия цветов
+
+        if (urlQuery.hasQueryItem("invert") == true)
         {
-            for( int x = 0; x < tempImg.cols; x++ )
+            cv::bitwise_not ( snapImg, snapImg );
+        }
+
+        if (urlQuery.hasQueryItem("contrast") == true)
+        {
+            double alpha = urlQuery.queryItemValue("contrast").toDouble();
+            int beta = 0;
+
+            double preCalc[256];
+
+            for (int i = 0; i <= 255; i++)
             {
-                for( int c = 0; c < 3; c++ )
+                preCalc[i] =  (alpha * i) + beta ;
+            }
+
+
+            for( int y = 0; y < snapImg.rows; y++ )
+            {
+                for( int x = 0; x < snapImg.cols; x++ )
                 {
-                    tempImg.at<cv::Vec3b>(y,x)[c] =
-                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
+                    for( int c = 0; c < 3; c++ )
+                    {
+                        snapImg.at<cv::Vec3b>(y,x)[c] =
+                                cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
+                    }
                 }
             }
         }
-    }
 
-    if (urlQuery.hasQueryItem("gamma") == true)
-    {
-        double gamma = urlQuery.queryItemValue("gamma").toDouble();
-        double G = 1/gamma;
-
-        double preCalc[256];
-
-        for (int i = 0; i <= 255; i++)
+        if (urlQuery.hasQueryItem("gamma") == true)
         {
-            preCalc[i] =  pow((i / 255.0), G) * 255 ;
-        }
+            double gamma = urlQuery.queryItemValue("gamma").toDouble();
+            double G = 1/gamma;
 
+            double preCalc[256];
 
-        for( int y = 0; y < tempImg.rows; y++ )
-        {
-            for( int x = 0; x < tempImg.cols; x++ )
+            for (int i = 0; i <= 255; i++)
             {
-                for( int c = 0; c < 3; c++ )
+                preCalc[i] =  pow((i / 255.0), G) * 255 ;
+            }
+
+
+            for( int y = 0; y < snapImg.rows; y++ )
+            {
+                for( int x = 0; x < snapImg.cols; x++ )
                 {
-                    tempImg.at<cv::Vec3b>(y,x)[c] =
-                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
+                    for( int c = 0; c < 3; c++ )
+                    {
+                        snapImg.at<cv::Vec3b>(y,x)[c] =
+                                cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
+                    }
                 }
             }
         }
+
+        QImage image;
+
+        if (urlQuery.hasQueryItem("red")
+                || urlQuery.hasQueryItem("green")
+                || urlQuery.hasQueryItem("blue")) // обработка каналов
+        {
+            cv::Mat channels = snapImg.clone();
+            for( int c = 0; c < 3; c++ ) // 0 =blue ; 1 = green ; 2=red
+            {
+                if(urlQuery.hasQueryItem("red") && c == 2)
+                {
+                    qDebug() << "red";
+                    continue;
+                }
+                if(urlQuery.hasQueryItem("green") && c == 1)
+                {
+                    qDebug() << "green";
+                    continue;
+                }
+                if(urlQuery.hasQueryItem("blue") && c == 0)
+                {
+                    qDebug() << "blue";
+                    continue;
+                }
+
+                for( int y = 0; y < snapImg.rows; y++ )
+                {
+                    for( int x = 0; x < snapImg.cols; x++ )
+                    {
+                        channels.at<cv::Vec3b>(y,x)[c] = cv::saturate_cast<uchar>(0);
+                    }
+                }
+            }
+            image  =  cvHelper::Mat2QImage(channels);
+            qDebug() << time.elapsed();
+            return image;
+
+        }
+
+        image  = cvHelper::Mat2QImage(snapImg);
+        qDebug() << time.elapsed();
+        return image;
     }
 
-    QImage image;
 
-    if (urlQuery.hasQueryItem("red")
-        || urlQuery.hasQueryItem("green")
-        || urlQuery.hasQueryItem("blue")) // обработка каналов
+    // Если мы просто играемся ползунком
+
+    else
     {
-        cv::Mat channels = tempImg.clone();
-        for( int c = 0; c < 3; c++ ) // 0 =blue ; 1 = green ; 2=red
+
+        if (urlQuery.hasQueryItem("contrast") == true)
         {
-            if(urlQuery.hasQueryItem("red") && c == 2)
+            double alpha = urlQuery.queryItemValue("contrast").toDouble();
+            int beta = 0;
+
+            double preCalc[256];
+
+            for (int i = 0; i <= 255; i++)
             {
-                qDebug() << "red";
-                continue;
-            }
-            if(urlQuery.hasQueryItem("green") && c == 1)
-            {
-                qDebug() << "green";
-                continue;
-            }
-            if(urlQuery.hasQueryItem("blue") && c == 0)
-            {
-                qDebug() << "blue";
-                continue;
+                preCalc[i] =  (alpha * i) + beta ;
             }
 
-            for( int y = 0; y < tempImg.rows; y++ )
+
+            for( int y = 0; y < snapImg.rows; y++ )
             {
-                for( int x = 0; x < tempImg.cols; x++ )
+                for( int x = 0; x < snapImg.cols; x++ )
                 {
-                    channels.at<cv::Vec3b>(y,x)[c] = cv::saturate_cast<uchar>(0);
+                    for( int c = 0; c < 3; c++ )
+                    {
+                        tempImg.at<cv::Vec3b>(y,x)[c] =
+                                cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
+                    }
                 }
             }
         }
-        image  =  cvHelper::Mat2QImage(channels);
+
+        qDebug() << "Конраст отработал!";
+
+        qDebug() << "Сработало!";
+
+        if (urlQuery.hasQueryItem("gamma") == true)
+        {
+            double gamma = urlQuery.queryItemValue("gamma").toDouble();
+            double G = 1/gamma;
+
+            double preCalc[256];
+
+            for (int i = 0; i <= 255; i++)
+            {
+                preCalc[i] =  pow((i / 255.0), G) * 255 ;
+            }
+
+
+            for( int y = 0; y < snapImg.rows; y++ )
+            {
+                for( int x = 0; x < snapImg.cols; x++ )
+                {
+                    for( int c = 0; c < 3; c++ )
+                    {
+                        tempImg.at<cv::Vec3b>(y,x)[c] =
+                                cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
+                    }
+                }
+            }
+        }
+
+        QImage image;
+
+        if (urlQuery.hasQueryItem("red")
+                || urlQuery.hasQueryItem("green")
+                || urlQuery.hasQueryItem("blue")) // обработка каналов
+        {
+            cv::Mat channels = snapImg.clone();
+            for( int c = 0; c < 3; c++ ) // 0 =blue ; 1 = green ; 2=red
+            {
+                if(urlQuery.hasQueryItem("red") && c == 2)
+                {
+                    qDebug() << "red";
+                    continue;
+                }
+                if(urlQuery.hasQueryItem("green") && c == 1)
+                {
+                    qDebug() << "green";
+                    continue;
+                }
+                if(urlQuery.hasQueryItem("blue") && c == 0)
+                {
+                    qDebug() << "blue";
+                    continue;
+                }
+
+                for( int y = 0; y < snapImg.rows; y++ )
+                {
+                    for( int x = 0; x < snapImg.cols; x++ )
+                    {
+                        channels.at<cv::Vec3b>(y,x)[c] = cv::saturate_cast<uchar>(0);
+                    }
+                }
+            }
+            image  =  cvHelper::Mat2QImage(channels);
+            qDebug() << time.elapsed();
+            return image;
+        }
+
+        image  = cvHelper::Mat2QImage(tempImg);
         qDebug() << time.elapsed();
         return image;
 
     }
-
-    image  = cvHelper::Mat2QImage(tempImg);
-    qDebug() << time.elapsed();
-    return image;
 }
 
     /*
     if (sz >= 2)
         typePhoto = temp.at(1);
 
-    cv::Mat tempImg = curImg.clone();
+    cv::Mat snapImg = curImg.clone();
 
     photoPath.append("D:/tracks/first_fly/"); // Название изображения
     // D:/first_fly/
@@ -162,7 +285,7 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
 
     if (typePhoto == "invert") // инверсия цветов
     {
-        bitwise_not ( tempImg, tempImg );
+        bitwise_not ( snapImg, snapImg );
     }
     if (typePhoto == "contrast")
     {
@@ -177,14 +300,14 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
         }
 
 
-        for( int y = 0; y < tempImg.rows; y++ )
+        for( int y = 0; y < snapImg.rows; y++ )
         {
-            for( int x = 0; x < tempImg.cols; x++ )
+            for( int x = 0; x < snapImg.cols; x++ )
             {
                 for( int c = 0; c < 3; c++ )
                 {
-                    tempImg.at<cv::Vec3b>(y,x)[c] =
-                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
+                    snapImg.at<cv::Vec3b>(y,x)[c] =
+                            cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
                 }
             }
         }
@@ -204,25 +327,25 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
         }
 
 
-        for( int y = 0; y < tempImg.rows; y++ )
+        for( int y = 0; y < snapImg.rows; y++ )
         {
-            for( int x = 0; x < tempImg.cols; x++ )
+            for( int x = 0; x < snapImg.cols; x++ )
             {
                 for( int c = 0; c < 3; c++ )
                 {
-                    tempImg.at<cv::Vec3b>(y,x)[c] =
-                            cv::saturate_cast<uchar>( preCalc[tempImg.at<cv::Vec3b>(y,x)[c]] );
+                    snapImg.at<cv::Vec3b>(y,x)[c] =
+                            cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
                 }
             }
         }
         qDebug() << time.elapsed();
     }
 
-    size->setWidth(tempImg.cols);
-    size->setHeight(tempImg.rows);
+    size->setWidth(snapImg.cols);
+    size->setHeight(snapImg.rows);
 
     QImage image;
-    image  = Mat2QImage(tempImg);
+    image  = Mat2QImage(snapImg);
     return image;
     //QImage ret(":/img/photo_example.jpg");
     return QImage(":/img/photo_example.jpg");
