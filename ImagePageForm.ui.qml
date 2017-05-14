@@ -425,6 +425,17 @@ Window {
                             }
                         }
                     }
+                    focus: true
+                    Keys.onPressed: {
+                        if (event.key == Qt.Key_Up) {
+                            sliderList.currentIndex -= 1
+                            console.log("key up")
+                        }
+                        if (event.key == Qt.Key_Down) {
+                            sliderList.currentIndex += 1
+                            console.log("key down")
+                        }
+                    }
                 }
             }
         }
