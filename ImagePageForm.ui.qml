@@ -260,7 +260,7 @@ Window {
                     anchors.centerIn: currentPhoto
                     rotation: currentPhoto.rotation - currentPhoto.azimuth
                     z: 3
-                    visible: false
+                    visible: true
                     width: Math.sqrt(currentPhoto.width * currentPhoto.width +
                                     currentPhoto.height * currentPhoto.height) *
                            currentPhoto.scale
@@ -308,6 +308,7 @@ Window {
                         id: gridPicture
                         anchors.centerIn: parent.Center
                         anchors.fill: parent
+                        visible: false
                         z: 3
                         property var currentParent: "picture"
                     }
@@ -451,6 +452,17 @@ Window {
                                     }
                                 }
                             }
+                        }
+                    }
+                    focus: true
+                    Keys.onPressed: {
+                        if (event.key == Qt.Key_Up) {
+                            sliderList.currentIndex -= 1
+                            console.log("key up")
+                        }
+                        if (event.key == Qt.Key_Down) {
+                            sliderList.currentIndex += 1
+                            console.log("key down")
                         }
                     }
                 }
