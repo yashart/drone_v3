@@ -66,7 +66,8 @@ HEADERS += \
     backend/photototiles.h
 
 DISTFILES += \
-    database/DataBase.db
+    database/DataBase.db \
+    .gitignore
 
 win32
 {
