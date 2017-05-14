@@ -64,7 +64,14 @@ Window {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 RadioButton {
                     id: tankLightRadioButton
+                    Rectangle {
+                        color: "red"
+                        anchors.fill: parent
+                        anchors.margins: -5
+                        visible: tankLightRadioButton.checked
+                    }
                     Image {
+                        z: 2
                         anchors.fill: parent
                         source: "image://Icons/tank_light/" + popupPointsForm.iconColor
                     }
@@ -74,7 +81,15 @@ Window {
                 }
                 RadioButton {
                     id: tankMediumRadioButton
+                    Rectangle {
+                        color: "red"
+                        anchors.fill: parent
+                        anchors.margins: -5
+                        visible: tankMediumRadioButton.checked
+                    }
+
                     Image {
+                        z: 2
                         anchors.fill: parent
                         source: "image://Icons/tank_medium/" + popupPointsForm.iconColor
                     }
@@ -82,7 +97,15 @@ Window {
                 }
                 RadioButton {
                     id: tankHeavyRadioButton
+                    Rectangle {
+                        color: "red"
+                        anchors.fill: parent
+                        anchors.margins: -5
+                        visible: tankHeavyRadioButton.checked
+                    }
+
                     Image {
+                        z: 2
                         anchors.fill: parent
                         source: "image://Icons/tank_heavy/" + popupPointsForm.iconColor
                     }
@@ -90,7 +113,15 @@ Window {
                 }
                 RadioButton {
                     id: btrRadioButton
+                    Rectangle {
+                        color: "red"
+                        anchors.fill: parent
+                        anchors.margins: -5
+                        visible: btrRadioButton.checked
+                    }
+
                     Image {
+                        z: 2
                         anchors.fill: parent
                         source: "image://Icons/btr/" + popupPointsForm.iconColor
                     }
@@ -98,7 +129,15 @@ Window {
                 }
                 RadioButton {
                     id: bmpRadioButton
+                    Rectangle {
+                        color: "red"
+                        anchors.fill: parent
+                        anchors.margins: -5
+                        visible: bmpRadioButton.checked
+                    }
+
                     Image {
+                        z: 2
                         anchors.fill: parent
                         source: "image://Icons/bmp/" + popupPointsForm.iconColor
                     }
@@ -106,7 +145,15 @@ Window {
                 }
                 RadioButton {
                     id: gunRadioButton
+                    Rectangle {
+                        color: "red"
+                        anchors.fill: parent
+                        anchors.margins: -5
+                        visible: gunRadioButton.checked
+                    }
+
                     Image {
+                        z: 2
                         anchors.fill: parent
                         source: "image://Icons/machine_gun/" + popupPointsForm.iconColor
                     }
@@ -120,7 +167,7 @@ Window {
 
                 GridLayout {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    columns: 6
+                    columns: 5
 
                     Rectangle {
                         id: redRectangle
