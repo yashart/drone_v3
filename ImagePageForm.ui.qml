@@ -368,6 +368,13 @@ Window {
                 }
             }
 
+            JSONListModel {
+                id: jsonModel1
+                source: "qrc:/jsonData.txt"
+
+                query: "$.store.book[*]"
+            }
+
             Rectangle {
                 id: photoScroll
                 Layout.preferredHeight: parent.height
@@ -385,13 +392,22 @@ Window {
                     ListView {
                         id: sliderList
                         //property int counte: value
-                        model: imagesModel
+                        model: jsonModel1.model
                         spacing: 10
                         highlightMoveDuration: 200
+
+
                         highlight: Rectangle {color: "red"; radius: 5;}
                         //Component.onCompleted: positionViewAtIndex(10, ListView.Beginning)
                         delegate: //Text {text: "image://SliderImages/" + dir + url}
-                        Rectangle { // Объект для регулировки прозрачной области
+                        Text {
+                            width: parent.width
+                            horizontalAlignment: Text.AlignLeft
+                            font.pixelSize: 14
+                            color: "black"
+                            text: model.title
+                        }
+                       /* Rectangle { // Объект для регулировки прозрачной области
                             width: 120
                             height: 80
                             color: "transparent"
@@ -414,7 +430,7 @@ Window {
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
             }

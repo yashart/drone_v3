@@ -83,5 +83,8 @@
         <file>img/popupIconsSet/points/tank_medium.png</file>
         <file>ExportFileDialog.qml</file>
         <file>ImageGrid.qml</file>
+        <file>JSONListModel.qml</file>
+        <file>jsonpath.js</file>
+        <file>jsonData.txt</file>
     </qresource>
 </RCC>
