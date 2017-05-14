@@ -459,10 +459,16 @@ Window {
                         if (event.key == Qt.Key_Up) {
                             sliderList.currentIndex -= 1
                             console.log("key up")
+                            currentPhoto.source = "image://photo/" +
+                                    sliderModel.model.get(sliderList.currentIndex).dir +
+                                    sliderModel.model.get(sliderList.currentIndex).url
                         }
                         if (event.key == Qt.Key_Down) {
                             sliderList.currentIndex += 1
                             console.log("key down")
+                            currentPhoto.source = "image://photo/" +
+                                    sliderModel.model.get(sliderList.currentIndex).dir +
+                                    sliderModel.model.get(sliderList.currentIndex).url
                         }
                     }
                 }

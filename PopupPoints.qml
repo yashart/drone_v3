@@ -15,7 +15,6 @@ PopupPointsForm {
         popupPointsForm.pointId = id
         popupPointsForm.label = label
         popupPoints.label = label
-
     }
 
     redRadioButton.onClicked: {
