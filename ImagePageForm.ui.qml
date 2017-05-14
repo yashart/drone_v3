@@ -257,15 +257,23 @@ Window {
 
                 ImageGrid {
                     id: gridNorth
-                    anchors.centerIn: parent.Center
-                    anchors.fill: parent
+                    anchors.centerIn: currentPhoto
+                    rotation: currentPhoto.rotation - currentPhoto.azimuth
                     z: 3
                     visible: false
+                    width: Math.sqrt(currentPhoto.width * currentPhoto.width +
+                                    currentPhoto.height * currentPhoto.height) *
+                           currentPhoto.scale
+                    height: Math.sqrt(currentPhoto.width * currentPhoto.width +
+                                     currentPhoto.height * currentPhoto.height) *
+                            currentPhoto.scale
+
                     property var currentParent: "north"
                 }
 
                 Image {
                     id: currentPhoto
+
                     fillMode: Image.PreserveAspectFit
                     height: mainPage.mapComponent.newMap.tempProviderImage.height
                     rotation: parseFloat(Jazimuth)
