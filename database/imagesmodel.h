@@ -29,6 +29,7 @@ public:
 
     // Переопределяем метод, который будет возвращать данные
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+    Q_INVOKABLE QVariant get(int row, QString role);
 
 protected:
     /* хешированная таблица ролей для колонок.
@@ -36,13 +37,13 @@ protected:
      * от которого наследован класс QSqlQueryModel
      * */
     QHash<int, QByteArray> roleNames() const;
+    int id_track;
 
 signals:
 
 public slots:
     void updateModel();
-    void addId(QString new_id);
-    void delId(QString del_id);
+    void changeId(int new_id);
     int getId(int row);
 };
 

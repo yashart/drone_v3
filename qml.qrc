@@ -86,5 +86,7 @@
         <file>JSONListModel.qml</file>
         <file>jsonpath.js</file>
         <file>jsonData.txt</file>
+        <file>BusyIndicator.qml</file>
+        <file>img/busy.gif</file>
     </qresource>
 </RCC>

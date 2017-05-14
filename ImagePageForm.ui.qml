@@ -279,6 +279,7 @@ Window {
                     rotation: parseFloat(Jazimuth)
 
                     z: 2
+                    property int id_track: Jid_track
                     property int id_photo: Jid_photo
                     property var dir: Jdir
                     property var name: Jname
@@ -376,13 +377,6 @@ Window {
                 }
             }
 
-            JSONListModel {
-                id: jsonModel1
-                source: "qrc:/jsonData.txt"
-
-                query: "$.store.book[*]"
-            }
-
             Rectangle {
                 id: photoScroll
                 Layout.preferredHeight: parent.height
@@ -397,32 +391,51 @@ Window {
                     id: scrollPhotoView
                     anchors.fill: parent
                     z: 2
+
+                    JSONListModel
+                    {
+                        id: sliderModel
+                        id_track: currentPhoto.id_track
+                    }
+
+                    /*ListView {
+                        model: sliderModel.model
+                        delegate: Column {
+                            Text { text: dir+ " " + url }
+                        }
+
+                    }*/
+
                     ListView {
                         id: sliderList
                         //property int counte: value
-                        model: jsonModel1.model
+                        model: sliderModel.model
                         spacing: 10
                         highlightMoveDuration: 200
-
-
                         highlight: Rectangle {color: "red"; radius: 5;}
                         //Component.onCompleted: positionViewAtIndex(10, ListView.Beginning)
                         delegate: //Text {text: "image://SliderImages/" + dir + url}
-                        Text {
-                            width: parent.width
-                            horizontalAlignment: Text.AlignLeft
-                            font.pixelSize: 14
-                            color: "black"
-                            text: model.title
-                        }
-                       /* Rectangle { // Объект для регулировки прозрачной области
+                        Rectangle { // Объект для регулировки прозрачной области
                             width: 120
                             height: 80
                             color: "transparent"
-                            Rectangle{
+                            Rectangle {
                                 width: parent.width - 10;
                                 height: parent.height - 10;
                                 anchors.centerIn: parent
+
+                                AnimatedImage {
+                                    id: animation
+                                    source: "qrc:/img/busy.gif"
+                                    width: 24
+                                    height: 24
+                                    anchors { centerIn: parent; verticalCenterOffset: 0 }
+                                }
+                                /*BusyIndicator {
+                                    id: busyIndicator
+                                    anchors { centerIn: parent; verticalCenterOffset: 0 }
+                                    visible: true
+                                }*/
                                 Image {
                                     source: "image://SliderImages/" + dir + url
                                     anchors.fill: parent
@@ -438,7 +451,7 @@ Window {
                                     }
                                 }
                             }
-                        }*/
+                        }
                     }
                 }
             }

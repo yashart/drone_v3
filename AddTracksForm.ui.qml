@@ -5,9 +5,7 @@ import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 
 Window {
-
     id: addTracksForm
-
     height: 360
     width: 360
     MouseArea {
@@ -15,16 +13,6 @@ Window {
         anchors.fill: parent
         hoverEnabled: true
 
-        Page {
-            header: TabBar {
-                id: tabBar
-                TabButton {
-                    text: qsTr("Exif")
-                }
-                TabButton {
-                    text: qsTr("Из файла")
-                }
-            }
             StackLayout {
                 id: stackLayout
                 anchors.fill: parent
@@ -33,7 +21,7 @@ Window {
                 Item {
                     ColumnLayout {
                         Button {
-                            text: qsTr("Выбрать папку")
+                            text: qsTr("Выбрать папку c exif")
                             onClicked: {
                                 getParseFileDialog.open();
                             }
@@ -52,7 +40,7 @@ Window {
                     }
                 }
             }
-        }
+
     }
 
     FileDialog {

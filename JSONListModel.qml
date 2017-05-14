@@ -5,24 +5,21 @@
  */
 
 import QtQuick 2.5
-import "jsonpath.js" as JSONPath
 
 Item {
-    property string source: ""
+    property int id_track: 0
     property string json: ""
     property string query: ""
+
 
     property ListModel model : ListModel { id: jsonModel }
     property alias count: jsonModel.count
 
-    onSourceChanged: {
-        var xhr = new XMLHttpRequest;
-        xhr.open("GET", source);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == XMLHttpRequest.DONE)
-                json = xhr.responseText;
-        }
-        xhr.send();
+    onId_trackChanged: {
+        imagesModel.changeId(id_track)
+        imagesModel.updateModel()
+        updateJSONModel()
+        console.log("Update!!! " + id_track)
     }
 
     onJsonChanged: updateJSONModel()
@@ -31,21 +28,12 @@ Item {
     function updateJSONModel() {
         jsonModel.clear();
 
-        if ( json === "" )
-            return;
 
-        var objectArray = parseJSONString(json, query);
-        for ( var key in objectArray ) {
-            var jo = objectArray[key];
-            jsonModel.append( jo );
+        for (var i = 0; i<imagesModel.rowCount(); i++) {
+            var iUrl = imagesModel.get(i,"url")
+            var iDir = imagesModel.get(i,"dir")
+            jsonModel.append({dir: iDir, url:iUrl})
+            console.log()
         }
-    }
-
-    function parseJSONString(jsonString, jsonPathQuery) {
-        var objectArray = JSON.parse(jsonString);
-        if ( jsonPathQuery !== "" )
-            objectArray = JSONPath.jsonPath(objectArray, jsonPathQuery);
-
-        return objectArray;
     }
 }

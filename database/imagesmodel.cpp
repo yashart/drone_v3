@@ -13,7 +13,7 @@ ImagesModel::ImagesModel(QObject *parent) :
 */
 QVariant ImagesModel::data(const QModelIndex & index, int role) const
 {
-    // Определяем номер колонки, адрес так сказать, по номеру роли
+    // Определяем номер колонки, по номеру роли
     int columnId = role - Qt::UserRole - 1;
     // Создаём индекс с помощью новоиспечённого ID колонки
     QModelIndex modelIndex = this->index(index.row(), columnId);
@@ -24,21 +24,25 @@ QVariant ImagesModel::data(const QModelIndex & index, int role) const
     return QSqlQueryModel::data(modelIndex, Qt::DisplayRole);
 }
 
-void ImagesModel::addId(QString new_id)
+QVariant ImagesModel::get(int row,QString role)
 {
-    list_id.append(new_id);
+    QHash<QString, int> roles;;  // Есть более верное решение
+    roles["track_id"] = IdRole;
+    roles["lat"] = LatRole;
+    roles["lon"] = LonRole;
+    roles["alt"] = AltRole;
+    roles["dir"] = DirRole;
+    roles["url"] = URLRole;
+    roles["comment"] = CommentRole;
+    roles["type"] = TypeRole;
 
+    int columnId = roles[role] - Qt::UserRole - 1;
+    // Создаём индекс с помощью новоиспечённого ID колонки
+    QModelIndex modelIndex = this->index(row, columnId);
+
+    return QSqlQueryModel::data(modelIndex, Qt::DisplayRole);
 }
 
-void ImagesModel::delId(QString del_id)
-{
-    for (int i = 0; i < list_id.size(); i++)
-        if (list_id.at(i) == del_id)
-        {
-            list_id.removeAt(i);
-        }
-
-}
 
 //Метод для получения имен ролей через хешированную таблицу.
 QHash<int, QByteArray> ImagesModel::roleNames() const {
@@ -72,25 +76,18 @@ void ImagesModel::updateModel()
     str_query.append("Points.type ");
     str_query.append("FROM Points ");
     str_query.append("LEFT OUTER JOIN Tracks ON Tracks.id = Points.track_id ");
-    str_query.append("WHERE Points.track_id IN (3");
-
-    for (int i = 0; i < list_id.size(); i++){
-        if (i == list_id.size() - 1) // обработка последнего элемента
-        {
-            str_query.append(QString("%1").arg(list_id.at(i)));
-        }
-        else
-        {
-            str_query.append(QString("%1, ").arg(list_id.at(i)));
-        }
-    }
-
-    str_query.append(") ORDER BY Points.track_id ASC;");
+    str_query.append( QString( "WHERE Points.track_id IN (%1) " ).arg( id_track ) );
+    str_query.append("ORDER BY Points.track_id ASC;");
     this->setQuery(str_query);
 
     while(this->canFetchMore()){ // загрузка всех данных в кэш
         this->fetchMore();
     }
+}
+
+void ImagesModel::changeId(int new_id)
+{
+    id_track = new_id;
 }
 
 //Получение id из строки в модели представления данных

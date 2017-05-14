@@ -19,6 +19,7 @@ Item {
     function addTrack(id, name){
         imagePageModel.append({"name": name,
                               "id": id,
+                              "Jid_track": id,
                               "Jdir": "1",
                               "Jname": "1",
                               "Jheight": 0,
@@ -44,6 +45,7 @@ Item {
                 imagePageModel.set(i,
                                    {"name": imagePageModel.get(i).name,
                                        "id": id,
+                                       "Jid_track": id,
                                        "Jdir": dir,
                                        "Jname": url,
                                        "Jheight": height,
