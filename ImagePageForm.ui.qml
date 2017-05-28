@@ -34,6 +34,7 @@ Window {
     property alias gammaSlider: gammaSlider
     property alias desaturateSlider: desaturateSlider
     property alias hueSlider: hueSlider
+    property alias transformImage: transformImage
 
 
     height: 392
@@ -257,19 +258,25 @@ Window {
 
                 ImageGrid {
                     id: gridNorth
-                    anchors.centerIn: currentPhoto
+
+                    x: currentPhoto.x - width/2 * transformImage.xScale +
+                       currentPhoto.width/2 * transformImage.xScale
+                    y: currentPhoto.y - height/2 * transformImage.yScale +
+                       currentPhoto.height/2 * transformImage.yScale
+
+                    transform: currentPhoto.transform
+
                     rotation: currentPhoto.rotation - currentPhoto.azimuth
                     z: 3
                     visible: true
                     width: Math.sqrt(currentPhoto.width * currentPhoto.width +
-                                    currentPhoto.height * currentPhoto.height) *
-                           currentPhoto.scale
+                                    currentPhoto.height * currentPhoto.height)
                     height: Math.sqrt(currentPhoto.width * currentPhoto.width +
-                                     currentPhoto.height * currentPhoto.height) *
-                            currentPhoto.scale
+                                     currentPhoto.height * currentPhoto.height)
 
                     property var currentParent: "north"
                 }
+
 
                 Image {
                     id: currentPhoto
@@ -277,7 +284,9 @@ Window {
                     fillMode: Image.PreserveAspectFit
                     height: mainPage.mapComponent.newMap.tempProviderImage.height
                     rotation: parseFloat(Jazimuth)
-
+                    transform: Scale {
+                                id: transformImage
+                            }
                     z: 2
                     property int id_track: Jid_track
                     property int id_photo: Jid_photo
@@ -301,6 +310,7 @@ Window {
                         anchors.margins: 0
                         drag.target: currentPhoto
                         z: 2
+                        property double factor: 1.2
                         property var offsetLon: 0.00150 // эксперементальным путем
                         property var offsetLat: 0.0016 // эксперементальным путем
                     }
