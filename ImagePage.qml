@@ -140,9 +140,10 @@ ImagePageForm {
             console.log(">>>>>>>>" + currentPhoto.dir + " " + currentPhoto.name)
             currentPhoto.source = "image://photo/" +
                     currentPhoto.dir +
-                    currentPhoto.name + "?" + "contrast=" +
-                    Math.round(1.5 * 100) / 100
+                    currentPhoto.name + "?" + "temp=true&contrast=" +
+                    Math.round(contrastSlider.value * 100) / 100
         }
+        console.log("Сработало " + currentPhoto.source);
     }
     brightnessSlider.onValueChanged:{
         //brghtnessImage.brightness = brightnessSlider.value
@@ -154,7 +155,7 @@ ImagePageForm {
         if(currentPhoto.dir != "1"){
             currentPhoto.source = "image://photo/" +
                     currentPhoto.dir +
-                    currentPhoto.name + "?" + "gamma=" +
+                    currentPhoto.name + "?" + "temp=true&gamma=" +
                     Math.round(gammaSlider.value * 100) / 100
         }
     }
