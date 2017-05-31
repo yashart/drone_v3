@@ -72,14 +72,14 @@ DISTFILES += \
 win32
 {
     INCLUDEPATH += C:/opencv/build/include
-    LIBS += -LC:/opencv/build/lib -lopencv_core320 \
+    LIBS += -LC:/opencv/build/bin -lopencv_core320 \
         -lopencv_highgui320 \
         -lopencv_imgcodecs320 \
         -lopencv_imgproc320 \
         -lopencv_features2d320 \
         -lopencv_calib3d320
-    LIBS += C:/OSGeo4W/apps/Python27/libs/python27.lib
-    INCLUDEPATH += C:/OSGeo4W/apps/Python27/include
+#    LIBS += C:/OSGeo4W/apps/Python27/libs/python27.lib
+#    INCLUDEPATH += C:/OSGeo4W/apps/Python27/include
 }
 unix
 {
