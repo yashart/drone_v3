@@ -6,6 +6,7 @@
 #include <QList>
 #include <QJSEngine>
 #include <QGeoCoordinate>
+#include <QString>
 
 class TracksModel : public QSqlQueryModel
 {
@@ -15,8 +16,8 @@ public:
         IdRole = Qt::UserRole + 1,
         NameRole,
         CheckRole,
+        colorRole,
         PointsRole
-
     };
 
     explicit TracksModel(QObject *parent = 0);
@@ -38,6 +39,7 @@ public slots:
     void recvTracksId(QStringList ids);
     void setChecked(int id);
     void setUnchecked(int id);
+    QString getColor(int row);
 };
 
 #endif // TRACKSMODEL_H

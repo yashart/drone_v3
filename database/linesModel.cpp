@@ -54,6 +54,7 @@ QHash<int, QByteArray> LinesModel::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[IdRole] = "id";
     roles[NameRole] = "name";
+    roles[ColorRole] = "color_track";
     roles[PointsRole] = "points";
     return roles;
 }
@@ -63,7 +64,7 @@ void LinesModel::updateModel()
 {
     this->tracks = this->getPointsOfTracks();
     // Обновление производится SQL-запросом к базе данных
-    QString str_query("SELECT id, name FROM Tracks ");
+    QString str_query("SELECT id, name, color_track FROM Tracks ");
     str_query.append("WHERE Tracks.id IN (");
 
     for (int i = 0; i < list_id.size(); i++){

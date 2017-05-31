@@ -88,5 +88,6 @@
         <file>jsonData.txt</file>
         <file>BusyIndicator.qml</file>
         <file>img/busy.gif</file>
+        <file>img/drone.png</file>
     </qresource>
 </RCC>

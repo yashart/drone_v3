@@ -121,7 +121,7 @@ Map {
         model: linesModel
         delegate: MapPolyline {
             line.width: 2
-            line.color: 'blue'
+            line.color: color_track
             path: points
             z: 1
         }
@@ -343,8 +343,11 @@ Map {
 
                     console.log(dir + url)
                     console.log(url)
+
                     pointsPhotoModel.setCenter(lat + tempProviderImage.deltaLat, lon + tempProviderImage.deltaLon)
 
+                    dronePositionIcon.visible = true
+                    //dronePositionIcon.coordinate = QtPositioning.coordinate(lat, lon)
                 }
             }
         }
@@ -382,6 +385,20 @@ Map {
         }
         visible: false
         opacity: 0.5
+    }
+
+    MapQuickItem {
+        id: dronePositionIcon
+        z: 2
+        coordinate: QtPositioning.coordinate(tempProviderImage.lat, tempProviderImage.lon)
+        visible: false
+        anchorPoint.x: droneIcon.width / 2;
+        anchorPoint.y: droneIcon.height / 2;
+
+        sourceItem: Image {
+            id: droneIcon
+            source: "/img/drone.png"
+        }
     }
 
     function getGoogleTiles(){
