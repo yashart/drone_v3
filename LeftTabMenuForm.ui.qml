@@ -109,6 +109,13 @@ Window {
                                     color: color_track
                                     width: 32
                                     height: 32
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            changeColorTrackPopup.id = id
+                                            changeColorTrackPopup.visible = true
+                                        }
+                                    }
                                 }
                             }
                         }

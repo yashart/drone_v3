@@ -89,5 +89,7 @@
         <file>BusyIndicator.qml</file>
         <file>img/busy.gif</file>
         <file>img/drone.png</file>
+        <file>ChangeColorTrackPopup.qml</file>
+        <file>ChangeColorTrackPopupForm.ui.qml</file>
     </qresource>
 </RCC>

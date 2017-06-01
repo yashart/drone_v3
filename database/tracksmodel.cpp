@@ -167,3 +167,16 @@ QString TracksModel::getColor(int row)
 {
     return this->data(this->index(row, 4), colorRole).toString();
 }
+
+void TracksModel::setColor(int id, QString color)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE Tracks SET color_track = '" +
+                  color +
+                  "' WHERE id = :id ");
+    query.bindValue(":id", id);
+
+    if (!query.exec()){
+        qDebug() << "Error SQLite:" << query.lastError().text();
+    }
+}
