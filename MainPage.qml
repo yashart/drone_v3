@@ -29,6 +29,11 @@ Item {
         id: leftTabMenu
         visible: false
     }
+    ChangeColorTrackPopup {
+        id: changeColorTrackPopup
+        visible: false
+        property var id: 0
+    }
 
     MapComponent{
         id: mapComponent

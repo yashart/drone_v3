@@ -35,14 +35,14 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
 
     setTileSize(QSize(tile, tile));
 
-    QList<QGeoMapType> types;
+    /*QList<QGeoMapType> types;
     types << QGeoMapType(QGeoMapType::StreetMap, tr("Street Map"), tr("Normal map view in daylight mode"), false, false, 1);
     types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Satellite Map"), tr("Satellite map view in daylight mode"), false, false, 2);
     types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain Map"), tr("Terrain map view in daylight mode"), false, false, 3);
     types << QGeoMapType(QGeoMapType::HybridMap, tr("Hybrid Map"), tr("Satellite map view with streets in daylight mode"), false, false, 4);
     types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Yandex Map"), tr("Yandex Satellite map view with streets in daylight mode"), false, false, 5);
     types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Offline Google Map"), tr("Offline Google Satellite map view with streets in daylight mode"), false, false, 6);
-    setSupportedMapTypes(types);
+    setSupportedMapTypes(types);*/
 
     QGeoTileFetcherGooglemaps *fetcher = new QGeoTileFetcherGooglemaps(parameters, this, tileSize());
     setTileFetcher(fetcher);

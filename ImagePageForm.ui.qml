@@ -45,190 +45,136 @@ Window {
         Window {
             color: "#E0E0E0"
             id: photoInformation
-            width: 360
+            width: 500
             height: 560
             visible: imagePage.visible
             ColumnLayout {
                 anchors.fill: parent
+                ExclusiveGroup { id: imagePropertyGroup }
 
-                GridLayout {
-                    columns: 3
+                RadioButton {
+                    id: standartImageRadio
+                    checked: true
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Обычное")
+                }
 
-                    ExclusiveGroup { id: imagePropertyGroup }
+                RadioButton {
+                    id: invertImageRadio
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Инвертированное")
+                }
 
-                    Label {
-                        text: qsTr("Обычное")
-                        Layout.row: 0
-                        Layout.column: 0
-                    }
+                RadioButton {
+                    id: contrastImageRadio
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Контраст")
+                }
+                Slider {
+                    id: contrastSlider
+                    maximumValue: 3
+                    minimumValue: 0
+                    stepSize: 0.10
+                    value: 1
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: parent.width * 0.8
+                }
 
-                    Label {
-                        text: qsTr("Инвертированное")
-                        Layout.row: 1
-                        Layout.column: 0
-                    }
+                RadioButton {
+                    id: brightnessImageRadio
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Яркость")
+                }
+                Slider {
+                    id: brightnessSlider
+                    maximumValue: 1
+                    minimumValue: -1
+                    stepSize: 0.05
+                    value: 0
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: parent.width * 0.8
+                }
 
-                    Label {
-                        text: qsTr("Контраст")
-                        Layout.row: 2
-                        Layout.column: 0
-                    }
-                    Label {
-                        text: qsTr("Яркость")
-                        Layout.row: 3
-                        Layout.column: 0
-                    }
-                    Label {
-                        text: qsTr("Цветовой тон")
-                        Layout.row: 4
-                        Layout.column: 0
-                    }
-                    Label {
-                        text: qsTr("Гамма")
-                        Layout.row: 5
-                        Layout.column: 0
-                    }
-                    Label {
-                        text: qsTr("Ч-Б")
-                        Layout.row: 6
-                        Layout.column: 0
-                    }
-                    Label {
-                        text: qsTr("Оттенок")
-                        Layout.row: 7
-                        Layout.column: 0
-                    }
+                RadioButton {
+                    id: colorizeImageRadio
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Цветовой тон")
+                }
+                Slider {
+                    id: colorizeSlider
+                    maximumValue: 1
+                    minimumValue: 0
+                    stepSize: 0.01
+                    value: 0
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: parent.width * 0.8
+                }
 
-                    RadioButton {
-                        id: standartImageRadio
+
+                RadioButton {
+                    id: gammaImageRadio
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Гамма")
+                }
+                Slider {
+                    id: gammaSlider
+                    maximumValue: 3
+                    minimumValue: 0
+                    stepSize: 0.01
+                    value: 1
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: parent.width * 0.8
+                }
+
+                RadioButton {
+                    id: desaturateImageRadio
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Ч-Б")
+                }
+                Slider {
+                    id: desaturateSlider
+                    maximumValue: 1
+                    minimumValue: 0
+                    stepSize: 0.01
+                    value: 0
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: parent.width * 0.8
+                }
+
+                RadioButton {
+                    id: hueImageRadio
+                    exclusiveGroup: imagePropertyGroup
+                    text: qsTr("Оттенок")
+                }
+                Slider {
+                    id: hueSlider
+                    maximumValue: 1
+                    minimumValue: -1
+                    stepSize: 0.01
+                    value: 0
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: parent.width * 0.8
+                }
+
+                Column {
+                    Layout.row: 8
+                    Layout.column: 2
+                    Layout.preferredWidth: parent.width * 0.8
+                    Layout.alignment: Qt.AlignHCenter
+                    CheckBox {
+                        id: channelRed
+                        text: qsTr("Красный")
                         checked: true
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 0
-                        Layout.column: 1
                     }
-
-                    RadioButton {
-                        id: invertImageRadio
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 1
-                        Layout.column: 1
+                    CheckBox {
+                        id: channelGreen
+                        text: qsTr("Зеленый")
+                        checked: true
                     }
-
-                    RadioButton {
-                        id: brightnessImageRadio
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 2
-                        Layout.column: 1
-                    }
-
-                    RadioButton {
-                        id: colorizeImageRadio
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 4
-                        Layout.column: 1
-                    }
-
-                    RadioButton {
-                        id: gammaImageRadio
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 5
-                        Layout.column: 1
-                    }
-
-                    RadioButton {
-                        id: desaturateImageRadio
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 6
-                        Layout.column: 1
-                    }
-                    RadioButton {
-                        id: hueImageRadio
-                        exclusiveGroup: imagePropertyGroup
-                        Layout.row: 7
-                        Layout.column: 1
-                    }
-
-                    Slider {
-                        id: contrastSlider
-                        maximumValue: 3
-                        minimumValue: 0
-                        stepSize: 0.10
-                        value: 1
-                        Layout.row: 2
-                        Layout.column: 2
-                        Layout.fillWidth: true
-                    }
-                    Slider {
-                        id: brightnessSlider
-                        maximumValue: 1
-                        minimumValue: -1
-                        stepSize: 0.05
-                        value: 0
-                        Layout.row: 3
-                        Layout.column: 2
-                        Layout.fillWidth: true
-                    }
-                    Slider {
-                        id: colorizeSlider
-                        maximumValue: 1
-                        minimumValue: 0
-                        stepSize: 0.01
-                        value: 0
-                        Layout.row: 4
-                        Layout.column: 2
-                        Layout.fillWidth: true
-                    }
-                    Slider {
-                        id: gammaSlider
-                        maximumValue: 3
-                        minimumValue: 0
-                        stepSize: 0.01
-                        value: 1
-                        Layout.row: 5
-                        Layout.column: 2
-                        Layout.fillWidth: true
-                    }
-
-                    Slider {
-                        id: desaturateSlider
-                        maximumValue: 1
-                        minimumValue: 0
-                        stepSize: 0.01
-                        value: 0
-                        Layout.row: 6
-                        Layout.column: 2
-                        Layout.fillWidth: true
-                    }
-                    Slider {
-                        id: hueSlider
-                        maximumValue: 1
-                        minimumValue: -1
-                        stepSize: 0.01
-                        value: 0
-                        Layout.row: 7
-                        Layout.column: 2
-                        Layout.fillWidth: true
-                    }
-
-                    Column {
-                        Layout.row: 8
-                        Layout.column: 2
-                        Layout.fillWidth: true
-                        CheckBox {
-                            id: channelRed
-                            text: qsTr("Красный")
-                            checked: true
-                        }
-                        CheckBox {
-                            id: channelGreen
-                            text: qsTr("Зеленый")
-                            checked: true
-                        }
-                        CheckBox {
-                            id: channelBlue
-                            text: qsTr("Синий")
-                            checked: true
-                        }
+                    CheckBox {
+                        id: channelBlue
+                        text: qsTr("Синий")
+                        checked: true
                     }
                 }
             }

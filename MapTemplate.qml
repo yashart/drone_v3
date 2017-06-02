@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtLocation 5.3
+import QtQuick 2.5
+import QtLocation 5.5
 import QtPositioning 5.3
 
 Map {
@@ -17,7 +17,7 @@ Map {
 
         onClicked: {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
-                if(instruments.pointsButton.checked == true){
+                if(insttiltruments.pointsButton.checked == true){
                     var point = map.toCoordinate(Qt.point(mouseX, mouseY))
                     popupPoints.set_popup_points_position(point.latitude, point.longitude, 0, "")
                     popupPoints.visible = true

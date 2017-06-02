@@ -39,6 +39,7 @@ public slots:
     void recvTracksId(QStringList ids);
     void setChecked(int id);
     void setUnchecked(int id);
+    void setColor(int id, QString color);
     QString getColor(int row);
 };
 
