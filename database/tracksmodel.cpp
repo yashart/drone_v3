@@ -41,6 +41,7 @@ QHash<int, QByteArray> TracksModel::roleNames() const {
     roles[NameRole] = "name";
     roles[CheckRole] = "is_check";
     roles[PointsRole] = "points";
+    roles[colorRole] = "color_track";
     return roles;
 }
 
@@ -49,7 +50,7 @@ void TracksModel::updateModel()
 {
     this->tracks = this->getPointsOfTracks();
     // Обновление производится SQL-запросом к базе данных
-    QString str_query("SELECT id, name, is_check FROM Tracks;");
+    QString str_query("SELECT id, name, is_check, color_track FROM Tracks;");
     this->setQuery(str_query);
 }
 
@@ -160,4 +161,9 @@ QVector<QVariantList> TracksModel::getPointsOfTracks()
 int TracksModel::getId(int row)
 {
     return this->data(this->index(row, 0), IdRole).toInt();
+}
+
+QString TracksModel::getColor(int row)
+{
+    return this->data(this->index(row, 4), colorRole).toString();
 }

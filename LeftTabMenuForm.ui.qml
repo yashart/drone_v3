@@ -105,6 +105,11 @@ Window {
                                         dataBase.deleteTrack(id)
                                     }
                                 }
+                                Rectangle {
+                                    color: color_track
+                                    width: 32
+                                    height: 32
+                                }
                             }
                         }
                         Button {

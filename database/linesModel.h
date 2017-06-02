@@ -13,8 +13,8 @@ public:
     enum Roles {
         IdRole = Qt::UserRole + 1,
         NameRole,
+        ColorRole,
         PointsRole
-
     };
 
     explicit LinesModel(QObject *parent = 0);

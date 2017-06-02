@@ -83,14 +83,14 @@ win32
 }
 unix
 {
-    #INCLUDEPATH += /usr/local/include/opencv2
-    #LIBS += -L/usr/local/lib
-    #LIBS += -lopencv_core
-    #LIBS += -lopencv_imgproc
-    #LIBS += -lopencv_highgui
-    #LIBS += -lopencv_imgcodecs
-    #LIBS += -lopencv_features2d
-    #LIBS += -lopencv_calib3d
+#    INCLUDEPATH += /usr/local/include/opencv2
+#    LIBS += -L/usr/local/lib
+#    LIBS += -lopencv_core
+#    LIBS += -lopencv_imgproc
+#    LIBS += -lopencv_highgui
+#    LIBS += -lopencv_imgcodecs
+#    LIBS += -lopencv_features2d
+#    LIBS += -lopencv_calib3d
 }
 
 
