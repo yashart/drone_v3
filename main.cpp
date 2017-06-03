@@ -1,6 +1,9 @@
+#include <QApplication>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QSplashScreen>
+#include <QLabel>
 
 //#include <VLCQtCore/Common.h> For vlc-qt lib
 //#include <VLCQtQml/QmlVideoPlayer.h>
@@ -28,8 +31,18 @@
 
 int main(int argc, char *argv[])
 {
+
+    QApplication a(argc, argv);
+
+    QPixmap pixmap(":/img/splash.jpg");
+    QSplashScreen splash(pixmap);
+    splash.show();
+
+    QLabel w;
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
+
 
     DataBase db;
     TracksModel tracksModel;
@@ -61,6 +74,8 @@ int main(int argc, char *argv[])
     //VlcCommon::setPluginPath(app.applicationDirPath() + "/plugins");
     //VlcQmlVideoPlayer::registerPlugin();
 
+
+
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();
     ctx->setContextProperty("dataBase", &db);
@@ -82,6 +97,9 @@ int main(int argc, char *argv[])
 
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
+    splash.finish( &w );
 
-    return app.exec();
+    QApplication::quit();
+    app.exec();
+    return 0;
 }

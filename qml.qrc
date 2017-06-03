@@ -91,5 +91,6 @@
         <file>img/drone.png</file>
         <file>ChangeColorTrackPopup.qml</file>
         <file>ChangeColorTrackPopupForm.ui.qml</file>
+        <file>img/splash.jpg</file>
     </qresource>
 </RCC>
