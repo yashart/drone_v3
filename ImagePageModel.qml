@@ -19,6 +19,7 @@ Item {
     function addTrack(id, name){
         imagePageModel.append({"name": name,
                               "id": id,
+                              "listId": 20,
                               "Jid_track": id,
                               "Jdir": "1",
                               "Jname": "1",
@@ -45,6 +46,7 @@ Item {
                 imagePageModel.set(i,
                                    {"name": imagePageModel.get(i).name,
                                        "id": id,
+                                       "listId": 20,
                                        "Jid_track": id,
                                        "Jdir": dir,
                                        "Jname": url,

@@ -36,12 +36,21 @@ Window {
     property alias hueSlider: hueSlider
     property alias transformImage: transformImage
 
-
     height: 392
     width: 360
 
+    ImagePageSlider {
+        id: slider
+        z: mainRow.z + 3
+        mapSource: mainRow
+        edge: Qt.LeftEdge
+    }
+
+
     RowLayout {
+        id: mainRow
         anchors.fill: parent
+
         Window {
             color: "#E0E0E0"
             id: photoInformation
@@ -50,7 +59,9 @@ Window {
             visible: imagePage.visible
             ColumnLayout {
                 anchors.fill: parent
-                ExclusiveGroup { id: imagePropertyGroup }
+                ExclusiveGroup {
+                    id: imagePropertyGroup
+                }
 
                 RadioButton {
                     id: standartImageRadio
@@ -109,7 +120,6 @@ Window {
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredWidth: parent.width * 0.8
                 }
-
 
                 RadioButton {
                     id: gammaImageRadio
@@ -205,24 +215,25 @@ Window {
                 ImageGrid {
                     id: gridNorth
 
-                    x: currentPhoto.x - width/2 * transformImage.xScale +
-                       currentPhoto.width/2 * transformImage.xScale
-                    y: currentPhoto.y - height/2 * transformImage.yScale +
-                       currentPhoto.height/2 * transformImage.yScale
+                    x: currentPhoto.x - width / 2 * transformImage.xScale
+                       + currentPhoto.width / 2 * transformImage.xScale
+                    y: currentPhoto.y - height / 2 * transformImage.yScale
+                       + currentPhoto.height / 2 * transformImage.yScale
 
                     transform: currentPhoto.transform
 
                     rotation: currentPhoto.rotation - currentPhoto.azimuth
                     z: 3
                     visible: true
-                    width: Math.sqrt(currentPhoto.width * currentPhoto.width +
-                                    currentPhoto.height * currentPhoto.height)
-                    height: Math.sqrt(currentPhoto.width * currentPhoto.width +
-                                     currentPhoto.height * currentPhoto.height)
+                    width: Math.sqrt(
+                               currentPhoto.width * currentPhoto.width
+                               + currentPhoto.height * currentPhoto.height)
+                    height: Math.sqrt(
+                                currentPhoto.width * currentPhoto.width
+                                + currentPhoto.height * currentPhoto.height)
 
                     property var currentParent: "north"
                 }
-
 
                 Image {
                     id: currentPhoto
@@ -230,9 +241,10 @@ Window {
                     fillMode: Image.PreserveAspectFit
                     height: mainPage.mapComponent.newMap.tempProviderImage.height
                     rotation: parseFloat(Jazimuth)
+                    asynchronous: true
                     transform: Scale {
-                                id: transformImage
-                            }
+                        id: transformImage
+                    }
                     z: 2
                     property int id_track: Jid_track
                     property int id_photo: Jid_photo
@@ -243,6 +255,7 @@ Window {
                     property var azimuth: parseFloat(Jazimuth)
                     property var alt: parseFloat(Jalt)
                     property var path: 0
+                    property int listIndex: 5
                     property var aCalibrate: parseFloat(JaCalibrate)
                     property var bCalibrate: parseFloat(JbCalibrate)
                     property var cCalibrate: parseFloat(JcCalibrate)
@@ -268,6 +281,12 @@ Window {
                         z: 3
                         property var currentParent: "picture"
                     }
+                    BusyIndicator {
+                        anchors.centerIn: parent.Center
+                        width: parent.width
+                        height: parent.height
+                        running: currentPhoto.status === Image.Loading
+                    }
                     ListView {
                         anchors.fill: currentPhoto
                         id: calibrateOnPicture
@@ -288,30 +307,23 @@ Window {
                     ListView {
                         anchors.fill: currentPhoto
                         id: pointsOnPicture
-
                         model: pointsPhotoModel
                         delegate: Rectangle {
                             anchors.fill: currentPhoto
-                                Image {
-                                x: (lat-currentPhoto.lat)*currentPhoto.dCalibrate/
-                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
-                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)-
-                                   (lon-currentPhoto.lon)*currentPhoto.bCalibrate/
-                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
-                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)+
-                                   currentPhoto.width/2
+                            Image {
+                                x: (lat - currentPhoto.lat) * currentPhoto.dCalibrate
+                                   / (currentPhoto.dCalibrate * currentPhoto.aCalibrate
+                                      - currentPhoto.bCalibrate * currentPhoto.cCalibrate)
+                                   - (lon - currentPhoto.lon) * currentPhoto.bCalibrate / (currentPhoto.dCalibrate * currentPhoto.aCalibrate - currentPhoto.bCalibrate * currentPhoto.cCalibrate) + currentPhoto.width / 2
 
-                                y: -(lat-currentPhoto.lat)*currentPhoto.cCalibrate/
-                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
-                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)+
-                                   (lon-currentPhoto.lon)*currentPhoto.aCalibrate/
-                                   (currentPhoto.dCalibrate*currentPhoto.aCalibrate-
-                                    currentPhoto.bCalibrate*currentPhoto.cCalibrate)+
-                                   currentPhoto.height/2
+                                y: -(lat - currentPhoto.lat) * currentPhoto.cCalibrate
+                                   / (currentPhoto.dCalibrate * currentPhoto.aCalibrate
+                                      - currentPhoto.bCalibrate * currentPhoto.cCalibrate)
+                                   + (lon - currentPhoto.lon) * currentPhoto.aCalibrate / (currentPhoto.dCalibrate * currentPhoto.aCalibrate - currentPhoto.bCalibrate * currentPhoto.cCalibrate) + currentPhoto.height / 2
                                 z: 3
                                 source: "qrc:///img/popupIconsSet/" + type + ".png"
                                 cache: false
-                                scale: 1/currentPhoto.scale
+                                scale: 1 / currentPhoto.scale
                                 asynchronous: false
                                 enabled: false
 
@@ -321,9 +333,8 @@ Window {
                                     preventStealing: true
                                     onClicked: {
                                         popupPoints.visible = false
-                                        popupPoints.set_popup_points_position(lat,
-                                                                              lon,
-                                                                              id)
+                                        popupPoints.set_popup_points_position(
+                                                    lat, lon, id)
                                         console.log(id)
                                         popupPoints.visible = true
                                     }
@@ -349,11 +360,11 @@ Window {
                     anchors.fill: parent
                     z: 2
 
-                    JSONListModel
-                    {
+                    JSONListModel {
                         id: sliderModel
                         id_track: currentPhoto.id_track
                     }
+
 
                     /*ListView {
                         model: sliderModel.model
@@ -362,23 +373,27 @@ Window {
                         }
 
                     }*/
-
                     ListView {
                         id: sliderList
                         //property int counte: value
                         model: sliderModel.model
                         spacing: 10
                         highlightMoveDuration: 200
-                        highlight: Rectangle {color: "red"; radius: 5;}
+                        currentIndex: currentPhoto.listIndex
+                        highlight: Rectangle {
+                            color: "red"
+                            radius: 5
+                        }
                         //Component.onCompleted: positionViewAtIndex(10, ListView.Beginning)
                         delegate: //Text {text: "image://SliderImages/" + dir + url}
-                        Rectangle { // Объект для регулировки прозрачной области
+                                  Rectangle {
+                            // Объект для регулировки прозрачной области
                             width: 120
                             height: 80
                             color: "transparent"
                             Rectangle {
-                                width: parent.width - 10;
-                                height: parent.height - 10;
+                                width: parent.width - 10
+                                height: parent.height - 10
                                 anchors.centerIn: parent
 
                                 AnimatedImage {
@@ -386,24 +401,23 @@ Window {
                                     source: "qrc:/img/busy.gif"
                                     width: 24
                                     height: 24
-                                    anchors { centerIn: parent; verticalCenterOffset: 0 }
+                                    anchors {
+                                        centerIn: parent
+                                        verticalCenterOffset: 0
+                                    }
                                 }
-                                /*BusyIndicator {
-                                    id: busyIndicator
-                                    anchors { centerIn: parent; verticalCenterOffset: 0 }
-                                    visible: true
-                                }*/
                                 Image {
                                     source: "image://SliderImages/" + dir + url
                                     anchors.fill: parent
                                     //fillMode: Image.PreserveAspectFit
                                     asynchronous: true
-                                    MouseArea{
-                                        anchors.fill:parent
+                                    MouseArea {
+                                        anchors.fill: parent
                                         onClicked: {
-                                            currentPhoto.source = "image://photo/" + dir + url;
-                                            console.log( 'image://photo/' + dir + url);
+                                            currentPhoto.source = "image://photo/" + dir + url
+                                            console.log('image://photo/' + dir + url)
                                             sliderList.currentIndex = index
+                                            console.log("index: " + currentPhoto.listIndex)
                                         }
                                     }
                                 }
@@ -415,20 +429,23 @@ Window {
                         if (event.key == Qt.Key_Up) {
                             sliderList.currentIndex -= 1
                             console.log("key up")
-                            currentPhoto.source = "image://photo/" +
-                                    sliderModel.model.get(sliderList.currentIndex).dir +
-                                    sliderModel.model.get(sliderList.currentIndex).url
+                            currentPhoto.source = "image://photo/" + sliderModel.model.get(
+                                        sliderList.currentIndex).dir + sliderModel.model.get(
+                                        sliderList.currentIndex).url
                         }
                         if (event.key == Qt.Key_Down) {
                             sliderList.currentIndex += 1
                             console.log("key down")
-                            currentPhoto.source = "image://photo/" +
-                                    sliderModel.model.get(sliderList.currentIndex).dir +
-                                    sliderModel.model.get(sliderList.currentIndex).url
+                            currentPhoto.source = "image://photo/" + sliderModel.model.get(
+                                        sliderList.currentIndex).dir + sliderModel.model.get(
+                                        sliderList.currentIndex).url
                         }
                     }
                 }
             }
         }
+    }
+    function setListIndex(index) {
+        sliderList.currentIndex = 20
     }
 }

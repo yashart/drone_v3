@@ -92,5 +92,6 @@
         <file>ChangeColorTrackPopup.qml</file>
         <file>ChangeColorTrackPopupForm.ui.qml</file>
         <file>img/splash.jpg</file>
+        <file>ImagePageSlider.qml</file>
     </qresource>
 </RCC>

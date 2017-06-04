@@ -99,7 +99,6 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     splash.finish( &w );
 
-    QApplication::quit();
     app.exec();
     return 0;
 }
