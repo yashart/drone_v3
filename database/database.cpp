@@ -190,6 +190,7 @@ void DataBase::addExifDir(QString photoPath, QString trackName)
         query.prepare("INSERT INTO Tracks (name, dir, is_check) VALUES (:name, :dir, 'false');");
         query.bindValue(":name", trackName);
         query.bindValue(":dir", QString("%1/").arg(dir.path()));
+        query.bindValue(":color", "blue");
         if (!query.exec()){
             qDebug() << "Error SQLite:" << query.lastError().text();
             qDebug() << query.lastQuery();

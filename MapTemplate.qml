@@ -17,7 +17,7 @@ Map {
 
         onClicked: {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
-                if(insttiltruments.pointsButton.checked == true){
+                if(instruments.pointsButton.checked == true){
                     var point = map.toCoordinate(Qt.point(mouseX, mouseY))
                     popupPoints.set_popup_points_position(point.latitude, point.longitude, 0, "")
                     popupPoints.visible = true

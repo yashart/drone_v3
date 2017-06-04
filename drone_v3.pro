@@ -67,7 +67,57 @@ HEADERS += \
 
 DISTFILES += \
     database/DataBase.db \
-    .gitignore
+    .gitignore \
+    jsonpath.js \
+    AddTrackForm.ui.qml \
+    AddTracksForm.ui.qml \
+    CalibratePopupForm.ui.qml \
+    ChangeColorTrackPopupForm.ui.qml \
+    DroneV3Form.ui.qml \
+    ImagePageForm.ui.qml \
+    InstrumentsForm.ui.qml \
+    InstrumentsImageForm.ui.qml \
+    LeftTabMenuForm.ui.qml \
+    LoginPageForm.ui.qml \
+    MainMenuForm.ui.qml \
+    MainPageForm.ui.qml \
+    MapWindowForm.ui.qml \
+    OpenTracksForm.ui.qml \
+    Page1Form.ui.qml \
+    PopupPointsForm.ui.qml \
+    AddTrack.qml \
+    AddTracks.qml \
+    BusyIndicator.qml \
+    CalibratePopup.qml \
+    ChangeColorTrackPopup.qml \
+    ChooseTrackDirDialog.qml \
+    CustomPlugin.qml \
+    DroneV3.qml \
+    EsriPlugin.qml \
+    ExportFileDialog.qml \
+    HerePlugin.qml \
+    ImageGrid.qml \
+    ImagePage.qml \
+    ImagePageModel.qml \
+    ImagePageSlider.qml \
+    Instruments.qml \
+    InstrumentsImage.qml \
+    JSONListModel.qml \
+    LeftTabMenu.qml \
+    LoginPage.qml \
+    main.qml \
+    MainMenu.qml \
+    MainPage.qml \
+    MapboxPlugin.qml \
+    MapComponent.qml \
+    MapTemplate.qml \
+    MapWindow.qml \
+    OpenTracks.qml \
+    OsmPlugin.qml \
+    Page1.qml \
+    PopupPoints.qml \
+    TihoretskPlugin.qml \
+    VideoWindows.qml
 
 win32
 {

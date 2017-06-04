@@ -13,183 +13,22 @@ Window {
 
     property alias pictureViewer: pictureViewer
     property alias pictureViewerArea: pictureViewerArea
-    property alias photoInformation: photoInformation
     property alias instrumentsImage: instrumentsImage
 
-    property alias standartImageRadio: standartImageRadio
-    property alias invertImageRadio: invertImageRadio
-    property alias colorizeImageRadio: colorizeImageRadio
-    property alias brightnessImageRadio: brightnessImageRadio
-    property alias gammaImageRadio: gammaImageRadio
-    property alias desaturateImageRadio: desaturateImageRadio
-    property alias hueImageRadio: hueImageRadio
-
-    property alias channelRed: channelRed
-    property alias channelGreen: channelGreen
-    property alias channelBlue: channelBlue
-
-    property alias contrastSlider: contrastSlider
-    property alias brightnessSlider: brightnessSlider
-    property alias colorizeSlider: colorizeSlider
-    property alias gammaSlider: gammaSlider
-    property alias desaturateSlider: desaturateSlider
-    property alias hueSlider: hueSlider
     property alias transformImage: transformImage
 
-    height: 392
-    width: 360
-
+    height: 400
+    width: 600
     ImagePageSlider {
         id: slider
-        z: mainRow.z + 3
+        z: mainRow.z + 1
         mapSource: mainRow
         edge: Qt.LeftEdge
     }
 
-
     RowLayout {
         id: mainRow
         anchors.fill: parent
-
-        Window {
-            color: "#E0E0E0"
-            id: photoInformation
-            width: 500
-            height: 560
-            visible: imagePage.visible
-            ColumnLayout {
-                anchors.fill: parent
-                ExclusiveGroup {
-                    id: imagePropertyGroup
-                }
-
-                RadioButton {
-                    id: standartImageRadio
-                    checked: true
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Обычное")
-                }
-
-                RadioButton {
-                    id: invertImageRadio
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Инвертированное")
-                }
-
-                RadioButton {
-                    id: contrastImageRadio
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Контраст")
-                }
-                Slider {
-                    id: contrastSlider
-                    maximumValue: 3
-                    minimumValue: 0
-                    stepSize: 0.10
-                    value: 1
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: parent.width * 0.8
-                }
-
-                RadioButton {
-                    id: brightnessImageRadio
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Яркость")
-                }
-                Slider {
-                    id: brightnessSlider
-                    maximumValue: 1
-                    minimumValue: -1
-                    stepSize: 0.05
-                    value: 0
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: parent.width * 0.8
-                }
-
-                RadioButton {
-                    id: colorizeImageRadio
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Цветовой тон")
-                }
-                Slider {
-                    id: colorizeSlider
-                    maximumValue: 1
-                    minimumValue: 0
-                    stepSize: 0.01
-                    value: 0
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: parent.width * 0.8
-                }
-
-                RadioButton {
-                    id: gammaImageRadio
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Гамма")
-                }
-                Slider {
-                    id: gammaSlider
-                    maximumValue: 3
-                    minimumValue: 0
-                    stepSize: 0.01
-                    value: 1
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: parent.width * 0.8
-                }
-
-                RadioButton {
-                    id: desaturateImageRadio
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Ч-Б")
-                }
-                Slider {
-                    id: desaturateSlider
-                    maximumValue: 1
-                    minimumValue: 0
-                    stepSize: 0.01
-                    value: 0
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: parent.width * 0.8
-                }
-
-                RadioButton {
-                    id: hueImageRadio
-                    exclusiveGroup: imagePropertyGroup
-                    text: qsTr("Оттенок")
-                }
-                Slider {
-                    id: hueSlider
-                    maximumValue: 1
-                    minimumValue: -1
-                    stepSize: 0.01
-                    value: 0
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredWidth: parent.width * 0.8
-                }
-
-                Column {
-                    Layout.row: 8
-                    Layout.column: 2
-                    Layout.preferredWidth: parent.width * 0.8
-                    Layout.alignment: Qt.AlignHCenter
-                    CheckBox {
-                        id: channelRed
-                        text: qsTr("Красный")
-                        checked: true
-                    }
-                    CheckBox {
-                        id: channelGreen
-                        text: qsTr("Зеленый")
-                        checked: true
-                    }
-                    CheckBox {
-                        id: channelBlue
-                        text: qsTr("Синий")
-                        checked: true
-                    }
-                }
-            }
-        }
-
         RowLayout {
             Layout.preferredHeight: parent.height
             Layout.preferredWidth: parent.width
@@ -260,7 +99,7 @@ Window {
                     property var bCalibrate: parseFloat(JbCalibrate)
                     property var cCalibrate: parseFloat(JcCalibrate)
                     property var dCalibrate: parseFloat(JdCalibrate)
-                    source: 'image://photo/' + Jdir + Jname
+                    source: 'image://photo/' + dir + name
 
                     MouseArea {
                         id: dragAreaPhoto
@@ -365,7 +204,6 @@ Window {
                         id_track: currentPhoto.id_track
                     }
 
-
                     /*ListView {
                         model: sliderModel.model
                         delegate: Column {
@@ -414,7 +252,9 @@ Window {
                                     MouseArea {
                                         anchors.fill: parent
                                         onClicked: {
-                                            currentPhoto.source = "image://photo/" + dir + url
+                                            Jdir = dir
+                                            Jname = url
+                                            //currentPhoto.source = "image://photo/" + Jdir + Jname
                                             console.log('image://photo/' + dir + url)
                                             sliderList.currentIndex = index
                                             console.log("index: " + currentPhoto.listIndex)

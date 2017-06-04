@@ -93,6 +93,32 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
             }
         }
 
+        if (urlQuery.hasQueryItem("brightness") == true)
+        {
+            double alpha = 1;
+            int beta = urlQuery.queryItemValue("brightness").toDouble();
+
+            double preCalc[256];
+
+            for (int i = 0; i <= 255; i++)
+            {
+                preCalc[i] =  (alpha * i) + beta ;
+            }
+
+
+            for( int y = 0; y < snapImg.rows; y++ )
+            {
+                for( int x = 0; x < snapImg.cols; x++ )
+                {
+                    for( int c = 0; c < 3; c++ )
+                    {
+                        snapImg.at<cv::Vec3b>(y,x)[c] =
+                                cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
+                    }
+                }
+            }
+        }
+
         if (urlQuery.hasQueryItem("gamma") == true)
         {
             double gamma = urlQuery.queryItemValue("gamma").toDouble();
@@ -195,9 +221,33 @@ QImage PhotoProvider::requestImage(const QString &id, QSize *size, const QSize &
             }
         }
 
-        qDebug() << "Конраст отработал!";
 
-        qDebug() << "Сработало!";
+        if (urlQuery.hasQueryItem("brightness") == true)
+        {
+            double alpha = 1;
+            int beta = urlQuery.queryItemValue("brightness").toDouble();
+
+            double preCalc[256];
+
+            for (int i = 0; i <= 255; i++)
+            {
+                preCalc[i] =  (alpha * i) + beta ;
+            }
+
+
+            for( int y = 0; y < snapImg.rows; y++ )
+            {
+                for( int x = 0; x < snapImg.cols; x++ )
+                {
+                    for( int c = 0; c < 3; c++ )
+                    {
+                        tempImg.at<cv::Vec3b>(y,x)[c] =
+                                cv::saturate_cast<uchar>( preCalc[snapImg.at<cv::Vec3b>(y,x)[c]] );
+                    }
+                }
+            }
+        }
+
 
         if (urlQuery.hasQueryItem("gamma") == true)
         {
