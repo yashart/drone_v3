@@ -21,4 +21,20 @@ InstrumentsForm {
         imagePage.instrumentsImage.calibrateButtonImage.checked = true
         rulerPopup.visible = false
     }
+    calibrateShowButton.onClicked: {
+        if(calibratePopup.visible == true)
+        {
+            calibratePopup.visible = false
+        }else{
+            calibratePopup.visible = true
+        }
+    }
+    tracksMapButton.onClicked: {
+        if(leftTabMenu.visible == true)
+        {
+            leftTabMenu.visible = false
+        }else{
+            leftTabMenu.visible = true
+        }
+    }
 }

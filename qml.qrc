@@ -93,5 +93,9 @@
         <file>ChangeColorTrackPopupForm.ui.qml</file>
         <file>img/splash.jpg</file>
         <file>ImagePageSlider.qml</file>
+        <file>img/calibration-mark.png</file>
+        <file>img/scale.png</file>
+        <file>img/scale_end.png</file>
+        <file>img/tracks-map.png</file>
     </qresource>
 </RCC>

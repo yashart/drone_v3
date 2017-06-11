@@ -95,89 +95,14 @@ Item {
         minimumValue: newMap.minimumZoomLevel
         maximumValue: newMap.maximumZoomLevel
         value: newMap.zoomLevel
-        x: parent.width * 0.9 - width/2
-        y: parent.height * 0.3
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.margins: 20
+        anchors.bottomMargin: 60
         z: 1
         onValueChanged: {
             if ((value >= 0)&&(newMap != null))
                 newMap.zoomLevel = value
-        }
-    }
-
-    Image {
-        id: compassImg
-        source: "img/icons/compass.png"
-        x: parent.width * 0.9 - width/2
-        y: parent.height * 0.9 - height/2
-        z: 1
-    }
-
-    Image {
-        id: upArrowImg
-        source: "img/icons/up-arrow.svg"
-        width: 32
-        height: 32
-        x: parent.width * 0.9 - width/2
-        y: parent.height * 0.1 - height/2
-        z: 1
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                if (newMap){
-                    newMap.center.latitude += 1.0/newMap.zoomLevel;
-                }
-            }
-        }
-    }
-    Image {
-        id: downArrowImg
-        source: "img/icons/down-arrow.svg"
-        width: 32
-        height: 32
-        x: upArrowImg.x
-        y: upArrowImg.y + 2 * upArrowImg.height
-        z: 1
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                if (newMap){
-                    newMap.center.latitude -= 1.0/newMap.zoomLevel;
-                }
-            }
-        }
-    }
-    Image {
-        id: leftArrowImage
-        source: "img/icons/left-arrow.svg"
-        width: 32
-        height: 32
-        x: upArrowImg.x - leftArrowImage.width
-        y: (upArrowImg.y + downArrowImg.y) / 2
-        z: 1
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                if (newMap){
-                    newMap.center.longitude -= 1.0/newMap.zoomLevel;
-                }
-            }
-        }
-    }
-    Image {
-        id: rightArrowImage
-        source: "img/icons/right-arrow.svg"
-        width: 32
-        height: 32
-        x: upArrowImg.x + rightArrowImage.width
-        y: (upArrowImg.y + downArrowImg.y) / 2
-        z: 1
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                if (newMap){
-                    newMap.center.longitude += 1.0/newMap.zoomLevel;
-                }
-            }
         }
     }
 
