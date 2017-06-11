@@ -24,6 +24,7 @@ Window {
         z: mainRow.z + 1
         mapSource: mainRow
         edge: Qt.LeftEdge
+        azimuth: currentPhoto.azimuth
     }
 
     RowLayout {
@@ -150,17 +151,17 @@ Window {
                         delegate: Rectangle {
                             anchors.fill: currentPhoto
                             Image {
-                                x: (lat - currentPhoto.lat) * currentPhoto.dCalibrate
+                                x: (- height / 2) + (lat - currentPhoto.lat) * currentPhoto.dCalibrate
                                    / (currentPhoto.dCalibrate * currentPhoto.aCalibrate
                                       - currentPhoto.bCalibrate * currentPhoto.cCalibrate)
                                    - (lon - currentPhoto.lon) * currentPhoto.bCalibrate / (currentPhoto.dCalibrate * currentPhoto.aCalibrate - currentPhoto.bCalibrate * currentPhoto.cCalibrate) + currentPhoto.width / 2
 
-                                y: -(lat - currentPhoto.lat) * currentPhoto.cCalibrate
+                                y: (- width / 2) - (lat - currentPhoto.lat) * currentPhoto.cCalibrate
                                    / (currentPhoto.dCalibrate * currentPhoto.aCalibrate
                                       - currentPhoto.bCalibrate * currentPhoto.cCalibrate)
                                    + (lon - currentPhoto.lon) * currentPhoto.aCalibrate / (currentPhoto.dCalibrate * currentPhoto.aCalibrate - currentPhoto.bCalibrate * currentPhoto.cCalibrate) + currentPhoto.height / 2
                                 z: 3
-                                source: "qrc:///img/popupIconsSet/" + type + ".png"
+                                source: "image://Icons/" + type
                                 cache: false
                                 scale: 1 / currentPhoto.scale
                                 asynchronous: false
@@ -254,10 +255,15 @@ Window {
                                         onClicked: {
                                             Jdir = dir
                                             Jname = url
-                                            //currentPhoto.source = "image://photo/" + Jdir + Jname
-                                            console.log('image://photo/' + dir + url)
+                                            Jazimuth = azimuth
+                                            JaCalibrate = parseFloat(aCalibrate)
+                                            JbCalibrate = parseFloat(bCalibrate)
+                                            JcCalibrate = parseFloat(cCalibrate)
+                                            JdCalibrate = parseFloat(dCalibrate)
+                                            console.log("azimuth: " + azimuth)
+                                            //console.log('image://photo/' + dir + url)
                                             sliderList.currentIndex = index
-                                            console.log("index: " + currentPhoto.listIndex)
+                                            //console.log("index: " + currentPhoto.listIndex)
                                         }
                                     }
                                 }

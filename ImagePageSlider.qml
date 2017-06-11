@@ -12,6 +12,7 @@ Row {
     property color labelBackground : "transparent"
     property int edge: Qt.RightEdge
     property alias expanded: sliderToggler.checked
+    property double azimuth: 0
 
     function rightEdge() {
         return (containerRow.edge === Qt.RightEdge);
@@ -285,6 +286,7 @@ Row {
                     }
                 }
                 RowLayout{
+                    id: invStdButton
                     anchors.horizontalCenter: parent.horizontalCenter
                     Button {
                         text:"Инвертировать"
@@ -303,6 +305,11 @@ Row {
                         }
                     }
                 }
+                /*Text{
+                    anchors.top: invStdButton.bottom
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Угол фото:" + azimuth
+                }*/
 
             } // Row sliders
         } // Column

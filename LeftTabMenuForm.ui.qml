@@ -8,6 +8,7 @@ Window {
     height: 560
     width: 360
     id: leftTabMenuWindow
+    title: "Работа с картами"
     property alias osmRadio: osmRadio
     property alias mapboxRadio: mapboxRadio
     property alias esriRadio: esriRadio
@@ -39,13 +40,13 @@ Window {
 
                 TabButton {
                     id: tracksTabButton
-                    text: qsTr("Tracks")
+                    text: qsTr("Треки")
                     font.pointSize: 9
                 }
 
                 TabButton {
                     id: mapsTabButton
-                    text: qsTr("Maps")
+                    text: qsTr("Тип карты")
                     font.pointSize: 9
                 }
             }

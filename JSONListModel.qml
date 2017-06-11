@@ -32,7 +32,18 @@ Item {
         for (var i = 0; i<imagesModel.rowCount(); i++) {
             var iUrl = imagesModel.get(i,"url")
             var iDir = imagesModel.get(i,"dir")
-            jsonModel.append({dir: iDir, url:iUrl})
+            var iACalibrate = imagesModel.get(i,"aCalibrate")
+            var iBCalibrate = imagesModel.get(i,"bCalibrate")
+            var iCCalibrate = imagesModel.get(i,"cCalibrate")
+            var iDCalibrate = imagesModel.get(i,"dCalibrate")
+            var iAzimuth = imagesModel.get(i,"azimuth")
+            jsonModel.append({dir: iDir, url:iUrl,
+                             aCalibrate: iACalibrate,
+                             bCalibrate: iBCalibrate,
+                             cCalibrate: iCCalibrate,
+                             dCalibrate: iDCalibrate,
+                             azimuth: iAzimuth
+                             })
             console.log()
         }
     }

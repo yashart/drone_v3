@@ -8,7 +8,7 @@ Map {
     property alias tempProviderImage: tempProviderImage
     id: map
     anchors.fill: parent
-    center: QtPositioning.coordinate(59.91, 10.75)
+    center: QtPositioning.coordinate(55.7463816, 37.55232)
     MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton

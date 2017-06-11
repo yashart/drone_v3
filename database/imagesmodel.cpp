@@ -35,6 +35,11 @@ QVariant ImagesModel::get(int row,QString role)
     roles["url"] = URLRole;
     roles["comment"] = CommentRole;
     roles["type"] = TypeRole;
+    roles["aCalibrate"] = ARole;
+    roles["bCalibrate"] = BRole;
+    roles["cCalibrate"] = CRole;
+    roles["dCalibrate"] = DRole;
+    roles["azimuth"] = AzimuthRole;
 
     int columnId = roles[role] - Qt::UserRole - 1;
     // Создаём индекс с помощью новоиспечённого ID колонки
@@ -58,6 +63,11 @@ QHash<int, QByteArray> ImagesModel::roleNames() const {
     roles[URLRole] = "url";
     roles[CommentRole] = "comment";
     roles[TypeRole] = "type";
+    roles[ARole] = "aCalibrate";
+    roles[BRole] = "bCalibrate";
+    roles[CRole] = "cCalibrate";
+    roles[DRole] = "dCalibrate";
+    roles[AzimuthRole] = "azimuth";
     return roles;
 }
 
@@ -73,7 +83,13 @@ void ImagesModel::updateModel()
     str_query.append("Tracks.dir, ");
     str_query.append("Points.url, ");
     str_query.append("Points.comment, ");
-    str_query.append("Points.type ");
+    str_query.append("Points.type, ");
+    str_query.append("Points.aCalibrate, ");
+    str_query.append("Points.bCalibrate, ");
+    str_query.append("Points.cCalibrate, ");
+    str_query.append("Points.dCalibrate, ");
+    str_query.append("Points.azimuth ");
+
     str_query.append("FROM Points ");
     str_query.append("LEFT OUTER JOIN Tracks ON Tracks.id = Points.track_id ");
     str_query.append( QString( "WHERE Points.track_id IN (%1) " ).arg( id_track ) );

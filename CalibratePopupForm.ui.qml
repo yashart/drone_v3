@@ -13,6 +13,7 @@ Window {
     width: 360
     height: 560
     visible: true
+    title: "Привязка фото"
     ColumnLayout {
         anchors.fill: parent
         TableView {
@@ -56,7 +57,7 @@ Window {
         }
         Button {
             id: calibrateButton
-            text: qsTr("Калибровать")
+            text: qsTr("Привязать")
         }
         Button {
             id: clearCalibrateModelButton

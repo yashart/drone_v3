@@ -21,7 +21,12 @@ public:
         DirRole,
         URLRole,
         CommentRole,
-        TypeRole
+        TypeRole,
+        ARole,
+        BRole,
+        CRole,
+        DRole,
+        AzimuthRole
     };
 
     // объявляем конструктор класса
