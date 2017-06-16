@@ -52,7 +52,7 @@ ApplicationWindow {
 
     CalibratePopup {
         id: calibratePopup
-        visible: true
+        visible: false
     }
     ExportFileDialog{
         id: exportFileDialog

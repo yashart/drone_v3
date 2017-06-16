@@ -1,14 +1,20 @@
 import QtQuick 2.5
 import QtLocation 5.5
 import QtPositioning 5.3
+import QtQuick.Controls 2.1
+import QtGraphicalEffects 1.0
 
 Map {
     property alias mouseAreaMap: mouseAreaMap
     property var currentTrack: -1
     property alias tempProviderImage: tempProviderImage
+    property variant scaleLengths: [5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000]
     id: map
     anchors.fill: parent
     center: QtPositioning.coordinate(55.7463816, 37.55232)
+    gesture.enabled: true
+    copyrightsVisible: false
+
     MouseArea {
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -126,6 +132,37 @@ Map {
             z: 1
         }
     }
+
+    MapItemView {
+
+        model: photoPointer
+        delegate:
+            MapQuickItem{
+            coordinate {
+                latitude: lat
+                longitude: lon
+            }
+            anchorPoint.x: dronePointer.width / 2;
+            anchorPoint.y: dronePointer.height / 2;
+            sourceItem:
+                Column{
+                    Image {id: dronePointer; source: "qrc:/img/drone.png"}
+                    ColorOverlay {
+                            anchors.fill: dronePointer
+                            source: dronePointer
+                            color: color_track
+                        }
+                }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    console.log(color_track)
+                }
+            }
+        }
+    }
+
+
     MapItemView {
         id: locationListView
 
@@ -135,6 +172,7 @@ Map {
                 latitude: lat
                 longitude: lon
             }
+
             anchorPoint.x: markerCustomPoint.width / 2;
             anchorPoint.y: markerCustomPoint.height / 2;
 
@@ -182,7 +220,7 @@ Map {
                 latitude: lat
                 longitude: lon
             }
-            radius: 2
+            radius: 1
             color: "red"
         }
     }
@@ -192,7 +230,7 @@ Map {
         model: imagePages.imagePageModel
         delegate: MapPolygon{
             color: 'red'
-            opacity: 0.5
+            opacity: 0.2
             z: 2
 
             property var leftHeight: QtPositioning.coordinate(parseFloat(JaCalibrate)*(-tempProviderImage.width/2) +
@@ -326,6 +364,7 @@ Map {
                                               lon + tempProviderImage.deltaLon,
                                               alt, id, currentACalibrate, currentBCalibrate,
                                               currentCCalibrate, currentDCalibrate)
+                    photoPointer.addPointer(track_id, lat, lon, color_track)
 
                     tempProviderImage.source = 'image://Photo/' + dir + url
                     tempProviderImage.lat = lat + tempProviderImage.deltaLat
@@ -346,7 +385,6 @@ Map {
 
                     pointsPhotoModel.setCenter(lat + tempProviderImage.deltaLat, lon + tempProviderImage.deltaLon)
 
-                    dronePositionIcon.visible = true
                     //dronePositionIcon.coordinate = QtPositioning.coordinate(lat, lon)
                 }
             }
@@ -386,19 +424,113 @@ Map {
         visible: false
         opacity: 0.5
     }
+    Item {
+        id: scale
+        z: map.z + 3
+        visible: scaleText.text != "0 m"
+        anchors.bottom: parent.bottom;
+        anchors.right: parent.right
+        anchors.margins: 20
+        height: scaleText.height * 2
+        width: scaleImage.width
 
-    MapQuickItem {
-        id: dronePositionIcon
-        z: 2
-        coordinate: QtPositioning.coordinate(tempProviderImage.lat, tempProviderImage.lon)
-        visible: false
-        anchorPoint.x: droneIcon.width / 2;
-        anchorPoint.y: droneIcon.height / 2;
-
-        sourceItem: Image {
-            id: droneIcon
-            source: "/img/drone.png"
+        Image {
+            id: scaleImageLeft
+            source: "qrc:/img/scale_end.png"
+            anchors.bottom: parent.bottom
+            anchors.right: scaleImage.left
         }
+        Image {
+            id: scaleImage
+            source: "qrc:/img/scale.png"
+            anchors.bottom: parent.bottom
+            anchors.right: scaleImageRight.left
+        }
+        Image {
+            id: scaleImageRight
+            source: "qrc:/img/scale_end.png"
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+        }
+        Label {
+            id: scaleText
+            color: "#004EAE"
+            anchors.centerIn: parent
+            text: "0 m"
+        }
+        Component.onCompleted: {
+            map.calculateScale();
+        }
+    }
+
+    Timer {
+        id: scaleTimer
+        interval: 100
+        running: false
+        repeat: false
+        onTriggered: {
+            map.calculateScale()
+        }
+    }
+
+    onCenterChanged:{
+        scaleTimer.restart()
+    }
+
+    onZoomLevelChanged: {
+        scaleTimer.restart()
+    }
+
+    onWidthChanged:{
+        scaleTimer.restart()
+    }
+
+    function calculateScale()
+    {
+        var coord1, coord2, dist, text, f
+        f = 0
+        coord1 = map.toCoordinate(Qt.point(0,scale.y))
+        coord2 = map.toCoordinate(Qt.point(0+scaleImage.sourceSize.width,scale.y))
+        dist = Math.round(coord1.distanceTo(coord2))
+
+        if (dist === 0) {
+            // not visible
+        } else {
+            for (var i = 0; i < scaleLengths.length-1; i++) {
+                if (dist < (scaleLengths[i] + scaleLengths[i+1]) / 2 ) {
+                    f = scaleLengths[i] / dist
+                    dist = scaleLengths[i]
+                    break;
+                }
+            }
+            if (f === 0) {
+                f = dist / scaleLengths[i]
+                dist = scaleLengths[i]
+            }
+        }
+
+        text = map.formatDistance(dist)
+        scaleImage.width = (scaleImage.sourceSize.width * f) - 2 * scaleImageLeft.sourceSize.width
+        scaleText.text = text
+    }
+
+    function formatDistance(meters)
+    {
+        var dist = Math.round(meters)
+        if (dist > 1000 ){
+            if (dist > 100000){
+                dist = Math.round(dist / 1000)
+            }
+            else{
+                dist = Math.round(dist / 100)
+                dist = dist / 10
+            }
+            dist = dist + " km"
+        }
+        else{
+            dist = dist + " m"
+        }
+        return dist
     }
 
     function getGoogleTiles(){

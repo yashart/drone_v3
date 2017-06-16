@@ -225,7 +225,7 @@ Window {
                         }
                         //Component.onCompleted: positionViewAtIndex(10, ListView.Beginning)
                         delegate: //Text {text: "image://SliderImages/" + dir + url}
-                                  Rectangle {
+                        Rectangle {
                             // Объект для регулировки прозрачной области
                             width: 120
                             height: 80
@@ -253,6 +253,7 @@ Window {
                                     MouseArea {
                                         anchors.fill: parent
                                         onClicked: {
+                                            // Нужно завязать все на один id
                                             Jdir = dir
                                             Jname = url
                                             Jazimuth = azimuth

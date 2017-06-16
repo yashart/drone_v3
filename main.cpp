@@ -18,6 +18,7 @@
 #include "database/changedb.h"
 
 #include "models/rulerModel.h"
+#include "models/currentphotopointer.h"
 
 #include "providers/sliderimageprovider.h"
 #include "providers/iconsprovider.h"
@@ -53,6 +54,7 @@ int main(int argc, char *argv[])
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
     ChangeDB changedb;
+    CurrentPhotoPointer photoPointer;
 
     PhotoProvider * photoProvider = new PhotoProvider();    
 
@@ -90,6 +92,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("photoToTiles", &photoToTiles);
     //ctx->setContextProperty("tilesDownloader", &tilesDownloader);
     ctx->setContextProperty("variationModel", &variationModel);
+    ctx->setContextProperty("photoPointer", &photoPointer);
 
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());
     engine.addImageProvider(QLatin1String("Icons"), new IconProvider());

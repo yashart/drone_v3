@@ -9,6 +9,8 @@ Item {
     property alias mouseButton: mouseButton
     property alias savePointsButton: savePointsButton
     property alias calibrateButton: calibrateButton
+    property alias calibrateShowButton: calibrateShowButton
+    property alias tracksMapButton: tracksMapButton
 
     id: instruments
     z: 1
@@ -67,6 +69,18 @@ Item {
                 iconSource: "qrc:/img/menu.png"
                 checkable: false
                 exclusiveGroup : toolBarsButtonts
+            }
+            ToolButton {
+                id: calibrateShowButton
+                iconSource: "qrc:/img/calibration-mark.png"
+                checkable: false
+                exclusiveGroup: toolBarsButtonts
+            }
+            ToolButton {
+                id: tracksMapButton
+                iconSource: "qrc:/img/tracks-map.png"
+                checkable: false
+                exclusiveGroup: toolBarsButtonts
             }
         }
     }

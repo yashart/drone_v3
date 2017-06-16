@@ -54,6 +54,7 @@ QHash<int, QByteArray> PointsModel::roleNames() const {
     roles[AltRole] = "alt";
     roles[AngleRole] = "azimuth";
     roles[DirRole] = "dir";
+    roles[ColorRole] = "color_track";
     roles[URLRole] = "url";
     roles[CommentRole] = "comment";
     roles[TypeRole] = "type";
@@ -76,6 +77,7 @@ void PointsModel::updateModel()
     str_query.append("Points.alt, ");
     str_query.append("Points.azimuth, ");
     str_query.append("Tracks.dir, ");
+    str_query.append("Tracks.color_track, ");
     str_query.append("Points.url, ");
     str_query.append("Points.comment, ");
     str_query.append("Points.type, ");

@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     database/changedb.cpp \
     providers/iconsprovider.cpp \
     providers/qcvhelper.cpp \
-    backend/photototiles.cpp
+    backend/photototiles.cpp \
+    models/currentphotopointer.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,6 +35,8 @@ QML_DESIGNER_IMPORT_PATH =
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+
+win32:RC_ICONS += icon.ico
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -63,7 +66,8 @@ HEADERS += \
     math/calibrate_known_info.h \
     database/changedb.h \
     providers/qcvhelper.h \
-    backend/photototiles.h
+    backend/photototiles.h \
+    models/currentphotopointer.h
 
 DISTFILES += \
     database/DataBase.db \
@@ -117,7 +121,9 @@ DISTFILES += \
     Page1.qml \
     PopupPoints.qml \
     TihoretskPlugin.qml \
-    VideoWindows.qml
+    VideoWindows.qml \
+    models/TrackPointer.qml \
+    TrackPointer.qml
 
 win32
 {
@@ -128,8 +134,8 @@ win32
         -lopencv_imgproc320 \
         -lopencv_features2d320 \
         -lopencv_calib3d320
-#    LIBS += C:/OSGeo4W/apps/Python27/libs/python27.lib
-#    INCLUDEPATH += C:/OSGeo4W/apps/Python27/include
+    #LIBS += C:/OSGeo4W/apps/Python27/libs/python27.lib
+    #INCLUDEPATH += C:/OSGeo4W/apps/Python27/include
 }
 unix
 {

@@ -20,6 +20,7 @@ public:
         AltRole,
         AngleRole,
         DirRole,
+        ColorRole,
         URLRole,
         CommentRole,
         TypeRole,

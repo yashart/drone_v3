@@ -22,4 +22,12 @@ InstrumentsImageForm {
             gridPicture.visible = false
         }
     }
+    calibrateShowButtonImage.onClicked: {
+        if(calibratePopup.visible == true)
+        {
+            calibratePopup.visible = false
+        }else{
+            calibratePopup.visible = true
+        }
+    }
 }
