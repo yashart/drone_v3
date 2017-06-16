@@ -134,10 +134,12 @@ Row {
                                 bCancel.enabled = true
                             }
 
-                            currentPhoto.source = "image://photo/" +
-                                currentPhoto.dir +
-                                currentPhoto.name + "?" + "temp=true&brightness=" +
-                                brightnessSlider.value
+                            /*currentPhoto.source = "image://photo/" +
+                                Jdir +
+                                Jname + "?" + "temp=true&brightness=" +
+                                brightnessSlider.value*/
+                            Jcorrect ="?" + "temp=true&brightness=" + brightnessSlider.value
+
                         }
                     }
                     RowLayout{

@@ -19,6 +19,7 @@ Window {
 
     height: 400
     width: 600
+
     ImagePageSlider {
         id: slider
         z: mainRow.z + 1
@@ -90,6 +91,7 @@ Window {
                     property int id_photo: Jid_photo
                     property var dir: Jdir
                     property var name: Jname
+                    property var correct: Jcorrect
                     property var lat: parseFloat(Jlat)
                     property var lon: parseFloat(Jlon)
                     property var azimuth: parseFloat(Jazimuth)
@@ -100,7 +102,7 @@ Window {
                     property var bCalibrate: parseFloat(JbCalibrate)
                     property var cCalibrate: parseFloat(JcCalibrate)
                     property var dCalibrate: parseFloat(JdCalibrate)
-                    source: 'image://photo/' + dir + name
+                    source: 'image://photo/' + dir + name + correct
 
                     MouseArea {
                         id: dragAreaPhoto
@@ -256,6 +258,7 @@ Window {
                                             // Нужно завязать все на один id
                                             Jdir = dir
                                             Jname = url
+                                            Jcorrect = ""
                                             Jazimuth = azimuth
                                             JaCalibrate = parseFloat(aCalibrate)
                                             JbCalibrate = parseFloat(bCalibrate)
