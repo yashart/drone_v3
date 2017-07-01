@@ -29,17 +29,21 @@
 
 #include "math/variation_method_calibrate.h"
 
+#include "serial_link.h"
+#include "gcs_communicator_factory.h"
+#include "mavlink_communicator.h"
+
 
 int main(int argc, char *argv[])
 {
 
-    QApplication a(argc, argv);
+    //QApplication a(argc, argv);
 
-    QPixmap pixmap(":/img/splash.jpg");
-    QSplashScreen splash(pixmap);
-    splash.show();
+    //QPixmap pixmap(":/img/splash.jpg");
+    //QSplashScreen splash(pixmap);
+    //splash.show();
 
-    QLabel w;
+    //QLabel w;
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
@@ -100,7 +104,18 @@ int main(int argc, char *argv[])
 
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-    splash.finish( &w );
+    //splash.finish( &w );
+
+
+    domain::GcsCommunicatorFactory factory;
+    domain::MavLinkCommunicator* communicator = factory.create();
+    communicator->setParent(&app);
+
+    qDebug() << "hello, ground station!";
+    //domain::UdpLink link(14550, QString("127.0.0.1"), 14551);
+    domain::SerialLink link("/dev/ttyUSB0", 57600);
+    communicator->addLink(&link, MAVLINK_COMM_0);
+    link.up();
 
     app.exec();
     return 0;
