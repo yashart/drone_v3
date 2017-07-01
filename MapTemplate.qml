@@ -215,13 +215,17 @@ Map {
     MapItemView {
         id: calibrateMapView
         model: calibratePopup.calibrateModel
-        delegate: MapCircle {
-            center {
+        delegate: MapQuickItem {
+            coordinate {
                 latitude: lat
                 longitude: lon
             }
-            radius: 1
-            color: "red"
+            anchorPoint.x: calibratePoint.width / 2;
+            anchorPoint.y: calibratePoint.height / 2;
+            sourceItem: Image {
+                id: calibratePoint
+                source: "qrc:/img/point.png"
+            }
         }
     }
 

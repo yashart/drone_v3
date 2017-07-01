@@ -67,7 +67,60 @@ HEADERS += \
     database/changedb.h \
     providers/qcvhelper.h \
     backend/photototiles.h \
-    models/currentphotopointer.h
+    models/currentphotopointer.h \
+    mavlink/ardupilot/ardupilotmega.h \
+    mavlink/ardupilot/mavlink.h \
+    mavlink/ardupilot/mavlink_msg_ahrs.h \
+    mavlink/ardupilot/mavlink_msg_ahrs2.h \
+    mavlink/ardupilot/mavlink_msg_ahrs3.h \
+    mavlink/ardupilot/mavlink_msg_airspeed_autocal.h \
+    mavlink/ardupilot/mavlink_msg_ap_adc.h \
+    mavlink/ardupilot/mavlink_msg_autopilot_version_request.h \
+    mavlink/ardupilot/mavlink_msg_battery2.h \
+    mavlink/ardupilot/mavlink_msg_camera_feedback.h \
+    mavlink/ardupilot/mavlink_msg_camera_status.h \
+    mavlink/ardupilot/mavlink_msg_compassmot_status.h \
+    mavlink/ardupilot/mavlink_msg_data16.h \
+    mavlink/ardupilot/mavlink_msg_data32.h \
+    mavlink/ardupilot/mavlink_msg_data64.h \
+    mavlink/ardupilot/mavlink_msg_data96.h \
+    mavlink/ardupilot/mavlink_msg_digicam_configure.h \
+    mavlink/ardupilot/mavlink_msg_digicam_control.h \
+    mavlink/ardupilot/mavlink_msg_ekf_status_report.h \
+    mavlink/ardupilot/mavlink_msg_fence_fetch_point.h \
+    mavlink/ardupilot/mavlink_msg_fence_point.h \
+    mavlink/ardupilot/mavlink_msg_fence_status.h \
+    mavlink/ardupilot/mavlink_msg_gimbal_control.h \
+    mavlink/ardupilot/mavlink_msg_gimbal_report.h \
+    mavlink/ardupilot/mavlink_msg_gimbal_torque_cmd_report.h \
+    mavlink/ardupilot/mavlink_msg_gopro_get_request.h \
+    mavlink/ardupilot/mavlink_msg_gopro_get_response.h \
+    mavlink/ardupilot/mavlink_msg_gopro_heartbeat.h \
+    mavlink/ardupilot/mavlink_msg_gopro_set_request.h \
+    mavlink/ardupilot/mavlink_msg_gopro_set_response.h \
+    mavlink/ardupilot/mavlink_msg_hwstatus.h \
+    mavlink/ardupilot/mavlink_msg_led_control.h \
+    mavlink/ardupilot/mavlink_msg_limits_status.h \
+    mavlink/ardupilot/mavlink_msg_mag_cal_progress.h \
+    mavlink/ardupilot/mavlink_msg_mag_cal_report.h \
+    mavlink/ardupilot/mavlink_msg_meminfo.h \
+    mavlink/ardupilot/mavlink_msg_mount_configure.h \
+    mavlink/ardupilot/mavlink_msg_mount_control.h \
+    mavlink/ardupilot/mavlink_msg_mount_status.h \
+    mavlink/ardupilot/mavlink_msg_pid_tuning.h \
+    mavlink/ardupilot/mavlink_msg_radio.h \
+    mavlink/ardupilot/mavlink_msg_rally_fetch_point.h \
+    mavlink/ardupilot/mavlink_msg_rally_point.h \
+    mavlink/ardupilot/mavlink_msg_rangefinder.h \
+    mavlink/ardupilot/mavlink_msg_remote_log_block_status.h \
+    mavlink/ardupilot/mavlink_msg_remote_log_data_block.h \
+    mavlink/ardupilot/mavlink_msg_rpm.h \
+    mavlink/ardupilot/mavlink_msg_sensor_offsets.h \
+    mavlink/ardupilot/mavlink_msg_set_mag_offsets.h \
+    mavlink/ardupilot/mavlink_msg_simstate.h \
+    mavlink/ardupilot/mavlink_msg_wind.h \
+    mavlink/ardupilot/testsuite.h \
+    mavlink/ardupilot/version.h
 
 DISTFILES += \
     database/DataBase.db \
@@ -123,7 +176,9 @@ DISTFILES += \
     TihoretskPlugin.qml \
     VideoWindows.qml \
     models/TrackPointer.qml \
-    TrackPointer.qml
+    TrackPointer.qml \
+    ControlForm.ui.qml \
+    Control.qml
 
 win32
 {

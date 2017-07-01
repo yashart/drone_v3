@@ -57,5 +57,9 @@ CalibratePopupForm {
         //imagePage.currentPhoto.dCalibrate = variationModel.d
 
         variationModel.infoCount = 0
+
+        calibrateModel.clear()
+        calibrateModel.currentImage = 0
+        calibrateModel.currentMap = 0
     }
 }

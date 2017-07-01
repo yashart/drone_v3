@@ -264,7 +264,14 @@ Window {
                                             JbCalibrate = parseFloat(bCalibrate)
                                             JcCalibrate = parseFloat(cCalibrate)
                                             JdCalibrate = parseFloat(dCalibrate)
-                                            console.log("azimuth: " + azimuth)
+                                            photoPointer.addPointer(id, lat, lon, "red")
+
+                                            /*imagePages.setPhotoParams(1, "url", "dir", "tempProviderImage.height",
+                                                                      30, 30,
+                                                                      0,
+                                                                      0,
+                                                                      20, 400, 0, 0,
+                                                                      0, 0)*/
                                             //console.log('image://photo/' + dir + url)
                                             sliderList.currentIndex = index
                                             //console.log("index: " + currentPhoto.listIndex)

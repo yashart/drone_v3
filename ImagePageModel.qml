@@ -42,6 +42,7 @@ Item {
     function setPhotoParams(id, url, dir, height, rotation, azimuth, lat, lon,
                             alt, id_photo, aCalibrate, bCalibrate, cCalibrate,
                             dCalibrate){
+        console.log("Hello")
         for (var i = 0; i < imagePageModel.count; i+=1) {
             if(imagePageModel.get(i).id === id){
                 imagePageModel.set(i,

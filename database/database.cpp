@@ -169,6 +169,7 @@ void DataBase::deleteTrack(int id)
 
 void DataBase::addExifDir(QString photoPath, QString trackName)
 {
+    // НЕ РАБОТАЕТ С РУССКИМИ ИМЕНАМИ!!!
     /*pathToDir.replace(QString("file:///"), QString(""));
     QString filePath = pathToDir;*/
     photoPath = photoPath.replace("file:///", "");
@@ -190,12 +191,10 @@ void DataBase::addExifDir(QString photoPath, QString trackName)
         query.prepare("INSERT INTO Tracks (name, dir, is_check) VALUES (:name, :dir, 'false');");
         query.bindValue(":name", trackName);
         query.bindValue(":dir", QString("%1/").arg(dir.path()));
-        query.bindValue(":color", "blue");
         if (!query.exec()){
             qDebug() << "Error SQLite:" << query.lastError().text();
             qDebug() << query.lastQuery();
         }
-
         QString lastId(QString::number(query.lastInsertId().toInt()));
 
         for (int i = 0; i < list.size(); ++i) {

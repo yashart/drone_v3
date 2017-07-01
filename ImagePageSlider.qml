@@ -149,9 +149,7 @@ Row {
                             text: "Применить"
                             enabled: false
                             onClicked: {
-                                currentPhoto.source = "image://photo/" +
-                                    currentPhoto.dir +
-                                    currentPhoto.name + "?" + "save=true&brightness=" +
+                                    Jcorrect = "?" + "save=true&brightness=" +
                                     brightnessSlider.value
 
                                 bSave.enabled = false
@@ -196,9 +194,7 @@ Row {
                                 cCancel.enabled = true
                             }
 
-                            currentPhoto.source = "image://photo/" +
-                                currentPhoto.dir +
-                                currentPhoto.name + "?" + "temp=true&contrast=" +
+                            Jcorrect = "?" + "temp=true&contrast=" +
                                 Math.round(contrastSlider.value * 100) / 100
                         }
                     }
@@ -209,9 +205,7 @@ Row {
                             text: "Применить"
                             enabled: false
                             onClicked: {
-                                currentPhoto.source = "image://photo/" +
-                                    currentPhoto.dir +
-                                    currentPhoto.name + "?" + "save=true&contrast=" +
+                                Jcorrect = "?" + "save=true&contrast=" +
                                     Math.round(contrastSlider.value * 100) / 100
 
                                 cSave.enabled = false
@@ -252,9 +246,7 @@ Row {
                                 gSave.enabled = true
                                 gCancel.enabled = true
                             }
-                            currentPhoto.source = "image://photo/" +
-                                currentPhoto.dir +
-                                currentPhoto.name + "?" + "temp=true&gamma=" +
+                            Jcorrect = "?" + "temp=true&gamma=" +
                                 Math.round(gammaSlider.value * 100) / 100
                         }
                     }
@@ -265,9 +257,7 @@ Row {
                             text: "Применить"
                             enabled: false
                             onClicked: {
-                                currentPhoto.source = "image://photo/" +
-                                    currentPhoto.dir +
-                                    currentPhoto.name + "?" + "save=true&gamma=" +
+                                Jcorrect = "?" + "save=true&gamma=" +
                                     Math.round(gammaSlider.value * 100) / 100
 
                                 gSave.enabled = false

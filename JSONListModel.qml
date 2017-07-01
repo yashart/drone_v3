@@ -30,19 +30,25 @@ Item {
 
 
         for (var i = 0; i<imagesModel.rowCount(); i++) {
+            //trackid
+
             var iUrl = imagesModel.get(i,"url")
             var iDir = imagesModel.get(i,"dir")
             var iACalibrate = imagesModel.get(i,"aCalibrate")
             var iBCalibrate = imagesModel.get(i,"bCalibrate")
             var iCCalibrate = imagesModel.get(i,"cCalibrate")
             var iDCalibrate = imagesModel.get(i,"dCalibrate")
+            var iLat = imagesModel.get(i,"lat")
+            var iLon = imagesModel.get(i,"lon")
             var iAzimuth = imagesModel.get(i,"azimuth")
             jsonModel.append({dir: iDir, url:iUrl,
                              aCalibrate: iACalibrate,
                              bCalibrate: iBCalibrate,
                              cCalibrate: iCCalibrate,
                              dCalibrate: iDCalibrate,
-                             azimuth: iAzimuth
+                             azimuth: iAzimuth,
+                             lat: iLat,
+                             lon: iLon
                              })
             console.log()
         }

@@ -64,7 +64,6 @@ void LocationsModel::exportPoints()
     str_query.append("LocationsPoints.type, ");
     str_query.append("LocationsPoints.lat, ");
     str_query.append("LocationsPoints.lon, ");
-    str_query.append("LocationsPoints.priority, ");
     str_query.append("LocationsPoints.user, ");
     str_query.append("LocationsPoints.label, ");
     str_query.append("LocationsPoints.comment, ");
@@ -77,7 +76,6 @@ void LocationsModel::exportPoints()
     int idType = query.record().indexOf("type");
     int idLat = query.record().indexOf("lat");
     int idLon = query.record().indexOf("lon");
-    int idPriority = query.record().indexOf("priority");
     int idUser = query.record().indexOf("user");
     int idLabel = query.record().indexOf("label");
     int idComment = query.record().indexOf("comment");
@@ -99,7 +97,6 @@ void LocationsModel::exportPoints()
             stream << query.value(idType).toString() << "; ";
             stream << query.value(idLat).toString() << "; ";
             stream << query.value(idLon).toString() << "; ";
-            stream << query.value(idPriority).toString() << "; ";
             stream << query.value(idUser).toString() << "; ";
             stream << query.value(idLabel).toString() << "; ";
             stream << query.value(idComment).toString() << "; ";
