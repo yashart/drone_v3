@@ -28,6 +28,20 @@ Window {
         azimuth: currentPhoto.azimuth
     }
 
+    Rectangle {
+        width: imagePage.width - 117
+        height: 37
+        color: Qt.rgba(0.3,0.3,0.3,0.5)
+        z: mainRow.z + 1
+    }
+    InstrumentsImage {
+        id: instrumentsImage
+        z: mainRow.z + 2
+
+    }
+
+
+
     RowLayout {
         id: mainRow
         anchors.fill: parent
@@ -46,11 +60,6 @@ Window {
                 MouseArea {
                     id: pictureViewerArea
                     anchors.fill: parent
-                }
-
-                InstrumentsImage {
-                    id: instrumentsImage
-                    z: 3
                 }
 
                 ImageGrid {

@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 
     qDebug() << "hello, ground station!";
     //domain::UdpLink link(14550, QString("127.0.0.1"), 14551);
-    domain::SerialLink link("/dev/ttyUSB0", 57600);
+    domain::SerialLink link("COM3", 57600);
     communicator->addLink(&link, MAVLINK_COMM_0);
     link.up();
 

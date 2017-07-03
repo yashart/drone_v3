@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4
 
 Item {
@@ -19,6 +19,7 @@ Item {
         anchors.horizontalCenterOffset: 0
         anchors.horizontalCenter: parent.horizontalCenter*/
         height: 30
+
 
 
         RowLayout {

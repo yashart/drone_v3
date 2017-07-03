@@ -786,26 +786,26 @@ DISTFILES += \
 
 win32
 {
-#    INCLUDEPATH += C:/opencv/build/include
-#    LIBS += -LC:/opencv/build/bin -lopencv_core320 \
-#        -lopencv_highgui320 \
-#        -lopencv_imgcodecs320 \
-#        -lopencv_imgproc320 \
-#        -lopencv_features2d320 \
-#        -lopencv_calib3d320
+    INCLUDEPATH += C:/opencv/build/include
+    LIBS += -LC:/opencv/build/bin -lopencv_core320 \
+        -lopencv_highgui320 \
+        -lopencv_imgcodecs320 \
+        -lopencv_imgproc320 \
+        -lopencv_features2d320 \
+        -lopencv_calib3d320
     #LIBS += C:/OSGeo4W/apps/Python27/libs/python27.lib
     #INCLUDEPATH += C:/OSGeo4W/apps/Python27/include
 }
 unix
 {
-    INCLUDEPATH += /usr/local/include/opencv2
-    LIBS += -L/usr/local/lib
-    LIBS += -lopencv_core
-    LIBS += -lopencv_imgproc
-    LIBS += -lopencv_highgui
-    LIBS += -lopencv_imgcodecs
-    LIBS += -lopencv_features2d
-    LIBS += -lopencv_calib3d
+    #INCLUDEPATH += /usr/local/include/opencv2
+    #LIBS += -L/usr/local/lib
+    #LIBS += -lopencv_core
+    #LIBS += -lopencv_imgproc
+    #LIBS += -lopencv_highgui
+    #LIBS += -lopencv_imgcodecs
+    #LIBS += -lopencv_features2d
+    #LIBS += -lopencv_calib3d
 }
 
 
