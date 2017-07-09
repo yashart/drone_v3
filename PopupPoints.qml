@@ -29,6 +29,10 @@ PopupPointsForm {
     yellowRadioButton.onClicked: {
         popupPoints.iconColor = "yellow"
     }
+    blueRadioButton.onClicked: {
+        popupPoints.iconColor = "blue"
+    }
+
     tankLightRadioButton.onClicked: {
         popupPoints.iconType = "tank_light"
     }

@@ -31,6 +31,8 @@ CalibratePopupForm {
         variationModel.b = 0
         variationModel.c = 0
         variationModel.d = 0
+        //variationModel.offsetX = mainPage.mapComponent.newMap.tempProviderImage.lat
+        //variationModel.offsetY = mainPage.mapComponent.newMap.tempProviderImage.lon
 
         console.log("")
 
@@ -61,5 +63,10 @@ CalibratePopupForm {
         calibrateModel.clear()
         calibrateModel.currentImage = 0
         calibrateModel.currentMap = 0
+    }
+    Keys.onPressed: {
+        if (event.key == 16777220){
+            calibrateButton.click()
+        }
     }
 }

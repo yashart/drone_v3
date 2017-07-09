@@ -11,6 +11,7 @@ Window {
     property alias redRadioButton: redRadioButton
     property alias greenRadioButton: greenRadioButton
     property alias blackRadioButton: blackRadioButton
+    property alias blueRadioButton: blueRadioButton
     property alias yellowRadioButton: yellowRadioButton
     property alias tankLightRadioButton: tankLightRadioButton
     property alias tankMediumRadioButton: tankMediumRadioButton
@@ -197,7 +198,7 @@ Window {
                         radius: 5
                     }
                     Rectangle {
-                        id: yellowRectangle
+                        id: blueRectangle
                         width: 50
                         height: 50
                         color: "blue"
@@ -206,7 +207,7 @@ Window {
                         radius: 5
                     }
                     Rectangle {
-                        id: blueRectangle
+                        id: yellowRectangle
                         width: 50
                         height: 50
                         color: "yellow"
