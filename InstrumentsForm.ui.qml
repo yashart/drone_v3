@@ -11,6 +11,9 @@ Item {
     property alias calibrateButton: calibrateButton
     property alias calibrateShowButton: calibrateShowButton
     property alias tracksMapButton: tracksMapButton
+    property alias missionButton: missionButton
+    property alias startMissionButton: startMissionButton
+    property alias toolBar: toolBar
 
     id: instruments
     z: 1
@@ -79,6 +82,18 @@ Item {
             ToolButton {
                 id: tracksMapButton
                 iconSource: "qrc:/img/tracks-map.png"
+                checkable: false
+                exclusiveGroup: toolBarsButtonts
+            }
+            ToolButton {
+                id: missionButton
+                iconSource: "qrc:/img/flight.png"
+                checkable: true
+                exclusiveGroup: toolBarsButtonts
+            }
+            ToolButton {
+                id: startMissionButton
+                iconSource: "qrc:/img/play-button.png"
                 checkable: false
                 exclusiveGroup: toolBarsButtonts
             }

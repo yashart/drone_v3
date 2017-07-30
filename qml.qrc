@@ -100,5 +100,7 @@
         <file>models/TrackPointer.qml</file>
         <file>TrackPointer.qml</file>
         <file>img/point.png</file>
+        <file>img/flight.png</file>
+        <file>img/play-button.png</file>
     </qresource>
 </RCC>

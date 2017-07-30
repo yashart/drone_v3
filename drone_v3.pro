@@ -28,7 +28,8 @@ SOURCES += main.cpp \
     mavlink_communicator.cpp \
     hearthbeat_handler.cpp \
     abstract_handler.cpp \
-    attitude_handler.cpp
+    attitude_handler.cpp \
+    models/missionmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -700,7 +701,8 @@ HEADERS += \
     mavlink_communicator.h \
     hearthbeat_handler.h \
     abstract_handler.h \
-    attitude_handler.h
+    attitude_handler.h \
+    models/missionmodel.h
 
 DISTFILES += \
     database/DataBase.db \

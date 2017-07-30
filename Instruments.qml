@@ -37,4 +37,8 @@ InstrumentsForm {
             leftTabMenu.visible = true
         }
     }
+    startMissionButton.onClicked: {
+        console.log("123");
+        missionModel.makeMision()
+    }
 }

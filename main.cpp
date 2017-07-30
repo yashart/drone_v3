@@ -18,6 +18,7 @@
 #include "database/changedb.h"
 
 #include "models/rulerModel.h"
+#include "models/missionmodel.h"
 #include "models/currentphotopointer.h"
 
 #include "providers/sliderimageprovider.h"
@@ -32,6 +33,7 @@
 #include "serial_link.h"
 #include "gcs_communicator_factory.h"
 #include "mavlink_communicator.h"
+
 
 
 int main(int argc, char *argv[])
@@ -57,6 +59,7 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
+    MissionModel missionModel;
     ChangeDB changedb;
     CurrentPhotoPointer photoPointer;
 
@@ -93,6 +96,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("linesModel", &linesModel);
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
+    ctx->setContextProperty("missionModel", &missionModel);
     ctx->setContextProperty("photoToTiles", &photoToTiles);
     //ctx->setContextProperty("tilesDownloader", &tilesDownloader);
     ctx->setContextProperty("variationModel", &variationModel);
@@ -113,7 +117,7 @@ int main(int argc, char *argv[])
 
     qDebug() << "hello, ground station!";
     //domain::UdpLink link(14550, QString("127.0.0.1"), 14551);
-    domain::SerialLink link("COM3", 57600);
+    domain::SerialLink link("ttyACM0", 57600);
     communicator->addLink(&link, MAVLINK_COMM_0);
     link.up();
 
