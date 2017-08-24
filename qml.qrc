@@ -102,5 +102,10 @@
         <file>img/point.png</file>
         <file>img/flight.png</file>
         <file>img/play-button.png</file>
+        <file>FlightInfo.qml</file>
+        <file>img/roll.png</file>
+        <file>img/yaw.png</file>
+        <file>img/pitch.png</file>
+        <file>img/copter-info.png</file>
     </qresource>
 </RCC>

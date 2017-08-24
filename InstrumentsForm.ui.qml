@@ -13,6 +13,7 @@ Item {
     property alias tracksMapButton: tracksMapButton
     property alias missionButton: missionButton
     property alias startMissionButton: startMissionButton
+    property alias copterInfoButton: copterInfoButton
     property alias toolBar: toolBar
 
     id: instruments
@@ -94,6 +95,12 @@ Item {
             ToolButton {
                 id: startMissionButton
                 iconSource: "qrc:/img/play-button.png"
+                checkable: false
+                exclusiveGroup: toolBarsButtonts
+            }
+            ToolButton {
+                id: copterInfoButton
+                iconSource: "qrc:/img/copter-info.png"
                 checkable: false
                 exclusiveGroup: toolBarsButtonts
             }

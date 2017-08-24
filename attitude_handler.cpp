@@ -6,12 +6,15 @@
 // Qt
 #include <QtMath>
 #include <QDebug>
+#include <QFile>
 
 using namespace domain;
 
 AttitudeHandler::AttitudeHandler(MavLinkCommunicator* communicator):
     AbstractHandler(communicator)
-{}
+{
+    this->startTimer(2000); // 1 Hz
+}
 
 void AttitudeHandler::processMessage(const mavlink_message_t& message)
 {
@@ -20,8 +23,16 @@ void AttitudeHandler::processMessage(const mavlink_message_t& message)
 
     mavlink_attitude_t attitude;
     mavlink_msg_attitude_decode(&message, &attitude);
+    QFile file("aircraftAxes.txt");
+    if (!file.open(QIODevice::WriteOnly))
+            return;
 
-    qDebug() << "pitch" << qRadiansToDegrees(attitude.pitch)
-             << "roll" << qRadiansToDegrees(attitude.roll)
-             << "yaw" << qRadiansToDegrees(attitude.yaw);
+    QTextStream in(&file);
+
+    //aircraftAxes.setPitch(qRadiansToDegrees(attitude.pitch));
+    in << qRadiansToDegrees(attitude.pitch)
+             << " " << qRadiansToDegrees(attitude.roll)
+             << " " << qRadiansToDegrees(attitude.yaw);
+
+    file.close();
 }

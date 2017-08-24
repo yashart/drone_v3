@@ -29,7 +29,9 @@ SOURCES += main.cpp \
     hearthbeat_handler.cpp \
     abstract_handler.cpp \
     attitude_handler.cpp \
-    models/missionmodel.cpp
+    models/missionmodel.cpp \
+    gps_handler.cpp \
+    models/telemetry.cpp
 
 RESOURCES += qml.qrc
 
@@ -702,7 +704,9 @@ HEADERS += \
     hearthbeat_handler.h \
     abstract_handler.h \
     attitude_handler.h \
-    models/missionmodel.h
+    models/missionmodel.h \
+    gps_handler.h \
+    models/telemetry.h
 
 DISTFILES += \
     database/DataBase.db \
@@ -784,7 +788,8 @@ DISTFILES += \
     mavlink_v1/message_definitions/slugs.xml \
     mavlink_v1/message_definitions/test.xml \
     mavlink_v1/message_definitions/ualberta.xml \
-    mavlink_v1/message_definitions/uAvionix.xml
+    mavlink_v1/message_definitions/uAvionix.xml \
+    FlightInfo.qml
 
 win32
 {

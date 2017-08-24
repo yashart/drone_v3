@@ -57,4 +57,8 @@ ApplicationWindow {
     ExportFileDialog{
         id: exportFileDialog
     }
+    FlightInfo {
+        id: flightInfo
+        visible: false
+    }
 }

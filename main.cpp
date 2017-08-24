@@ -20,6 +20,7 @@
 #include "models/rulerModel.h"
 #include "models/missionmodel.h"
 #include "models/currentphotopointer.h"
+#include "models/telemetry.h"
 
 #include "providers/sliderimageprovider.h"
 #include "providers/iconsprovider.h"
@@ -33,8 +34,6 @@
 #include "serial_link.h"
 #include "gcs_communicator_factory.h"
 #include "mavlink_communicator.h"
-
-
 
 int main(int argc, char *argv[])
 {
@@ -59,9 +58,9 @@ int main(int argc, char *argv[])
     LinesModel linesModel;
     PointsPhotoModel pointsPhotoModel;
     RulerModel rulerModel;
-    MissionModel missionModel;
     ChangeDB changedb;
     CurrentPhotoPointer photoPointer;
+    Telemetry telemetry;
 
     PhotoProvider * photoProvider = new PhotoProvider();    
 
@@ -83,7 +82,18 @@ int main(int argc, char *argv[])
     //VlcCommon::setPluginPath(app.applicationDirPath() + "/plugins");
     //VlcQmlVideoPlayer::registerPlugin();
 
+    domain::GcsCommunicatorFactory factory;
+    domain::MavLinkCommunicator* communicator = factory.create();
+    communicator->setParent(&app);
 
+    qDebug() << "hello, ground station!";
+    //domain::UdpLink link(14550, QString("127.0.0.1"), 14551);
+    //domain::SerialLink link("ttyACM0", 57600);
+    domain::SerialLink link("ttyUSB0", 57600);
+    communicator->addLink(&link, MAVLINK_COMM_0);
+    link.up();
+
+    MissionModel missionModel(communicator, &link);
 
     QQmlApplicationEngine engine;
     QQmlContext* ctx = engine.rootContext();
@@ -101,6 +111,9 @@ int main(int argc, char *argv[])
     //ctx->setContextProperty("tilesDownloader", &tilesDownloader);
     ctx->setContextProperty("variationModel", &variationModel);
     ctx->setContextProperty("photoPointer", &photoPointer);
+    ctx->setContextProperty("telemetry", &telemetry);
+    ctx->setContextProperty("link", &link);
+    ctx->setContextProperty("communicator", communicator);
 
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());
     engine.addImageProvider(QLatin1String("Icons"), new IconProvider());
@@ -110,16 +123,6 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     //splash.finish( &w );
 
-
-    domain::GcsCommunicatorFactory factory;
-    domain::MavLinkCommunicator* communicator = factory.create();
-    communicator->setParent(&app);
-
-    qDebug() << "hello, ground station!";
-    //domain::UdpLink link(14550, QString("127.0.0.1"), 14551);
-    domain::SerialLink link("ttyACM0", 57600);
-    communicator->addLink(&link, MAVLINK_COMM_0);
-    link.up();
 
     app.exec();
     return 0;

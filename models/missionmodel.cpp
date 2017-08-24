@@ -1,10 +1,13 @@
 #include "missionmodel.h"
 #include "QProcess"
+#include "mavlink_communicator.h"
+#include "unistd.h"
 
-MissionModel::MissionModel(QObject *parent):
+MissionModel::MissionModel(domain::MavLinkCommunicator* communicator, domain::SerialLink* link, QObject *parent):
     QObject(parent)
 {
-
+    this->communicator = communicator;
+    this->link = link;
 }
 void MissionModel::addPoint(QGeoCoordinate point)
 {
@@ -36,7 +39,7 @@ void MissionModel::delPoint()
 void MissionModel::makeMision()
 {
     QFile file("mpmission.txt");
-    if (!file.open(QIODevice::ReadWrite))
+    if (!file.open(QIODevice::WriteOnly))
         return;
 
      QTextStream out(&file);
@@ -45,15 +48,27 @@ void MissionModel::makeMision()
      {
         QGeoCoordinate coord(this->missionList().at(i).value<QGeoCoordinate>());
         if (i == 0){
-            out << i << "\t" << "1" << "\t" << "0\t" << "16"
-                                             << "\t" << "0\t0\t0\t0\t" << coord.latitude()
+            out << i << "\t" << "1" << "\t" << "3\t" << "16"
+                                             << "\t" << "0\t5\t0\t0\t" << coord.latitude()
                                              << "\t" << coord.longitude()
                                              << "\t" << coord.altitude()
                                              << "\t" << "1\n";
 
+        } else if (i == 1){
+            out << i << "\t" << "0" << "\t" << "3\t" << "22"
+                                             << "\t" << "0\t5\t0\t0\t" << coord.latitude()
+                                             << "\t" << coord.longitude()
+                                             << "\t" << coord.altitude()
+                                             << "\t" << "1\n";
+        } else if (i == this->m_missionList.size() - 1){
+            out << i << "\t" << "0" << "\t" << "3\t" << "20"
+                                             << "\t" << "0\t5\t0\t0\t" << coord.latitude()
+                                             << "\t" << coord.longitude()
+                                             << "\t" << coord.altitude()
+                                             << "\t" << "1\n";
         }else {
             out << i << "\t" << "0" << "\t" << "3\t" << "16"
-                                             << "\t" << "0\t0\t0\t0\t" << coord.latitude()
+                                             << "\t" << "0\t5\t0\t0\t" << coord.latitude()
                                              << "\t" << coord.longitude()
                                              << "\t" << coord.altitude()
                                              << "\t" << "1\n";
@@ -61,9 +76,14 @@ void MissionModel::makeMision()
      }
      QProcess p;
      QStringList params;
-
+     this->communicator->removeLink(link);
      params << "mission.py";
-     p.start("python", params);
+     //sleep(30);
+     p.setWorkingDirectory("/home/yashart/Documents/Programming/drone_v3/build-drone_v3-Desktop_Qt_5_9_0_GCC_64bit-Debug/");
+     p.start("python mission.py");
      p.waitForFinished(-1);
+     //sleep(30);
+     qDebug() << "----------------------";
      qDebug() << p.readAll();
+     this->communicator->addLink(link, MAVLINK_COMM_0);
 }

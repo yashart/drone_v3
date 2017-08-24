@@ -6,6 +6,8 @@
 #include <QGeoCoordinate>
 #include <QDebug>
 #include <math.h>
+#include "mavlink_communicator.h"
+#include "serial_link.h"
 
 class MissionModel : public QObject
 {
@@ -14,7 +16,7 @@ class MissionModel : public QObject
     Q_PROPERTY(QVariant startPoint READ startPoint NOTIFY startPointChanged)
     Q_PROPERTY(QVariant finishPoint READ finishPoint NOTIFY finishPointChanged)
 public:
-    MissionModel(QObject *parent = 0);
+    MissionModel(domain::MavLinkCommunicator* communicator, domain::SerialLink* link, QObject *parent = 0);
     QVariantList missionList()
     {
         return this->m_missionList;
@@ -47,6 +49,8 @@ signals:
     void finishPointChanged();
 
 private:
+    domain::MavLinkCommunicator* communicator;
+    domain::SerialLink* link;
     QVariantList m_missionList;
 };
 

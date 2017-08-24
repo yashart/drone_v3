@@ -529,6 +529,32 @@ Map {
     }
 
     Timer {
+        interval: 500; running: true; repeat: true
+        onTriggered: {
+            telemetry.readGps()
+        }
+    }
+
+    MapQuickItem {
+        id: droneOnMapGps
+        anchorPoint.x: droneOnMapGpsIcon.width / 2;
+        anchorPoint.y: droneOnMapGpsIcon.height / 2;
+        coordinate {
+            latitude: telemetry.lat
+            longitude: telemetry.lon
+        }
+        sourceItem:
+            Column{
+                Image {id: droneOnMapGpsIcon; source: "qrc:/img/drone.png"}
+                ColorOverlay {
+                    anchors.fill: droneOnMapGpsIcon
+                    source: droneOnMapGpsIcon
+                    color: "red"
+                }
+            }
+    }
+
+    Timer {
         id: scaleTimer
         interval: 100
         running: false
