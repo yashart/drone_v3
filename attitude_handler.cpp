@@ -15,8 +15,9 @@ AttitudeHandler::AttitudeHandler(MavLinkCommunicator* communicator):
 
 void AttitudeHandler::processMessage(const mavlink_message_t& message)
 {
-    if (message.msgid != MAVLINK_MSG_ID_ATTITUDE ||
-        message.sysid == 0) return;
+    if (message.msgid != MAVLINK_MSG_ID_ATTITUDE) //
+        // || message.sysid == 0)
+        return;
 
     mavlink_attitude_t attitude;
     mavlink_msg_attitude_decode(&message, &attitude);

@@ -4,6 +4,7 @@
 #include <QQmlContext>
 #include <QSplashScreen>
 #include <QLabel>
+#include <QSettings>
 
 //#include <VLCQtCore/Common.h> For vlc-qt lib
 //#include <VLCQtQml/QmlVideoPlayer.h>
@@ -19,6 +20,7 @@
 
 #include "models/rulerModel.h"
 #include "models/currentphotopointer.h"
+#include "models/cachesettings.h"
 
 #include "providers/sliderimageprovider.h"
 #include "providers/iconsprovider.h"
@@ -39,16 +41,26 @@ int main(int argc, char *argv[])
 
     //QApplication a(argc, argv);
 
-    //QPixmap pixmap(":/img/splash.jpg");
-    //QSplashScreen splash(pixmap);
-    //splash.show();
-
-    //QLabel w;
+    // Изображение-заглушка на время загрузки программы
+//    QPixmap pixmap(":/img/splash.jpg");
+//    QSplashScreen splash(pixmap);
+//    splash.show();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
 
+    // сохранение настроек программы
+    QSettings settings( "config.ini", QSettings::IniFormat);
+
+    CacheSettings cacheSettings(settings);
+
+    settings.beginGroup( "Path" );
+    settings.setValue( "relative_path", true ); // используется ли относительный путь к папке с тайлами
+    settings.setValue( "path", QString("F:/SAS_Planet/cache") );
+    settings.endGroup();
+
+    // определение всех классов-моделей models/* и databese/*
     DataBase db;
     TracksModel tracksModel;
     PointsModel pointsModel;
@@ -70,6 +82,7 @@ int main(int argc, char *argv[])
     //TilesDownloader tilesDownloader(QCoreApplication::applicationDirPath());
 
 
+    // Сигналы, для автоматического обновления данный треков/точек
     QObject::connect(&db, &DataBase::updateLocationsModel,
                      &locationsModel, &LocationsModel::updateModel);
     QObject::connect(&db, &DataBase::updateLocationsModel,
@@ -81,9 +94,11 @@ int main(int argc, char *argv[])
     //VlcQmlVideoPlayer::registerPlugin();
 
 
-
     QQmlApplicationEngine engine;
-    QQmlContext* ctx = engine.rootContext();
+    QQmlContext * ctx = engine.rootContext();
+
+    // Перенос классов, которые используются для отображения всей информации( получают данные из базы по протоколу мавлинк и т.д.)
+
     ctx->setContextProperty("dataBase", &db);
     ctx->setContextProperty("changedb", &changedb);
     ctx->setContextProperty("tracksModel", &tracksModel);
@@ -94,28 +109,20 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
     ctx->setContextProperty("photoToTiles", &photoToTiles);
-    //ctx->setContextProperty("tilesDownloader", &tilesDownloader);
     ctx->setContextProperty("variationModel", &variationModel);
     ctx->setContextProperty("photoPointer", &photoPointer);
+    ctx->setContextProperty("cacheSettings", &cacheSettings);
 
-    engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider());
-    engine.addImageProvider(QLatin1String("Icons"), new IconProvider());
-    engine.addImageProvider(QLatin1String("Photo"), photoProvider);
+    // Классы, отвечающие за обаботку фотографий и иконок устанавливаемых точек
+    engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider()); // уменьшает фотографии для создания миниатюрок
+    engine.addImageProvider(QLatin1String("Icons"), new IconProvider()); // географические точки
+    engine.addImageProvider(QLatin1String("Photo"), photoProvider); // фотографии (яркость/контрастность/гамма)
 
 
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
-    //splash.finish( &w );
 
-
-    domain::GcsCommunicatorFactory factory;
-    domain::MavLinkCommunicator* communicator = factory.create();
-    communicator->setParent(&app);
-
-    qDebug() << "hello, ground station!";
-    //domain::UdpLink link(14550, QString("127.0.0.1"), 14551);
-    domain::SerialLink link("COM3", 57600);
-    communicator->addLink(&link, MAVLINK_COMM_0);
-    link.up();
+    //splash.close();
+    //a.quit(); // Вызывает падение на линукс системах
 
     app.exec();
     return 0;

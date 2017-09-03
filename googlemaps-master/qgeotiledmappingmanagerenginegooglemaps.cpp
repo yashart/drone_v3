@@ -35,14 +35,15 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
 
     setTileSize(QSize(tile, tile));
 
-    /*QList<QGeoMapType> types;
-    types << QGeoMapType(QGeoMapType::StreetMap, tr("Street Map"), tr("Normal map view in daylight mode"), false, false, 1);
-    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Satellite Map"), tr("Satellite map view in daylight mode"), false, false, 2);
-    types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain Map"), tr("Terrain map view in daylight mode"), false, false, 3);
-    types << QGeoMapType(QGeoMapType::HybridMap, tr("Hybrid Map"), tr("Satellite map view with streets in daylight mode"), false, false, 4);
-    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Yandex Map"), tr("Yandex Satellite map view with streets in daylight mode"), false, false, 5);
-    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Offline Google Map"), tr("Offline Google Satellite map view with streets in daylight mode"), false, false, 6);
-    setSupportedMapTypes(types);*/
+    QList<QGeoMapType> types;
+    types << QGeoMapType(QGeoMapType::StreetMap, tr("Street Map"), tr("Normal map view in daylight mode"), false, false, 1, QByteArray("googlemaps"));
+    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Satellite Map"), tr("Satellite map view in daylight mode"), false, false, 2, QByteArray("googlemaps"));
+    types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain Map"), tr("Terrain map view in daylight mode"), false, false, 3, QByteArray("googlemaps"));
+    types << QGeoMapType(QGeoMapType::HybridMap, tr("Hybrid Map"), tr("Satellite map view with streets in daylight mode"), false, false, 4, QByteArray("googlemaps"));
+    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Yandex Map"), tr("Yandex Satellite map view with streets in daylight mode"), false, false, 5, QByteArray("googlemaps"));
+    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Offline Google Map"), tr("Offline Google Satellite map view with streets in daylight mode"), false, false, 6, QByteArray("googlemaps"));
+    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("OrthoPhoto"), tr("Offline Google Satellite map view with streets in daylight mode"), false, false, 7, QByteArray("googlemaps"));
+    setSupportedMapTypes(types);
 
     QGeoTileFetcherGooglemaps *fetcher = new QGeoTileFetcherGooglemaps(parameters, this, tileSize());
     setTileFetcher(fetcher);
@@ -53,7 +54,7 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
         m_cacheDirectory = QAbstractGeoTileCache::baseCacheDirectory() + QLatin1String("googlemaps");
 
     QAbstractGeoTileCache *tileCache = new QGeoFileTileCache(m_cacheDirectory);
-    tileCache->setMaxDiskUsage(100 * 1024 * 1024);
+    tileCache->setMaxDiskUsage(0);
     setTileCache(tileCache);
 
     populateMapSchemes();

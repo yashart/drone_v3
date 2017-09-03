@@ -5,6 +5,7 @@ import QtLocation  5.6
 Plugin {
     id: gmapsPlugin
     name: "googlemaps"
+    property variant str: "Hello"
     locales: "en_EN"
     PluginParameter {
         name: "googlemaps.maps.apikey"
@@ -13,6 +14,11 @@ Plugin {
     PluginParameter {
         name: "googlemaps.maps.tilesize"
         value: "256"
+    }
+    PluginParameter {
+        id: localPath
+        name: "googlemaps.maps.localpath"
+        value: str
     }
 }
 

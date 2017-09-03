@@ -14,10 +14,12 @@ Window {
     property alias esriRadio: esriRadio
     property alias leftTabMenuArea: leftTabMenuArea
     property alias hereRadio: hereRadio
-    property alias googleRadio: googleRadio
-    property alias yandexRadio: yandexRadio
-    property alias offlineGoogleRadio: offlineGoogleRadio
-    property alias offlinePhotoplan: offlinePhotoplan
+    property alias googleSatRadio: googleSatRadio
+    property alias googleMapsRadio: googleMapsRadio
+    property alias bingSatRadio: bingSatRadio
+    property alias bingMapsRadio: bingMapsRadio
+    property alias bingHibridRadio: bingHibridRadio
+    property alias setOrthoPhoto: setOrthoPhoto
 
     maximumHeight: 560
     maximumWidth: 360
@@ -70,14 +72,14 @@ Window {
                                 CheckBox {
                                     text: qsTr(name)
                                     checked: (is_check === "true") ? true : false
-                                    onClicked:{
-                                        if (checked == true){
+                                    onClicked: {
+                                        if (checked == true) {
                                             pointsModel.addId(id)
                                             tracksModel.setChecked(id)
                                             linesModel.addId(id)
                                             imagePages.addTrack(id, name)
                                         }
-                                        if (checked == false){
+                                        if (checked == false) {
                                             pointsModel.delId(id)
                                             tracksModel.setUnchecked(id)
                                             linesModel.delId(id)
@@ -90,11 +92,14 @@ Window {
                                         anchors.fill: parent
                                         acceptedButtons: Qt.RightButton
                                         onClicked: {
-                                            var lat = dataBase.getAvgLat(trackId)
-                                            var lon = dataBase.getAvgLon(trackId)
-                                            if (lat !== 0 && lon !== 0 && parent.checked == true)
-                                            {
-                                                mapComponent.changeMapCenter(lat, lon)
+                                            var lat = dataBase.getAvgLat(
+                                                        trackId)
+                                            var lon = dataBase.getAvgLon(
+                                                        trackId)
+                                            if (lat !== 0 && lon !== 0
+                                                    && parent.checked == true) {
+                                                mapComponent.changeMapCenter(
+                                                            lat, lon)
                                             }
                                         }
                                     }
@@ -137,29 +142,38 @@ Window {
 
                 Item {
                     id: mapPluginTab
+                    anchors.fill: parent
                     ScrollView {
-                        anchors.fill: parent
+                        id: mapTypeScroll
+                        //anchors.fill: parent
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        height: parent.height - mapPath.height
                         ColumnLayout {
-
                             RadioButton {
-                                id: googleRadio
-                                text: qsTr("Google Maps")
+                                id: googleMapsRadio
+                                checked: true
+                                text: qsTr("Google Карты")
                             }
                             RadioButton {
-                                id: yandexRadio
-                                text: qsTr("Yandex Maps")
+                                id: googleSatRadio
+                                text: qsTr("Google Спутник")
                             }
                             RadioButton {
-                                id: offlineGoogleRadio
-                                text: qsTr("Offline Google Maps")
+                                id: bingMapsRadio
+                                text: qsTr("Bing Карты")
                             }
                             RadioButton {
-                                id: offlinePhotoplan
-                                text: qsTr("Фотопланы")
+                                id: bingSatRadio
+                                text: qsTr("Bing Спутник")
+                            }
+                            RadioButton {
+                                id: bingHibridRadio
+                                text: qsTr("Bing Гибрид")
                             }
                             RadioButton {
                                 id: osmRadio
-                                checked: true
                                 text: qsTr("Osm")
                             }
                             RadioButton {
@@ -173,6 +187,43 @@ Window {
                             RadioButton {
                                 id: hereRadio
                                 text: qsTr("Here")
+                            }
+                        }
+                    }
+                    Item{
+                        id: mapPath
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+                        height: 100
+
+                        Rectangle{
+                            anchors.fill: parent
+                            border.width:2
+
+                            Rectangle{
+                                anchors.right: parent.horizontalCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: parent.width / 2
+                                CheckBox{
+                                    id: setOrthoPhoto
+                                    anchors.centerIn: parent
+                                    text:"Показать фотопланы"
+                                }
+                            }
+                            ColumnLayout{
+                                anchors.left: parent.horizontalCenter
+                                anchors.verticalCenter: parent.verticalCenter
+                                width: parent.width / 2
+                                Button{
+                                    Layout.alignment: Qt.AlignCenter
+                                    text: "Выбрать кэш"
+                                }
+                                Label{
+                                    Layout.alignment: Qt.AlignCenter
+                                    text: cacheSettings.cachePath()
+                                    font.pixelSize: 10
+                                }
                             }
                         }
                     }

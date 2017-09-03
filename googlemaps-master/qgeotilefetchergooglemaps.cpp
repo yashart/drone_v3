@@ -4,18 +4,6 @@
 #include "qgeotiledmappingmanagerenginegooglemaps.h"
 #include <QtLocation/private/qgeotilespec_p.h>
 
-#include <QDebug>
-#include <QSize>
-#include <QDir>
-#include <QUrl>
-#include <QUrlQuery>
-#include <QTime>
-#include <QNetworkProxy>
-#include <QtGlobal>
-
-#include <math.h>
-
-#include <map>
 
 QT_BEGIN_NAMESPACE
 
@@ -37,12 +25,14 @@ QGeoTileFetcherGooglemaps::QGeoTileFetcherGooglemaps(const QVariantMap &paramete
   m_engineGooglemaps(engine),
   m_tileSize(tileSize),
   _googleVersionRetrieved(false)
-{
+{    
     m_apiKey = parameters.value(QStringLiteral("googlemaps.maps.apikey")).toString();
     m_signature = parameters.value(QStringLiteral("googlemaps.maps.signature")).toString();
     m_client = parameters.value(QStringLiteral("googlemaps.maps.client")).toString();
     m_baseUri = QStringLiteral("http://maps.googleapis.com/maps/api/staticmap");
-    if (parameters.contains(QStringLiteral("googlemaps.useragent")))
+    m_localpath = QDir::currentPath().append("/").append("cache/orthophoto/%3/%1/%2.png");
+    QDir().mkdir("cache");
+    if (parameters.contains(QStringLiteral("googlemaps.localpath")))
         _userAgent = parameters.value(QStringLiteral("googlemaps.useragent")).toString().toLatin1();
     else
         _userAgent = "Mozilla/5.0 (X11; Linux i586; rv:31.0) Gecko/20100101 Firefox/31.0";
@@ -97,69 +87,117 @@ void QGeoTileFetcherGooglemaps::_getSecGoogleWords(int x, int y, QString &sec1, 
     }
 }
 
+QString _tileXYToQuadKey(int tileX, int tileY, int levelOfDetail)
+{
+    QString quadKey;
+    for (int i = levelOfDetail; i > 0; i--) {
+        char digit = '0';
+        int mask   = 1 << (i - 1);
+        if ((tileX & mask) != 0) {
+            digit++;
+        }
+        if ((tileY & mask) != 0) {
+            digit++;
+            digit++;
+        }
+        quadKey.append(digit);
+    }
+    return quadKey;
+}
+
+
 QString QGeoTileFetcherGooglemaps::_getURL(int type, int x, int y, int zoom)
 {
-    switch (type) {
-    case 0:
-    case 1:
+    QSettings settings( "config.ini", QSettings::IniFormat);
+    bool ortho = settings.value("Path/orthophoto").toBool();
+
+    int yy = ( pow(2, zoom) - 1 ) - y;
+    QString tile;
+
+    QString path;
+    path.append("file:///").append(m_localpath);
+
+    tile = m_localpath.arg(x).arg(yy).arg(zoom);
+
+    QString appDir(QDir::currentPath().append("/"));
+
+
+    if ( QFile::exists(tile) && ortho == true)
     {
-        // http://mt1.google.com/vt/lyrs=m
-        QString server  = "mt";
-        QString request = "vt";
-        QString sec1    = ""; // after &x=...
-        QString sec2    = ""; // after &zoom=...
-        _getSecGoogleWords(x, y, sec1, sec2);
-        return QString("http://%1%2.google.com/%3/lyrs=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleMap).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
+        qDebug() << ">>>>>>>" << path;
+        return path.arg(x).arg(yy).arg(zoom);// ty1=(2**tz - 1) - ty
     }
-    break;
-    case 2:
+    else
     {
-        // http://mt1.google.com/vt/lyrs=s
-        QString server  = "khm";
-        QString request = "kh";
-        QString sec1    = ""; // after &x=...
-        QString sec2    = ""; // after &zoom=...
-        _getSecGoogleWords(x, y, sec1, sec2);
-        return QString("http://%1%2.google.com/%3/v=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleSatellite).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
-    }
-    break;
-    case 3:
-    {
-        QString server  = "mts";
-        QString request = "vt";
-        QString sec1    = ""; // after &x=...
-        QString sec2    = ""; // after &zoom=...
-        _getSecGoogleWords(x, y, sec1, sec2);
-        return QString("http://%1%2.google.com/%3/lyrs=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleLabels).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
-    }
-    break;
-    case 4:
-    {
-        QString server  = "mt";
-        QString request = "vt";
-        QString sec1    = ""; // after &x=...
-        QString sec2    = ""; // after &zoom=...
-        _getSecGoogleWords(x, y, sec1, sec2);
-        return QString("http://%1%2.google.com/%3/v=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleTerrain).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
-    }
-    break;
-    case 5:
-    {
-        //return QString("http://%1%2.google.com/%3/v=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleTerrain).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
-        //return QString("D:/81720.jpg");
-        //qDebug() << QString("http://sat0%1.maps.yandex.net/tiles?l=sat&v=3.303.0&x=%2&y=%3&z=%4&lang=ru_RU").arg(qrand() % 4 + 1).arg(x).arg(y).arg(zoom);
-        return QString("http://sat0%1.maps.yandex.net/tiles?l=sat&v=3.303.0&x=%2&y=%3&z=%4&lang=ru_RU").arg(qrand() % 4 + 1).arg(x).arg(y).arg(zoom);
-    }
-        break;
-    case 6:
-    {
-        //return QString("http://%1%2.google.com/%3/v=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleTerrain).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
-        //return QString("D:/81720.jpg");
-        //qDebug() << QString("http://sat0%1.maps.yandex.net/tiles?l=sat&v=3.303.0&x=%2&y=%3&z=%4&lang=ru_RU").arg(qrand() % 4 + 1).arg(x).arg(y).arg(zoom);
-        return QString("file:///D:/build-drone_v3-Desktop_Qt_5_8_0_MinGW_32bit-Release/release/cache/z%3/%4/x%1/%5/y%2.png").arg(x).arg(y).arg(zoom+1).arg(x/1024).arg(y/1024);
-    }
-        break;
-    break;
+        switch (type) {
+            case 0:
+            case 1:
+            {
+                QString appDir(QDir::currentPath().append("/"));
+                appDir.append("cache/google/maps/z%3/%4/x%1/%5/y%2.png");
+
+                tile = appDir.arg(x).arg(y).arg(zoom+1).arg(x/1024).arg(y/1024);
+                qDebug() << tile;
+                /*
+                if ( QFile::exists(tile) )
+                {
+                    QString url("file:///");
+                    url.append(tile);
+                    url.append("google/maps/z%3/%4/x%1/%5/y%2.png");
+                    qDebug<< url;
+                    return url.arg(x).arg(y).arg(zoom+1).arg(x/1024).arg(y/1024);
+                }*/
+
+                // http://mt1.google.com/vt/lyrs=s
+                QString server  = "khm";
+                QString request = "kh";
+                QString sec1    = ""; // after &x=...
+                QString sec2    = ""; // after &zoom=...
+                _getSecGoogleWords(x, y, sec1, sec2);
+                return QString("http://%1%2.google.com/%3/v=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleSatellite).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
+            }
+            break;
+            case 2:
+            {
+
+                // http://mt1.google.com/vt/lyrs=m
+                QString server  = "mt";
+                QString request = "vt";
+                QString sec1    = ""; // after &x=...
+                QString sec2    = ""; // after &zoom=...
+                _getSecGoogleWords(x, y, sec1, sec2);
+                return QString("http://%1%2.google.com/%3/lyrs=%4&hl=%5&x=%6%7&y=%8&z=%9&s=%10").arg(server).arg(_getServerNum(x, y, 4)).arg(request).arg(_versionGoogleMap).arg(_language).arg(x).arg(sec1).arg(y).arg(zoom).arg(sec2);
+            }
+            break;
+            case 3:
+            {
+                QString key = _tileXYToQuadKey(x, y, zoom);
+                return QString("http://ecn.t%1.tiles.virtualearth.net/tiles/r%2.png?g=%3&mkt=%4").arg(_getServerNum(x, y, 4)).arg(key).arg(0).arg(_language);
+            }
+            break;
+            case 4:
+            {
+                QString key = _tileXYToQuadKey(x, y, zoom);
+                return QString("http://ecn.t%1.tiles.virtualearth.net/tiles/a%2.jpeg?g=%3&mkt=%4").arg(_getServerNum(x, y, 4)).arg(key).arg(0).arg(_language);
+            }
+            break;
+            case 5:
+            {
+                QString key = _tileXYToQuadKey(x, y, zoom);
+                return QString("http://ecn.t%1.tiles.virtualearth.net/tiles/h%2.jpeg?g=%3&mkt=%4").arg(_getServerNum(x, y, 4)).arg(key).arg(0).arg(_language);
+            }
+            break;
+            case 6:
+            {
+                return QString("file:///D:/build-drone_v3-Desktop_Qt_5_8_0_MinGW_32bit-Release/release/cache/z%3/%4/x%1/%5/y%2.png").arg(x).arg(y).arg(zoom+1).arg(x/1024).arg(y/1024);
+            }
+            break;
+            case 7:
+            {
+                return path;
+            }
+            break;
+        }
     }
     return "";
 }

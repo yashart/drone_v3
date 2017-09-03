@@ -18,22 +18,22 @@ SerialLink::SerialLink(const QString& portName, qint32 baudRate,
 
 bool SerialLink::isUp() const
 {
-    return m_port->isOpen();
+    //return m_port->isOpen();
 }
 
 QString SerialLink::portName() const
 {
-    return m_port->portName();
+    //return m_port->portName();
 }
 
 qint32 SerialLink::baudRate() const
 {
-    return m_port->baudRate();
+    //return m_port->baudRate();
 }
 
 void SerialLink::up()
 {
-    if (this->isUp()) return;
+    //if (this->isUp()) return;
 
     if (!m_port->open(QIODevice::ReadWrite))
     {
@@ -41,19 +41,19 @@ void SerialLink::up()
                  qPrintable(m_port->errorString()));
 
         m_port->close();
-    }
+    }/*
     else
     {
         emit upChanged(true);
-    }
+    }*/
 }
 
 void SerialLink::down()
 {
-    if (!this->isUp()) return;
+    /*if (!this->isUp()) return;
 
     m_port->close();
-    emit upChanged(false);
+    emit upChanged(false);*/
 }
 
 void SerialLink::sendData(const QByteArray& data)

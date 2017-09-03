@@ -15,7 +15,7 @@ MavLinkCommunicator::MavLinkCommunicator(uint8_t systemId, uint8_t componentId,
     m_systemId(systemId),
     m_componentId(componentId)
 {
-    qRegisterMetaType<mavlink_message_t>("mavlink_message_t");
+    //qRegisterMetaType<mavlink_message_t>("mavlink_message_t");
 }
 
 QList<AbstractLink*> MavLinkCommunicator::links() const
@@ -88,13 +88,13 @@ void MavLinkCommunicator::onDataReceived(const QByteArray& data)
     mavlink_message_t message;
     mavlink_status_t status;
 
-    m_lastReceivedLink = qobject_cast<AbstractLink*>(this->sender());
-    if (!m_lastReceivedLink) return;
+    /*m_lastReceivedLink = qobject_cast<AbstractLink*>(this->sender());
+    if (!m_lastReceivedLink) return;*/
 
-    uint8_t channel = m_linkChannels.value(m_lastReceivedLink);
+    //uint8_t channel = m_linkChannels.value(m_lastReceivedLink);
     for (int pos = 0; pos < data.length(); ++pos)
     {
-        if (!mavlink_parse_char(channel, (uint8_t)data[pos],
+        if (!mavlink_parse_char(MAVLINK_COMM_0, (uint8_t)data[pos],
                                 &message, &status))
             continue;
 

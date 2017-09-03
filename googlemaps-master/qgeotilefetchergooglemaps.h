@@ -6,6 +6,18 @@
 #include <QtLocation/private/qgeotilefetcher_p.h>
 #include <QMutex>
 #include <QNetworkReply>
+#include <QSettings>
+#include <QDebug>
+#include <QSize>
+#include <QDir>
+#include <QUrl>
+#include <QUrlQuery>
+#include <QTime>
+#include <QNetworkProxy>
+#include <QtGlobal>
+#include <map>
+
+#include <math.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -47,6 +59,7 @@ private:
     QString m_signature;
     QString m_client;
     QString m_baseUri;
+    QString m_localpath;
 
     int             _timeout;
     bool            _googleVersionRetrieved;

@@ -15,7 +15,7 @@ HeartbeatHandler::HeartbeatHandler(uint8_t type, MavLinkCommunicator* communicat
     AbstractHandler(communicator),
     m_type(type)
 {
-    this->startTimer(1000); // 1 Hz
+    //this->startTimer(1000); // 1 Hz
 }
 
 void HeartbeatHandler::timerEvent(QTimerEvent* event)
@@ -26,11 +26,11 @@ void HeartbeatHandler::timerEvent(QTimerEvent* event)
     mavlink_heartbeat_t heartbeat;
     heartbeat.type = m_type;
 
-    mavlink_msg_heartbeat_encode(m_communicator->systemId(),
+    /*mavlink_msg_heartbeat_encode(m_communicator->systemId(),
                                  m_communicator->componentId(),
-                                 &message, &heartbeat);
+                                 &message, &heartbeat);*/
 
-    m_communicator->sendMessageOnAllLinks(message);
+    //m_communicator->sendMessageOnAllLinks(message);
 }
 
 void HeartbeatHandler::processMessage(const mavlink_message_t& message)

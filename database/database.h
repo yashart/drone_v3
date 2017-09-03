@@ -36,7 +36,6 @@ signals:
 
 public slots:
     void printTracks();
-    //void printPoints();
     double getAvgLat(int track_id);
     double getAvgLon(int track_id);
     void insertIntoTable(QString name);
@@ -46,6 +45,7 @@ public slots:
     void deleteLocalPoint();
     void addExifDir(QString photoPath, QString trackName);
     void deleteTrack(int id);
+    Q_INVOKABLE QVariant appDir();
 };
 
 #endif // DATABASE_H

@@ -32,6 +32,14 @@ Item {
             }
             TextField {
                 id: loginTextField
+                Keys.onReturnPressed: {
+                    if ((passwordTextField.text == "admin")&&
+                         (loginTextField.text == "admin")){
+                         loginPage.visible = false
+                         mainPage.visible = true
+                         mainPage.leftTabMenu.visible = true
+                     }
+                }
             }
         }
         RowLayout {
@@ -44,8 +52,17 @@ Item {
             TextField {
                 id: passwordTextField
                 echoMode: TextInput.Password
+                Keys.onReturnPressed: {
+                    if ((passwordTextField.text == "admin")&&
+                         (loginTextField.text == "admin")){
+                         loginPage.visible = false
+                         mainPage.visible = true
+                         mainPage.leftTabMenu.visible = true
+                     }
+                }
             }
         }
+
         Button {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             text: qsTr("Войти");

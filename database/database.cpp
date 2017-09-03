@@ -167,6 +167,11 @@ void DataBase::deleteTrack(int id)
     emit updateTracks();
 }
 
+QVariant DataBase::appDir()
+{
+    return QVariant::fromValue(QString("Privet"));
+}
+
 void DataBase::addExifDir(QString photoPath, QString trackName)
 {
     // НЕ РАБОТАЕТ С РУССКИМИ ИМЕНАМИ!!!
