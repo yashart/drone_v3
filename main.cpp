@@ -19,8 +19,10 @@
 #include "database/changedb.h"
 
 #include "models/rulerModel.h"
+#include "models/missionmodel.h"
 #include "models/currentphotopointer.h"
 #include "models/cachesettings.h"
+#include "models/telemetry.h"
 
 #include "providers/sliderimageprovider.h"
 #include "providers/iconsprovider.h"
@@ -34,7 +36,6 @@
 #include "serial_link.h"
 #include "gcs_communicator_factory.h"
 #include "mavlink_communicator.h"
-
 
 int main(int argc, char *argv[])
 {
@@ -71,8 +72,9 @@ int main(int argc, char *argv[])
     RulerModel rulerModel;
     ChangeDB changedb;
     CurrentPhotoPointer photoPointer;
+    Telemetry telemetry;
 
-    PhotoProvider * photoProvider = new PhotoProvider();    
+    PhotoProvider * photoProvider = new PhotoProvider();
 
     Variation_method_calibrate variationModel;
 
@@ -93,7 +95,18 @@ int main(int argc, char *argv[])
     //VlcCommon::setPluginPath(app.applicationDirPath() + "/plugins");
     //VlcQmlVideoPlayer::registerPlugin();
 
+    domain::GcsCommunicatorFactory factory;
+    domain::MavLinkCommunicator* communicator = factory.create();
+    communicator->setParent(&app);
 
+    qDebug() << "hello, ground station!";
+    //domain::UdpLink link(14550, QString("127.0.0.1"), 14551);
+    //domain::SerialLink link("ttyACM0", 57600);
+    domain::SerialLink link("ttyUSB0", 57600);
+    communicator->addLink(&link, MAVLINK_COMM_0);
+    link.up();
+
+    MissionModel missionModel(communicator, &link);
     QQmlApplicationEngine engine;
     QQmlContext * ctx = engine.rootContext();
 
@@ -108,10 +121,13 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("linesModel", &linesModel);
     ctx->setContextProperty("pointsPhotoModel", &pointsPhotoModel);
     ctx->setContextProperty("rulerModel", &rulerModel);
+    ctx->setContextProperty("missionModel", &missionModel);
     ctx->setContextProperty("photoToTiles", &photoToTiles);
     ctx->setContextProperty("variationModel", &variationModel);
     ctx->setContextProperty("photoPointer", &photoPointer);
-    ctx->setContextProperty("cacheSettings", &cacheSettings);
+    ctx->setContextProperty("telemetry", &telemetry);
+    ctx->setContextProperty("link", &link);
+    ctx->setContextProperty("communicator", communicator);
 
     // Классы, отвечающие за обаботку фотографий и иконок устанавливаемых точек
     engine.addImageProvider(QLatin1String("SliderImages"), new SliderImageProvider()); // уменьшает фотографии для создания миниатюрок
@@ -123,6 +139,7 @@ int main(int argc, char *argv[])
 
     //splash.close();
     //a.quit(); // Вызывает падение на линукс системах
+    //splash.finish( &w );
 
     app.exec();
     return 0;

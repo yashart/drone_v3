@@ -3,6 +3,7 @@ import QtLocation 5.5
 import QtPositioning 5.3
 import QtQuick.Controls 2.1
 import QtGraphicalEffects 1.0
+import QtQuick.Dialogs 1.2
 
 Map {
     property alias mouseAreaMap: mouseAreaMap
@@ -21,6 +22,9 @@ Map {
         id: mouseAreaMap
         hoverEnabled: true
 
+        property var currentMouseX: 0
+        property var currentMouseY: 0
+
         onClicked: {
             if (mouse.button == Qt.LeftButton){ // Все события связанные с левой кнопкой мыши
                 if(instruments.pointsButton.checked == true){
@@ -31,6 +35,12 @@ Map {
 
                 if (instruments.rulerButton.checked == true){
                     rulerModel.addPoint(map.toCoordinate(Qt.point(mouseX, mouseY)));
+                }
+
+                if (instruments.missionButton.checked == true){
+                    altitudeDialog.visible = true
+                    mouseAreaMap.currentMouseX = mouseX
+                    mouseAreaMap.currentMouseY = mouseY
                 }
 
                 if (instruments.savePointsButton.checked == true){
@@ -75,6 +85,9 @@ Map {
                 if (instruments.rulerButton.checked == true){
                    rulerModel.delPoint();
                 }
+                if (instruments.missionButton.checked == true){
+                    missionModel.delPoint()
+                }
             }
         }
         onPositionChanged: {
@@ -101,6 +114,17 @@ Map {
             source: "qrc:/img/ruler/start.png"
         }
     }
+    MapQuickItem {
+        id: startMissionPoint
+        anchorPoint.x: startMissionIcon.width / 2;
+        anchorPoint.y: startMissionIcon.height / 2;
+        coordinate: missionModel.startPoint
+
+        sourceItem: Image {
+            id: startMissionIcon
+            source: "qrc:/img/ruler/start.png"
+        }
+    }
 
     MapQuickItem {
         id: finishRulerPoint
@@ -115,11 +139,48 @@ Map {
         }
     }
 
+    MapQuickItem {
+        id: finishMissionPoint
+        anchorPoint.x: finishMissionIcon.width / 2;
+        anchorPoint.y: finishMissionIcon.height / 2;
+        coordinate: missionModel.finishPoint
+
+        sourceItem:
+            Column{
+                Image {id: finishMissionIcon; source: "qrc:/img/ruler/finish.png"}
+        }
+    }
+
     MapPolyline {
         line.width: 2
         line.color: 'red'
         path: rulerModel.rulerList
         smooth: true
+    }
+
+    MapPolyline {
+        line.width: 2
+        line.color: 'red'
+        path: missionModel.missionList
+        smooth: true
+    }
+
+    Dialog {
+        id: altitudeDialog
+        visible: false
+        title: qsTr("Высота")
+        standardButtons: StandardButton.Ok
+        TextField {
+            id: altitudeDialogText
+            anchors.centerIn: parent
+        }
+        onAccepted: {
+            var coord = map.toCoordinate
+                    (Qt.point(mouseAreaMap.currentMouseX,
+                              mouseAreaMap.currentMouseY))
+            coord.altitude = parseFloat(altitudeDialogText.text)
+            missionModel.addPoint(coord)
+        }
     }
 
     MapItemView{
@@ -465,6 +526,32 @@ Map {
         Component.onCompleted: {
             map.calculateScale();
         }
+    }
+
+    Timer {
+        interval: 500; running: true; repeat: true
+        onTriggered: {
+            telemetry.readGps()
+        }
+    }
+
+    MapQuickItem {
+        id: droneOnMapGps
+        anchorPoint.x: droneOnMapGpsIcon.width / 2;
+        anchorPoint.y: droneOnMapGpsIcon.height / 2;
+        coordinate {
+            latitude: telemetry.lat
+            longitude: telemetry.lon
+        }
+        sourceItem:
+            Column{
+                Image {id: droneOnMapGpsIcon; source: "qrc:/img/drone.png"}
+                ColorOverlay {
+                    anchors.fill: droneOnMapGpsIcon
+                    source: droneOnMapGpsIcon
+                    color: "red"
+                }
+            }
     }
 
     Timer {

@@ -8,6 +8,7 @@
 
 #include "hearthbeat_handler.h"
 #include "attitude_handler.h"
+#include "gps_handler.h"
 
 using namespace domain;
 
@@ -20,6 +21,7 @@ MavLinkCommunicator* GcsCommunicatorFactory::create()
 
     new domain::HeartbeatHandler(MAV_TYPE_GCS, communicator);
     new domain::AttitudeHandler(communicator);
+    new domain::GpsHandler(communicator);
 
     return communicator;
 }

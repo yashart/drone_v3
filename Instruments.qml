@@ -37,4 +37,20 @@ InstrumentsForm {
             leftTabMenu.visible = true
         }
     }
+    startMissionButton.onClicked: {
+        console.log("123");
+        link.down()
+        //communicator.removeLink(link)
+        missionModel.makeMision()
+        //communicator.addLink(link, 0);
+        link.up()
+    }
+    copterInfoButton.onClicked: {
+        if(flightInfo.visible == true)
+        {
+            flightInfo.visible = false
+        }else{
+            flightInfo.visible = true
+        }
+    }
 }
