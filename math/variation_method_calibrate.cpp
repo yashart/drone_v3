@@ -54,7 +54,7 @@ double Variation_method_calibrate::functional_d(Calibrate_known_info info)
 
 void Variation_method_calibrate::calcMethod(){
 
-    for (int j = 0; j < 1000; j++){
+    for (int j = 0; j < 100000; j++){
         double meanFunctionalA = 0;
         double meanFunctionalB = 0;
         double meanFunctionalC = 0;

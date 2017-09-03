@@ -1,4 +1,5 @@
 #include "changedb.h"
+#include <math.h>
 
 ChangeDB::ChangeDB(QObject *parent) : QObject(parent)
 {
@@ -68,12 +69,18 @@ void ChangeDB::changePhotoGeoreferencing(int id,
                                                double d)
 
 {
-    query.prepare("UPDATE Points SET aCalibrate = :a, bCalibrate = :b, cCalibrate = :c, dCalibrate = :d WHERE id = :id;");
+    double azimuth = atan(d/b) * 180 / 3.1415;
+    if (azimuth < 0) {
+        azimuth = 360 + azimuth;
+    }
+    qDebug() << "Change Azimuth: " << azimuth;
+    query.prepare("UPDATE Points SET aCalibrate = :a, bCalibrate = :b, cCalibrate = :c, dCalibrate = :d, azimuth=:azimuth WHERE id = :id;");
     query.bindValue(":id", id);
     query.bindValue(":a", a);
     query.bindValue(":b", b);
     query.bindValue(":c", c);
     query.bindValue(":d", d);
+    query.bindValue(":azimuth", azimuth);
 
     if (!query.exec()){
         qDebug() << "Error SQLite:" << query.lastError().text();

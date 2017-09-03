@@ -39,6 +39,33 @@ Item {
         console.log("addTrack")
     }
 
+    function changePhotoAzimuth(id, azimuth){
+        for (var i = 0; i < imagePageModel.count; i+=1) {
+            if(imagePageModel.get(i).id === id){
+                imagePageModel.set(i,
+                                   {"name": imagePageModel.get(i).name,
+                                       "id": id,
+                                       "listId": imagePageModel.get(i).listId,
+                                       "Jid_track": id,
+                                       "Jdir": imagePageModel.get(i).Jdir,
+                                       "Jname": imagePageModel.get(i).Jname,
+                                       "Jcorrect": "",
+                                       "Jheight": imagePageModel.get(i).Jheight,
+                                       "Jrotation": azimuth,
+                                       "Jazimuth": azimuth,
+                                       "Jlat": imagePageModel.get(i).Jlat,
+                                       "Jlon": imagePageModel.get(i).Jlon,
+                                       "Jalt": imagePageModel.get(i).Jalt,
+                                       "Jid_photo": imagePageModel.get(i).Jid_photo,
+                                       "JaCalibrate": imagePageModel.get(i).JaCalibrate,
+                                       "JbCalibrate": imagePageModel.get(i).JbCalibrate,
+                                       "JcCalibrate": imagePageModel.get(i).JcCalibrate,
+                                       "JdCalibrate": imagePageModel.get(i).JdCalibrate,
+                                       "Jvisible": imagePageModel.get(i).Jvisible})
+            }
+        }
+    }
+
     function setPhotoParams(id, url, dir, height, rotation, azimuth, lat, lon,
                             alt, id_photo, aCalibrate, bCalibrate, cCalibrate,
                             dCalibrate){
