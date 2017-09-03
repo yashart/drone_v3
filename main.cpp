@@ -125,6 +125,7 @@ int main(int argc, char *argv[])
     ctx->setContextProperty("photoToTiles", &photoToTiles);
     ctx->setContextProperty("variationModel", &variationModel);
     ctx->setContextProperty("photoPointer", &photoPointer);
+    ctx->setContextProperty("cacheSettings", &cacheSettings);
     ctx->setContextProperty("telemetry", &telemetry);
     ctx->setContextProperty("link", &link);
     ctx->setContextProperty("communicator", communicator);
