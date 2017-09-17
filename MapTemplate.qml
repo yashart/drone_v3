@@ -298,30 +298,62 @@ Map {
             opacity: 0.2
             z: 2
 
-            property var leftHeight: QtPositioning.coordinate(parseFloat(JaCalibrate)*(-tempProviderImage.height/2) +
-                                                      parseFloat(JbCalibrate)*(-tempProviderImage.width/2) +
+            property var leftHeight: QtPositioning.coordinate(parseFloat(JaCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(-tempProviderImage.height/2) +
                                                       parseFloat(Jlat),
-                                                      parseFloat(JcCalibrate)*(-tempProviderImage.height/2) +
-                                                      parseFloat(JdCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JcCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(-tempProviderImage.height/2) +
                                                       parseFloat(Jlon))
-            property var leftDown: QtPositioning.coordinate(parseFloat(JaCalibrate)*(-tempProviderImage.height/2) +
-                                                      parseFloat(JbCalibrate)*(tempProviderImage.width/2) +
+            property var leftDown: QtPositioning.coordinate(parseFloat(JaCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(tempProviderImage.height/2) +
                                                       parseFloat(Jlat),
-                                                      parseFloat(JcCalibrate)*(-tempProviderImage.height/2) +
-                                                      parseFloat(JdCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JcCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(tempProviderImage.height/2) +
                                                       parseFloat(Jlon))
-            property var rightHeight: QtPositioning.coordinate(parseFloat(JaCalibrate)*(tempProviderImage.height/2) +
-                                                      parseFloat(JbCalibrate)*(-tempProviderImage.width/2) +
+            property var rightHeight: QtPositioning.coordinate(parseFloat(JaCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(-tempProviderImage.height/2) +
                                                       parseFloat(Jlat),
-                                                      parseFloat(JcCalibrate)*(tempProviderImage.height/2) +
-                                                      parseFloat(JdCalibrate)*(-tempProviderImage.width/2) +
+                                                      parseFloat(JcCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(-tempProviderImage.height/2) +
                                                       parseFloat(Jlon))
-            property var rightDown: QtPositioning.coordinate(parseFloat(JaCalibrate)*(tempProviderImage.height/2) +
-                                                      parseFloat(JbCalibrate)*(tempProviderImage.width/2) +
+            property var rightDown: QtPositioning.coordinate(parseFloat(JaCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JbCalibrate)*(tempProviderImage.height/2) +
                                                       parseFloat(Jlat),
-                                                      parseFloat(JcCalibrate)*(tempProviderImage.height/2) +
-                                                      parseFloat(JdCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JcCalibrate)*(tempProviderImage.width/2) +
+                                                      parseFloat(JdCalibrate)*(tempProviderImage.height/2) +
                                                       parseFloat(Jlon))
+            /*
+            property var offsetX: Math.sqrt(parseFloat(JaCalibrate)*parseFloat(JaCalibrate) +
+                                            parseFloat(JcCalibrate)*parseFloat(JcCalibrate))
+            property var offsetY: Math.sqrt(parseFloat(JbCalibrate)*parseFloat(JbCalibrate) +
+                                            parseFloat(JdCalibrate)*parseFloat(JdCalibrate))
+
+            property var leftHeight: QtPositioning.coordinate(Math.cos(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.width/2)*offsetX +
+                                                      Math.sin(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlat),
+                                                      -Math.sin(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.width/2)*offsetX +
+                                                      Math.cos(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlon))
+            property var leftDown: QtPositioning.coordinate(Math.cos(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.width/2)*offsetX +
+                                                      Math.sin(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlat),
+                                                      -Math.sin(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.width/2)*offsetX +
+                                                      Math.cos(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlon))
+            property var rightHeight: QtPositioning.coordinate(Math.cos(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.width/2)*offsetX +
+                                                      Math.sin(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlat),
+                                                      -Math.sin(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.width/2)*offsetX +
+                                                      Math.cos(parseFloat(Jazimuth)*3.1415/180)*(-tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlon))
+            property var rightDown: QtPositioning.coordinate(Math.cos(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.width/2)*offsetX +
+                                                      Math.sin(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlat),
+                                                      -Math.sin(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.width/2)*offsetX +
+                                                      Math.cos(parseFloat(Jazimuth)*3.1415/180)*(tempProviderImage.height/2)*offsetY +
+                                                      parseFloat(Jlon))
+            */
+
             path: [
                 leftHeight,
                 leftDown,
@@ -330,7 +362,8 @@ Map {
             ]
             Component.onCompleted: {
                 console.log("newPath")
-                console.log(leftHeight)
+                console.log(parseFloat(Jazimuth))
+                console.log(tempProviderImage.height)
             }
         }
 
@@ -463,7 +496,7 @@ Map {
         source: ""
         fillMode: Image.PreserveAspectFit
         height: 500
-        width: 333
+        width: 750
         property var lat: 0
         property var lon: 0
         property var id_photo: 0

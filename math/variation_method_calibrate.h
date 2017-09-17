@@ -108,6 +108,7 @@ private:
     int infoCount;
 public:
     Q_INVOKABLE void calcMethod();
+    Q_INVOKABLE void calcMethodNewton();
     Q_INVOKABLE double functional_lat(Calibrate_known_info info);
     Q_INVOKABLE double functional_lon(Calibrate_known_info info);
     Q_INVOKABLE double functional_a(Calibrate_known_info info);

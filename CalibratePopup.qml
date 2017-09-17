@@ -19,10 +19,12 @@ CalibratePopupForm {
         for (var i = 0; i < itemCount; i++){
             var plat = calibrateModel.get(i).lat
             var plon = calibrateModel.get(i).lon
-            console.log("width: " + mainPage.mapComponent.newMap.tempProviderImage.width)
             var x = calibrateModel.get(i).xPos - mainPage.mapComponent.newMap.tempProviderImage.width/2
             var y = calibrateModel.get(i).yPos - mainPage.mapComponent.newMap.tempProviderImage.height/2
+            console.log("Params for calibration:")
             console.log(plat, plon, x, y)
+            console.log("width: " + mainPage.mapComponent.newMap.tempProviderImage.width)
+
 
             variationModel.add_info(plat, plon, x, y)
         }
